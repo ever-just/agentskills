@@ -1,6 +1,6 @@
 # Agent Skills
 
-> A curated collection of AI agent skills — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks programmatically.
+> A curated collection of **34+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. 221 files spanning visual asset creation, platform operations, writing, marketing, and content strategy.
 
 ## What Are Agent Skills?
 
@@ -36,11 +36,21 @@ Skills for building, deploying, and operating AI-powered platforms.
 
 | Skill | Path | Best For |
 |-------|------|----------|
-| Conversation Review | [`skills/conversation-review/`](skills/conversation-review/) | Auditing and analyzing AI conversations |
+| Conversation Review | [`skills/conversation-review/`](skills/conversation-review/) | Auditing AI conversations (includes prompts, queries, sample reports) |
 | Deployment Testing | [`skills/deployment-testing/`](skills/deployment-testing/) | Verifying deployments across environments |
 | Email Mastery | [`skills/email-mastery/`](skills/email-mastery/) | AI email processing, classification, response |
 | UI/UX Audit | [`skills/ui-ux-audit/`](skills/ui-ux-audit/) | Mobile & desktop UI/UX issue detection |
-| White Paper Writing | [`skills/white-paper-writing/`](skills/white-paper-writing/) | Technical white paper creation |
+
+### ✍️ Writing, Marketing & Content (19 sub-skills)
+A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
+
+| Category | Skills | Purpose |
+|----------|--------|---------|
+| Writing & Prose Quality | Beautiful Prose, Humanizer, Write Concisely | Eliminate AI tics, enforce muscular prose, apply Elements of Style |
+| Doc Co-Authoring & Research | Anthropic Doc Co-Authoring, Content Research Writer, Notebook, Skill Authoring | 3-stage co-authoring, research pipelines, knowledge capture |
+| Marketing & Copywriting | 7 skills (Copywriting, Content Strategy, Copy Editing, Launch/Pricing Strategy, Psychology, AI Marketing Skills) | Full SaaS marketing stack |
+| Planning & Brainstorming | Writing Skills, Writing Plans, Brainstorming | TDD-based writing, strategic documentation, structured ideation |
+| Document Export | DOCX Export, Markdown to PDF | Final deliverable generation |
 
 ## How to Use
 

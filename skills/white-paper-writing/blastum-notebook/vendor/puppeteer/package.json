@@ -1,0 +1,12 @@
+{
+  "name": "notebook-skill-web",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@ghostery/adblocker-puppeteer": "latest",
+    "puppeteer": "latest",
+    "puppeteer-extra": "latest",
+    "puppeteer-extra-plugin-stealth": "latest",
+    "robots-parser": "latest"
+  }
+}

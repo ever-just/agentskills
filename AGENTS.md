@@ -41,9 +41,52 @@
 |-------|------|----------|
 | **Conversation Review** | `skills/conversation-review/SKILL.md` | Auditing AI conversation quality, identifying failure patterns |
 | **Deployment Testing** | `skills/deployment-testing/SKILL.md` | Verifying deployments, health checks, smoke testing |
-| **Email Mastery** | `skills/email-mastery/SKILL.md` | AI email classification, response generation, template design |
+| **Email Mastery** | `skills/email-mastery/EMAIL_SKILLS.md` | AI email classification, response generation, template design |
 | **UI/UX Audit** | `skills/ui-ux-audit/SKILL.md` | Mobile and desktop UI/UX issue detection and remediation |
-| **White Paper Writing** | `skills/white-paper-writing/SKILL.md` | Technical white paper structure, research, and writing |
+
+### WRITING & PROSE QUALITY
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Beautiful Prose** | `skills/white-paper-writing/beautiful-prose/SKILL.md` | Eliminating AI tics, enforcing muscular concrete prose |
+| **Humanizer** | `skills/white-paper-writing/humanizer/SKILL.md` | Detecting and removing 25 categories of AI writing patterns |
+| **Write Concisely** | `skills/white-paper-writing/neolab-write-concisely/SKILL.md` | Strunk's Elements of Style as an agent skill |
+
+### DOCUMENT CO-AUTHORING & RESEARCH
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Doc Co-Authoring** | `skills/white-paper-writing/anthropic-doc-coauthoring/SKILL.md` | Anthropic's 3-stage doc co-authoring workflow |
+| **Content Research Writer** | `skills/white-paper-writing/composio-content-research-writer/SKILL.md` | Full content writing partner with outlining and research |
+| **Notebook** | `skills/white-paper-writing/blastum-notebook/SKILL.md` | Structured knowledge base for web research |
+| **Skill Authoring** | `skills/white-paper-writing/blastum-skill-authoring/SKILL.md` | Anthropic-style skill authoring methodology |
+
+### MARKETING & COPYWRITING
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Marketing Copywriting** | `skills/white-paper-writing/marketing-copywriting/SKILL.md` | Conversion copy: headlines, CTAs, page structure |
+| **Content Strategy** | `skills/white-paper-writing/marketing-content-strategy/SKILL.md` | Topic clusters, keyword research, content planning |
+| **Copy Editing** | `skills/white-paper-writing/marketing-copy-editing/SKILL.md` | Line-by-line copy editing with plain English alternatives |
+| **Launch Strategy** | `skills/white-paper-writing/marketing-launch-strategy/SKILL.md` | Product launch and go-to-market strategy |
+| **Pricing Strategy** | `skills/white-paper-writing/marketing-pricing-strategy/SKILL.md` | SaaS pricing, packaging, monetization |
+| **Marketing Psychology** | `skills/white-paper-writing/marketing-psychology/SKILL.md` | 30+ psychological principles for marketing |
+| **AI Marketing Skills** | `skills/white-paper-writing/ai-marketing-skills/` | 17 marketing frameworks (content ideas, LinkedIn, case studies, homepage audit) |
+
+### PLANNING & BRAINSTORMING
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Writing Skills** | `skills/white-paper-writing/obra-writing-skills/SKILL.md` | TDD-based skill writing methodology |
+| **Writing Plans** | `skills/white-paper-writing/obra-writing-plans/SKILL.md` | Strategic documentation creation with bite-sized tasks |
+| **Brainstorming** | `skills/white-paper-writing/obra-brainstorming/SKILL.md` | Structured brainstorming with visual companion |
+
+### DOCUMENT EXPORT
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **DOCX Export** | `skills/white-paper-writing/blastum-docx/SKILL.md` | Generate .docx files from markdown |
+| **Markdown to PDF** | `skills/white-paper-writing/blastum-markdown-to-pdf/SKILL.md` | Convert markdown to PDF |
 
 ## Decision Tree
 
@@ -63,12 +106,21 @@ User needs help with...
 │   └── Slide deck → Slidev
 ├── DATA VIZ?
 │   └── Charts / graphs → D3.js (or D3 inside Remotion for video)
-└── PLATFORM OPS?
-    ├── Review AI conversations → Conversation Review
-    ├── Verify a deployment → Deployment Testing
-    ├── Email pipeline → Email Mastery
-    ├── Find UI bugs → UI/UX Audit
-    └── Write documentation → White Paper Writing
+├── PLATFORM OPS?
+│   ├── Review AI conversations → Conversation Review
+│   ├── Verify a deployment → Deployment Testing
+│   ├── Email pipeline → Email Mastery
+│   └── Find UI bugs → UI/UX Audit
+└── WRITING?
+    ├── White paper / technical doc → Doc Co-Authoring → Beautiful Prose → Humanizer
+    ├── Marketing copy → Marketing Copywriting + Marketing Psychology
+    ├── Content strategy → Content Strategy + Content Research Writer
+    ├── Remove AI writing patterns → Humanizer + Beautiful Prose
+    ├── Tighten prose → Write Concisely (Elements of Style)
+    ├── Product launch → Launch Strategy
+    ├── Pricing page → Pricing Strategy
+    ├── Brainstorm ideas → Brainstorming + Content Research Writer
+    └── Export final doc → DOCX Export or Markdown to PDF
 ```
 
 ## Combining Skills
@@ -80,6 +132,11 @@ User needs help with...
 - **Slidev + D3.js** = Data-rich animated presentations
 - **Motion Canvas + Manim** = Technical explainer videos
 - **Deployment Testing + UI/UX Audit** = Full release verification
+- **Doc Co-Authoring + Beautiful Prose + Humanizer** = White paper writing pipeline
+- **Content Strategy + Marketing Copywriting** = Full content marketing workflow
+- **Humanizer + Write Concisely** = De-AI and tighten any text
+- **Notebook + Content Research Writer** = Research-backed long-form content
+- **Marketing Psychology + Marketing Copywriting** = Persuasive landing page copy
 
 ---
 

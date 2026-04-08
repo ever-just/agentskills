@@ -1,0 +1,138 @@
+/* Mobile-optimized CSS for markdown-to-pdf */
+
+@page {
+    margin: 1cm 0.8cm;
+    size: A6; /* 105mm × 148mm - good for mobile reading */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.2em;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    font-size: 1.5em;
+    page-break-after: avoid;
+}
+
+h2 {
+    color: #34495e;
+    border-bottom: 1px solid #95a5a6;
+    padding-bottom: 0.15em;
+    margin-top: 1em;
+    margin-bottom: 0.4em;
+    font-size: 1.3em;
+    page-break-after: avoid;
+}
+
+h3 {
+    color: #555;
+    margin-top: 0.8em;
+    margin-bottom: 0.3em;
+    font-size: 1.1em;
+    page-break-after: avoid;
+}
+
+h4, h5, h6 {
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+    page-break-after: avoid;
+}
+
+p {
+    margin: 0.5em 0;
+    text-align: justify;
+    orphans: 2;
+    widows: 2;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.8em 0;
+    font-size: 0.85em;
+    page-break-inside: avoid;
+}
+
+table th {
+    background-color: #34495e;
+    color: white;
+    padding: 0.4em;
+    text-align: left;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+table td {
+    padding: 0.4em;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    page-break-inside: avoid;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ecf0f1;
+    margin: 1em 0;
+}
+
+ul, ol {
+    margin-left: 1em;
+    padding-left: 0.5em;
+}
+
+li {
+    margin: 0.3em 0;
+}
+
+strong {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+code {
+    font-size: 0.9em;
+    word-wrap: break-word;
+}
+
+pre {
+    font-size: 0.85em;
+    overflow-x: auto;
+    page-break-inside: avoid;
+}
+
+blockquote {
+    margin: 0.8em 0;
+    padding-left: 1em;
+    border-left: 3px solid #3498db;
+    font-style: italic;
+    page-break-inside: avoid;
+}
+
+/* Prevent awkward page breaks */
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+p, li {
+    orphans: 2;
+    widows: 2;
+}
