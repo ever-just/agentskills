@@ -43,6 +43,7 @@
 | **Deployment Testing** | `skills/deployment-testing/SKILL.md` | Verifying deployments, health checks, smoke testing |
 | **Email Mastery** | `skills/email-mastery/EMAIL_SKILLS.md` | AI email classification, response generation, template design |
 | **UI/UX Audit** | `skills/ui-ux-audit/SKILL.md` | Mobile and desktop UI/UX issue detection and remediation |
+| **GoDaddy API** | `skills/godaddy-api/SKILL.md` | Domain management, DNS records, availability checks via GoDaddy REST API |
 
 ### WRITING & PROSE QUALITY
 
@@ -110,7 +111,8 @@ User needs help with...
 │   ├── Review AI conversations → Conversation Review
 │   ├── Verify a deployment → Deployment Testing
 │   ├── Email pipeline → Email Mastery
-│   └── Find UI bugs → UI/UX Audit
+│   ├── Find UI bugs → UI/UX Audit
+│   └── Manage domains / DNS → GoDaddy API
 └── WRITING?
     ├── White paper / technical doc → Doc Co-Authoring → Beautiful Prose → Humanizer
     ├── Marketing copy → Marketing Copywriting + Marketing Psychology

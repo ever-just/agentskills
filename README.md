@@ -40,6 +40,7 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Deployment Testing | [`skills/deployment-testing/`](skills/deployment-testing/) | Verifying deployments across environments |
 | Email Mastery | [`skills/email-mastery/`](skills/email-mastery/) | AI email processing, classification, response |
 | UI/UX Audit | [`skills/ui-ux-audit/`](skills/ui-ux-audit/) | Mobile & desktop UI/UX issue detection |
+| GoDaddy API | [`skills/godaddy-api/`](skills/godaddy-api/) | Domain management, DNS records via GoDaddy REST API |
 
 ### ✍️ Writing, Marketing & Content (19 sub-skills)
 A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
