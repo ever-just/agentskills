@@ -44,6 +44,10 @@
 | **Email Mastery** | `skills/email-mastery/EMAIL_SKILLS.md` | AI email classification, response generation, template design |
 | **UI/UX Audit** | `skills/ui-ux-audit/SKILL.md` | Mobile and desktop UI/UX issue detection and remediation |
 | **GoDaddy API** | `skills/godaddy-api/SKILL.md` | Domain management, DNS records, availability checks via GoDaddy REST API |
+| **Sentry Instrumentation** | `skills/sentry-instrumentation/SKILL.md` | Adding error tracking to Express/Next.js routes, verification testing |
+| **MongoDB Schema Audit** | `skills/mongodb-schema-audit/SKILL.md` | Index coverage auditing, relationship validation, data migrations |
+| **Admin Dashboard Verification** | `skills/admin-dashboard-verification/SKILL.md` | Systematic verification of admin dashboard features, drawers, cross-nav |
+| **Bun Testing** | `skills/bun-testing/SKILL.md` | Fast simulation tests with Bun — file verification, mock data, schema checks |
 
 ### WRITING & PROSE QUALITY
 
@@ -112,7 +116,11 @@ User needs help with...
 │   ├── Verify a deployment → Deployment Testing
 │   ├── Email pipeline → Email Mastery
 │   ├── Find UI bugs → UI/UX Audit
-│   └── Manage domains / DNS → GoDaddy API
+│   ├── Manage domains / DNS → GoDaddy API
+│   ├── Add error tracking → Sentry Instrumentation
+│   ├── Audit DB indexes / relationships → MongoDB Schema Audit
+│   ├── Verify admin dashboard features → Admin Dashboard Verification
+│   └── Write fast tests → Bun Testing
 └── WRITING?
     ├── White paper / technical doc → Doc Co-Authoring → Beautiful Prose → Humanizer
     ├── Marketing copy → Marketing Copywriting + Marketing Psychology
@@ -134,6 +142,9 @@ User needs help with...
 - **Slidev + D3.js** = Data-rich animated presentations
 - **Motion Canvas + Manim** = Technical explainer videos
 - **Deployment Testing + UI/UX Audit** = Full release verification
+- **Sentry Instrumentation + Bun Testing** = Error tracking with verified coverage
+- **MongoDB Schema Audit + Admin Dashboard Verification** = DB + UI integrity validation
+- **Admin Dashboard Verification + Sentry + Bun Testing** = Complete admin feature verification pipeline
 - **Doc Co-Authoring + Beautiful Prose + Humanizer** = White paper writing pipeline
 - **Content Strategy + Marketing Copywriting** = Full content marketing workflow
 - **Humanizer + Write Concisely** = De-AI and tighten any text

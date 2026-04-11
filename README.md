@@ -1,6 +1,6 @@
 # Agent Skills
 
-> A curated collection of **34+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. 221 files spanning visual asset creation, platform operations, writing, marketing, and content strategy.
+> A curated collection of **38+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. 221 files spanning visual asset creation, platform operations, writing, marketing, and content strategy.
 
 ## What Are Agent Skills?
 
@@ -41,6 +41,10 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Email Mastery | [`skills/email-mastery/`](skills/email-mastery/) | AI email processing, classification, response |
 | UI/UX Audit | [`skills/ui-ux-audit/`](skills/ui-ux-audit/) | Mobile & desktop UI/UX issue detection |
 | GoDaddy API | [`skills/godaddy-api/`](skills/godaddy-api/) | Domain management, DNS records via GoDaddy REST API |
+| Sentry Instrumentation | [`skills/sentry-instrumentation/`](skills/sentry-instrumentation/) | Error tracking for Express/Next.js routes |
+| MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
+| Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
+| Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
 
 ### ✍️ Writing, Marketing & Content (19 sub-skills)
 A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
