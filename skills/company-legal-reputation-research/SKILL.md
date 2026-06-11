@@ -77,13 +77,67 @@ web_search: "[COMPANY]" contractor license violation OR unlicensed
 web_search: "[COMPANY]" BBB complaint OR BBB rating
 ```
 
-### Step 6 — Sanctions and Debarment
+#### State Contractor / Occupational Licensing — Bulk CSV Method
+
+Many state licensing boards publish their **entire licensee database as a downloadable CSV**, which is far more reliable than scraping individual search UIs. Download the CSV, then grep or search it locally.
+
+**Minnesota (DLI) example:**
+```bash
+# Electrical contractors
+curl -o mn_electrical.csv "https://secure.doli.state.mn.us/ccld/data/MNDLILicRegCertExport_Electrical.csv"
+grep -i "brogav\|berglund" mn_electrical.csv
+
+# Construction/general contractor registrations
+curl -o mn_contractor.csv "https://secure.doli.state.mn.us/ccld/data/MNDLILicRegCertExport_Contractor_Registrations.csv"
+grep -i "brogav\|berglund" mn_contractor.csv
+```
+
+**Why this matters:** If a company self-describes as a contractor (BBB, The Blue Book, job postings say "install" or "turnkey") but has no license in the state database, that is a concrete compliance risk to document.
+
+**Pattern for other states:**
+```
+web_search: "[STATE] [license type] licensee database CSV download"
+web_search: "[STATE] department of labor contractor license bulk export"
+```
+
+Most state boards make the full CSV available for public download. Search for "bulk export" or "data download" in the board's website footer or open data portal.
+
+### Step 6 — Sanctions, Debarment, and Federal Registration
 ```
 fetch_url: https://www.opensanctions.org/search/?q=[COMPANY]&dataset=us_sam_exclusions
 web_search: "[COMPANY]" OFAC sanctions OR debarment OR excluded parties OR SAM.gov excluded
 ```
 
 OpenSanctions mirrors SAM.gov exclusions and is bot-accessible. Zero results = not excluded.
+
+#### Federal Registration (SAM.gov / UEI)
+
+If the company sells to or is registered with the federal government, SAM.gov contains:
+- UEI (Unique Entity ID), CAGE code
+- Self-reported NAICS codes and revenue size band
+- Active/inactive status, registration expiry
+- Any exclusions
+
+```
+web_search: "[COMPANY]" UEI OR CAGE OR SAM.gov OR "unique entity"
+web_search: "[COMPANY]" DUNS number
+```
+
+To retrieve full SAM.gov entity data programmatically: `GET https://api.sam.gov/entity-information/v3/entities?ueiSAM=[UEI]&api_key=[KEY]`. Requires a free SAM.gov API key.
+
+#### WBENC / Women-Owned Business Certification
+
+WBENC certification is annual. If the company claims WBENC or WOSB status, verify the current year:
+- Renewal dates are published on WBENC.org certificate PDFs.
+- The WBENC member directory is searchable at wbenc.org/search.
+- An expired WBENC cert is a material compliance risk for companies selling into Fortune 500 supplier-diversity programs.
+
+```
+fetch_url: https://www.wbenc.org/search-results/?q=[COMPANY]
+web_search: "[COMPANY]" WBENC certified OR WBENC renewal OR "women-owned" cert
+```
+
+Note: The WBENC member portal blocks bots. The search page may return results, but cert expiry details require manual login to the business's WBENC account or the client company's supplier portal.
 
 ### Step 7 — Reputation Signals
 ```
