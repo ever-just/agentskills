@@ -66,6 +66,12 @@
 | **Notebook** | `skills/white-paper-writing/blastum-notebook/SKILL.md` | Structured knowledge base for web research |
 | **Skill Authoring** | `skills/white-paper-writing/blastum-skill-authoring/SKILL.md` | Anthropic-style skill authoring methodology |
 
+### RESEARCH & DUE DILIGENCE
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Company Legal & Reputation Research** | `skills/company-legal-reputation-research/SKILL.md` | Vetting a company for court cases, liens, sanctions, debarment, BBB complaints, and reputation signals using free public sources only |
+
 ### MARKETING & COPYWRITING
 
 | Skill | Path | Use When |
@@ -121,6 +127,8 @@ User needs help with...
 │   ├── Audit DB indexes / relationships → MongoDB Schema Audit
 │   ├── Verify admin dashboard features → Admin Dashboard Verification
 │   └── Write fast tests → Bun Testing
+├── RESEARCH / DUE DILIGENCE?
+│   └── Vet a company legally & reputationally → Company Legal & Reputation Research
 └── WRITING?
     ├── White paper / technical doc → Doc Co-Authoring → Beautiful Prose → Humanizer
     ├── Marketing copy → Marketing Copywriting + Marketing Psychology
@@ -145,6 +153,7 @@ User needs help with...
 - **Sentry Instrumentation + Bun Testing** = Error tracking with verified coverage
 - **MongoDB Schema Audit + Admin Dashboard Verification** = DB + UI integrity validation
 - **Admin Dashboard Verification + Sentry + Bun Testing** = Complete admin feature verification pipeline
+- **Company Legal & Reputation Research + Doc Co-Authoring + Beautiful Prose** = Full due diligence memo pipeline
 - **Doc Co-Authoring + Beautiful Prose + Humanizer** = White paper writing pipeline
 - **Content Strategy + Marketing Copywriting** = Full content marketing workflow
 - **Humanizer + Write Concisely** = De-AI and tighten any text

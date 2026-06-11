@@ -1,6 +1,6 @@
 # Agent Skills
 
-> A curated collection of **38+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. 221 files spanning visual asset creation, platform operations, writing, marketing, and content strategy.
+> A curated collection of **39+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. 221 files spanning visual asset creation, platform operations, writing, marketing, and content strategy.
 
 ## What Are Agent Skills?
 
@@ -45,6 +45,13 @@ Skills for building, deploying, and operating AI-powered platforms.
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
 | Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
 | Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
+
+### 🔍 Research & Due Diligence
+Skills for researching companies, vetting vendors, and surfacing legal and reputation risk using only free public sources.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Company Legal & Reputation Research | [`skills/company-legal-reputation-research/`](skills/company-legal-reputation-research/) | Court records, liens, sanctions, BBB/Glassdoor, debarment checks — no API keys |
 
 ### ✍️ Writing, Marketing & Content (19 sub-skills)
 A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
