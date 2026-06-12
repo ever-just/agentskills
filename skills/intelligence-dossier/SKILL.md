@@ -221,8 +221,43 @@ After the standard dossier sections are populated, these dimensions add material
 
 ---
 
+## Web traffic and keyword analysis
+
+After the core dossier is built, add a web traffic section using the **`open-source-traffic-analysis`** skill. This populates `02_Web_Traffic_Analysis/` with:
+
+- Multi-source traffic estimates (SimilarWeb API + Wayback CDX + Tranco + Cloudflare Radar)
+- Keyword analysis with quantitative data from competitor SimilarWeb queries
+- Geographic demand mapping (state-by-state data center capacity for DC infrastructure companies)
+- Market size context per product category
+
+**Key files:**
+```
+02_Web_Traffic_Analysis/
+├── README.md              # Synthesized analysis with confidence ratings
+├── KEYWORD_ANALYSIS.md    # Keywords with volumes, CPC, competitor benchmarks
+├── raw_similarweb_data.md # Raw API responses
+├── raw_wayback_data.md    # Full Wayback CDX capture log
+└── raw_ranking_data.md    # Tranco, Cloudflare Radar, supplementary signals
+```
+
+## Competitive landscape analysis
+
+Use the **`competitor-identification`** skill to build `05_Competitive_Landscape/`. The methodology:
+
+1. Mine the existing dossier (supplier line card, partner logos, event data, any bulk competitor CSVs) before web searching
+2. Search manufacturer partner directories for other resellers of the same brands
+3. Process any large datasets (S&P Global, D&B) with Python keyword filtering
+4. Validate candidates with SimilarWeb API and company profile databases
+5. Build product/service coverage matrices, brand overlap matrices, and geographic overlap maps
+
+**Key lesson from BROGAV dossier:** A 4,797-company S&P Global dataset yielded only 8 genuine competitors after screening. >99% of SIC-code-based datasets are irrelevant noise.
+
+---
+
 ## Combining with other skills
 
 - **`company-legal-reputation-research`** — Run first, before building the full dossier. Its output populates `01_Company_Profile/` and the `risk_register.md`.
 - **`deep-research`** — Use for the scraping and document discovery phases that populate `08_Evidence_and_Sources/raw/`.
+- **`open-source-traffic-analysis`** — Populates `02_Web_Traffic_Analysis/` with multi-source traffic estimates, keyword intelligence, and geographic demand data. No paid SEO tools required.
+- **`competitor-identification`** — Populates `05_Competitive_Landscape/` with validated Top 10 competitors, product/brand/geographic matrices, and strategic implications.
 - **`github-repo-management`** — Push the finished dossier to a private GitHub repo for version control and access management.
