@@ -49,6 +49,16 @@
 | **Admin Dashboard Verification** | `skills/admin-dashboard-verification/SKILL.md` | Systematic verification of admin dashboard features, drawers, cross-nav |
 | **Bun Testing** | `skills/bun-testing/SKILL.md` | Fast simulation tests with Bun — file verification, mock data, schema checks |
 
+### AI AGENT AUDITING & FORENSICS
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Production Agent Audit** | `skills/production-agent-audit/SKILL.md` | Auditing how deployed AI agents perform across channels from real logs — objective good/bad report |
+| **EC2 Instance Connect Data Pull** | `skills/ec2-instance-connect-data-pull/SKILL.md` | Read-only prod shell with no stored SSH key; extract Mongo/container logs via tar+base64 over SSH |
+| **Agent Quality Grading** | `skills/agent-quality-grading/SKILL.md` | Grading agent conversations (task/speed/tools/message), generated assets, and prompts/configs |
+| **Finding → Fix Remediation** | `skills/finding-forensic-remediation/SKILL.md` | Turning audit findings into a git-grounded, prioritized fix backlog (root cause, when-introduced, status, exact fix) |
+| **Temporal Finding Validation** | `skills/temporal-finding-validation/SKILL.md` | Cross-checking findings vs the commit timeline (UTC-normalized) to confirm still-live vs already-fixed |
+
 ### WRITING & PROSE QUALITY
 
 | Skill | Path | Use When |

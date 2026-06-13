@@ -1,6 +1,6 @@
 # Agent Skills
 
-> A curated collection of **39+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. 221 files spanning visual asset creation, platform operations, writing, marketing, and content strategy.
+> A curated collection of **44+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. Spanning visual asset creation, platform operations, AI-agent auditing, writing, marketing, and content strategy.
 
 ## What Are Agent Skills?
 
@@ -45,6 +45,17 @@ Skills for building, deploying, and operating AI-powered platforms.
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
 | Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
 | Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
+
+### 🔬 AI Agent Auditing & Forensics
+Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Production Agent Audit | [`skills/production-agent-audit/`](skills/production-agent-audit/) | End-to-end log audit: census → multi-source extraction → fan-out analysis → adversarial verification → graded report |
+| EC2 Instance Connect Data Pull | [`skills/ec2-instance-connect-data-pull/`](skills/ec2-instance-connect-data-pull/) | Read-only prod shell with no stored SSH key (AWS Instance Connect), then pull Mongo/logs home via tar+base64 |
+| Agent Quality Grading | [`skills/agent-quality-grading/`](skills/agent-quality-grading/) | Grade conversations (task/speed/tools/message-quality), generated assets, and prompts/configs — with verbatim evidence |
+| Finding → Fix Remediation | [`skills/finding-forensic-remediation/`](skills/finding-forensic-remediation/) | Turn findings into a git-grounded backlog: root cause at path:line, when-introduced, status, exact fix |
+| Temporal Finding Validation | [`skills/temporal-finding-validation/`](skills/temporal-finding-validation/) | Cross-check findings vs the commit timeline (UTC-normalized) — still-live vs already-fixed |
 
 ### 🔍 Research & Due Diligence
 Skills for researching companies, vetting vendors, and surfacing legal and reputation risk using only free public sources.
