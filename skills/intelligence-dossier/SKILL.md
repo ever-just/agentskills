@@ -261,3 +261,10 @@ Use the **`competitor-identification`** skill to build `05_Competitive_Landscape
 - **`open-source-traffic-analysis`** — Populates `02_Web_Traffic_Analysis/` with multi-source traffic estimates, keyword intelligence, and geographic demand data. No paid SEO tools required.
 - **`competitor-identification`** — Populates `05_Competitive_Landscape/` with validated Top 10 competitors, product/brand/geographic matrices, and strategic implications.
 - **`github-repo-management`** — Push the finished dossier to a private GitHub repo for version control and access management.
+- **`website-techstack-analysis`** — Populates `01_Company_Profile/tech_stack.md` with CMS, CDN, analytics, email infrastructure, subdomains, and security posture.
+- **`domain-email-enumeration`** — Populates `01_Company_Profile/email_contacts.md` with verified email addresses, holehe account probing, and SMTP verification results.
+- **`oem-partner-verification`** — Validates supplier claims in `03_Products_and_Suppliers/`. Critical: only 2 of ~40 claimed partnerships were independently confirmed in real-world testing.
+- **`ad-transparency-audit`** — Populates `06_Marketing_and_Events/advertising_analysis.md` with pixel-vs-activity cross-reference.
+- **`google-dorking-osint`** — Searches for exposed documents; results go in `08_Evidence_and_Sources/exposed_document_search.md`.
+- **`verification-audit`** — QA step before delivery. Cross-verifies all findings, retracts unverifiable claims, documents source reliability. Output in `08_Evidence_and_Sources/verification_audit.md`.
+- **`web-crawl-intelligence-extraction`** — Processes saved web crawl data that was collected but never analyzed. Extracts pricing, contacts, deleted page content, transcript quotes.
