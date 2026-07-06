@@ -81,6 +81,7 @@
 | Skill | Path | Use When |
 |-------|------|----------|
 | **Company Legal & Reputation Research** | `skills/company-legal-reputation-research/SKILL.md` | Vetting a company for court cases, liens, sanctions, debarment, BBB complaints, and reputation signals using free public sources only |
+| **GitHub Search** | `skills/github-search/SKILL.md` | Finding repos/frameworks/code on GitHub with the official search syntax — repo qualifiers, code-search boolean/regex, REST API + rate limits, find-a-framework playbook |
 
 ### MARKETING & COPYWRITING
 

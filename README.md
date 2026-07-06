@@ -63,6 +63,7 @@ Skills for researching companies, vetting vendors, and surfacing legal and reput
 | Skill | Path | Best For |
 |-------|------|----------|
 | Company Legal & Reputation Research | [`skills/company-legal-reputation-research/`](skills/company-legal-reputation-research/) | Court records, liens, sanctions, BBB/Glassdoor, debarment checks — no API keys |
+| GitHub Search | [`skills/github-search/`](skills/github-search/) | Repo/code/topic search with official GitHub syntax, REST API limits, find-a-framework playbook |
 
 ### ✍️ Writing, Marketing & Content (19 sub-skills)
 A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
