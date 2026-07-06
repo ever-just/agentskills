@@ -44,6 +44,7 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Deployment Testing | [`skills/deployment-testing/`](skills/deployment-testing/) | Verifying deployments across environments |
 | Email Mastery | [`skills/email-mastery/`](skills/email-mastery/) | AI email processing, classification, response |
 | UI/UX Audit | [`skills/ui-ux-audit/`](skills/ui-ux-audit/) | Mobile & desktop UI/UX issue detection |
+| UX Evaluation | [`skills/ux-evaluation/`](skills/ux-evaluation/) | Layered UX critique & diagnosis (strategy → surface) |
 | GoDaddy API | [`skills/godaddy-api/`](skills/godaddy-api/) | Domain management, DNS records via GoDaddy REST API |
 | Sentry Instrumentation | [`skills/sentry-instrumentation/`](skills/sentry-instrumentation/) | Error tracking for Express/Next.js routes |
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
