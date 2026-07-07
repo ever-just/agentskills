@@ -182,6 +182,120 @@ A sourced library of how real, live systems at scale are actually designed — r
 
 ---
 
+## More: architecture corrections (walking back from microservices / serverless)
+
+### Segment — 140+ microservices back to a monolith ("Centrifuge")
+- **Scale:** a per-destination integration platform; the fan-out layer had grown to **140+ microservices**, each with its own queue and repo, maintained by ~3 engineers who spent most of their time just keeping it alive.
+- **Key decisions:** collapse the per-destination microservices into a **single monolithic service** ("Centrifuge") with one shared codebase and one queueing system. The forcing function was operational, not architectural: a shared-library change meant redeploying 140+ services, tests were unmanageable, and per-service queues fragmented visibility. Post-consolidation, one engineer deploys in minutes and shared-library improvements jumped (32 → 46 in a year).
+- **Tradeoff:** gives up per-destination fault/version isolation (a noisy destination can now affect neighbors) in exchange for a legible codebase and sane operations — the explicit lesson is that microservices' autonomy isn't free, and below a certain team size the coordination tax dominates.
+- **Sources:** [Goodbye Microservices: From 100s of problem children to 1 superstar (Twilio Segment)](https://www.twilio.com/en-us/blog/developers/best-practices/goodbye-microservices)
+
+### Prime Video — serverless (Step Functions + S3) back to a monolith on ECS
+- **Scale:** the Video Quality Analysis (VQA) audio/video-defect monitoring service; original serverless design hit AWS account limits well before target scale and cost too much per stream-second.
+- **Key decisions:** the bottleneck was **orchestration overhead** — AWS Step Functions performed multiple state transitions per second of stream, and passing video frames between Lambda functions required **S3 as intermediate storage** (expensive Tier-1 calls + network transfer). They repacked the media converter and defect detector into **one process on ECS/EC2**, so frame data moves **in memory** instead of through S3. Result: **>90% lower infrastructure cost** and higher scaling ceiling.
+- **Tradeoff:** the monolith loses independent per-component scaling and the "glue-free" serverless ops model, but eliminates the orchestration and data-transfer tax that dominated this specific high-throughput, tightly-coupled pipeline. Werner Vogels' framing — "building evolvable software systems is a strategy, not a religion" — is the takeaway: serverless-*first*, not serverless-*only*.
+- **Sources:** [Prime Video Switched from Serverless to EC2 and ECS to Save Costs (InfoQ, summarizing the original Prime Video Tech post)](https://www.infoq.com/news/2023/05/prime-ec2-ecs-saves-costs/)
+
+---
+
+## More: fintech & cloud-native banking
+
+### Monzo — a bank on 1,600+ microservices
+- **Scale:** UK digital bank; **~1,600 Go microservices** on Kubernetes/AWS backed by **Cassandra**, serving millions of customers.
+- **Key decisions:** everything is a small Go service in a Docker container sharing a **common core library** (marshalling, RPC, observability) so teams don't re-implement primitives; a bespoke deploy tool (**Shipper**) handles rolling K8s deploys + Cassandra migrations; because banking security demands it, they built **network isolation for 1,500 services** (default-deny service-to-service policy) rather than trusting a flat network. Chose Cassandra specifically for **horizontal scale by adding nodes** vs. migrating to bigger hardware.
+- **Tradeoff:** thousands of services buy fine-grained team ownership and blast-radius control, but only survive because of heavy platform investment (shared libs, Shipper, service-graph tooling); their 2017 outage — a K8s/etcd/linkerd bug interaction — is the standing reminder that the platform itself becomes the risk.
+- **Sources:** [We built network isolation for 1,500 services to make Monzo more secure](https://monzo.com/blog/we-built-network-isolation-for-1-500-services) · [Modern Banking in 1500 Microservices (Matt Heath & Suhail Patel, InfoQ)](https://www.infoq.com/presentations/monzo-microservices/)
+
+### Nubank — immutability at scale (Clojure + Datomic + Kafka)
+- **Scale:** largest independent digital bank in LatAm; **120M+ customers**, **~4,000 microservices**, **3,000+ Datomic databases**, **70B+ Kafka events/day**.
+- **Key decisions:** build the whole stack to **minimize mutable state** — **Clojure** (functional), **Datomic** (an immutable, append-only database where the DB is a value you query as-of a point in time), and **Kafka** for async inter-service communication. Hexagonal architecture keeps business logic isolated from I/O. Immutability + time-travel queries make financial auditing and reasoning about consistency dramatically simpler.
+- **Tradeoff:** a niche stack (Clojure/Datomic) with a smaller hiring pool and Datomic's single-writer-per-database write-scaling model, accepted because immutability's payoff — reproducibility, auditability, fewer state-corruption bugs — is worth more in banking than raw write throughput per DB (which they scale by running thousands of DBs).
+- **Sources:** [Working with Clojure at Nubank](https://medium.com/building-nubank/working-with-clojure-at-nubank-ef165b77bf08) · [10 years of engineering at Nubank: lessons from scaling to 122M+ customers](https://building.nubank.com/engineering-lessons-from-scaling-million-customers/)
+
+---
+
+## More: developer & infrastructure platforms
+
+### GitHub — Spokes (formerly DGit): three-replica Git storage
+- **Scale:** 38M+ Git repositories and 36M+ gists; every repo kept on **three independently-chosen file servers**.
+- **Key decisions:** replace network-attached-storage + failover pairs with **application-level replication** ("DGit," renamed Spokes): each repo lives on three servers chosen from a large pool; **writes stream synchronously to all three and commit only if ≥2 confirm** (quorum), while reads are served from any replica and load-balanced to the best one. Because reads vastly outnumber writes, effective read capacity roughly triples.
+- **Tradeoff:** synchronous three-way writes add write latency and a quorum dependency, bought in exchange for no single point of failure, horizontal scale-out on commodity servers, and the ability to rebalance repos across the fleet — chosen over the simpler active/passive NAS pairs it replaced.
+- **Sources:** [Introducing DGit](https://github.blog/engineering/architecture-optimization/introducing-dgit/) · [Building resilience in Spokes](https://github.blog/engineering/infrastructure/building-resilience-in-spokes/)
+
+### Lyft — Envoy, the universal data plane behind the service mesh
+- **Scale:** born ~2015 at Lyft (then a monolithic PHP app + MongoDB); Envoy reached **100% of Lyft traffic** as an edge proxy by late 2015 and **all** service-to-service, DB, and external traffic by mid-2016; now the CNCF-standard mesh proxy.
+- **Key decisions:** put a **single, uniform L4/L7 proxy next to every process** (sidecar) so the network — service discovery, retries, circuit breaking, timeouts, zone-aware load balancing, and *consistent* stats/logging/tracing — is abstracted away from application code in any language. The insight: in a polyglot microservices world, **observability and resilience belong in a shared data plane**, not re-implemented per language.
+- **Tradeoff:** a proxy hop next to every service adds latency and a new operational component (and the mesh control-plane complexity that followed), accepted because uniform, language-agnostic networking + telemetry is otherwise impossible to retrofit across dozens of stacks.
+- **Sources:** [5 years of Envoy OSS (Matt Klein)](https://mattklein123.dev/2021/09/14/5-years-envoy-oss/) · [Lyft's Envoy: Experiences Operating a Large Service Mesh (SREcon17, USENIX)](https://www.usenix.org/conference/srecon17americas/program/presentation/klein)
+
+### Uber — H3, a hexagonal hierarchical geospatial index
+- **Scale:** the grid system underpinning marketplace pricing, dispatch, and supply/demand analysis across every Uber city; open-sourced and widely adopted.
+- **Key decisions:** tile the earth into **hexagonal cells at 16 resolutions**, each encoded as a compact **64-bit id**. Hexagons are chosen deliberately over squares: **all six neighbors are equidistant** (squares have two different neighbor distances), which makes gradient/flow, clustering, and smoothing over a city far more uniform. Hierarchy lets you roll cells up/down resolution cheaply.
+- **Tradeoff:** hexagons **cannot perfectly, cleanly subdivide** into smaller hexagons (unlike quadtrees/geohash squares), so H3's hierarchy is approximate at boundaries — accepted because uniform adjacency matters more than exact nesting for the movement-and-density math Uber runs.
+- **Sources:** [H3: Uber's Hexagonal Hierarchical Spatial Index](https://www.uber.com/blog/h3/) · [uber/h3 (GitHub)](https://github.com/uber/h3)
+
+---
+
+## More: data & analytics infrastructure
+
+### Datadog — Husky: exactly-once, multi-tenant event store on object storage
+- **Scale:** third-generation event store ingesting **100+ trillion events**; queried in real time; built on **S3 + FoundationDB**.
+- **Key decisions:** an **unbundled** column store that **separates ingestion, compaction, and query** so each scales independently, all sharing a FoundationDB metadata store and S3 for blobs. Deterministic sharding (an event's `(timestamp, id)` always routes to the same shard) enables **exactly-once ingestion** despite retries, and per-shard tenant locality keeps multi-tenant file/namespace overhead bounded. Cost accounting is by **bytes ingested per tenant**, a better predictor than event count.
+- **Tradeoff:** building on cheap, infinite object storage instead of local disk trades raw latency for elastic, independently-scalable, cost-attributable ingestion at high-cardinality scale — with a compaction tier added specifically to fight the small-file problem that schemaless, high-cardinality data creates on S3.
+- **Sources:** [Introducing Husky, Datadog's third-generation event store](https://www.datadoghq.com/blog/engineering/introducing-husky/) · [Husky: Exactly-once ingestion and multi-tenancy at scale](https://www.datadoghq.com/blog/engineering/husky-deep-dive/)
+
+### Spotify — event delivery, moving up the stack (Kafka → Cloud Pub/Sub)
+- **Scale:** the pipeline carrying every client/user event into analytics; **~700K events/sec** peak at migration time, load-tested to **2M msgs/sec**.
+- **Key decisions:** retire a self-operated **Kafka 0.7 + Hadoop** event-delivery system whose operational burden (broker management, ordering, at-least-once plumbing) was consuming the team, and adopt **Google Cloud Pub/Sub** as the transport — deliberately **moving up the stack** to a managed service instead of running the log themselves. The migration took ~a year, ran both systems in parallel, and only then cut Kafka off (Feb 2017).
+- **Tradeoff:** hands control of the core pipe to a managed service (vendor dependency, less low-level tuning) in exchange for shedding the operational load of running Kafka at scale — the mirror image of Dropbox's "leave the cloud" call, made for the same reason (play to your actual scale and margins) with the opposite conclusion.
+- **Sources:** [Spotify's Event Delivery — The Road to the Cloud (Part II)](https://engineering.atspotify.com/2016/03/spotifys-event-delivery-the-road-to-the-cloud-part-ii) · [Why Spotify migrated its event delivery system from Kafka to Cloud Pub/Sub (Google Cloud)](https://cloud.google.com/blog/products/gcp/spotifys-journey-to-cloud-why-spotify-migrated-its-event-delivery-system-from-kafka-to-google-cloud-pubsub)
+
+---
+
+## More: consumer scale & real-time experiments
+
+### Reddit — r/place: a shared million-pixel canvas under global write load
+- **Scale:** a 1000×1000 collaborative canvas; **~16M pixels placed** by 1M+ users; peak millions of tile changes/hour; built by 3–4 engineers.
+- **Key decisions:** store the whole board as a **bitmap of 4-bit color values (~500 KB)** in **Redis**, fetchable by a single key op in ~10ms — chosen over Cassandra because the data model was a natural fit. **Reads are absorbed by Fastly's CDN with a 1-second TTL** (`Cache-Control: max-age=1`), decoupling read scale from the datastore, while **writes fan out over a WebSocket cluster** for real-time updates and to Kafka for analysis. Per-user rate limiting (one pixel every 5 min) caps write volume.
+- **Tradeoff:** the 1-second CDN cache accepts up-to-1s staleness for reads (patched by the websocket live stream) to make globally-distributed heavy read traffic survivable on a tiny datastore — a clean example of splitting a read path (cacheable, eventually consistent) from a write path (real-time, authoritative).
+- **Sources:** [Reddit on building & scaling r/place (Fastly, from Daniel Ellis's Altitude talk)](https://www.fastly.com/blog/reddit-on-building-scaling-rplace)
+
+### Etsy — continuous deployment & the birth of StatsD
+- **Scale:** e-commerce marketplace deploying **50+ times/day** to a PHP monolith; the origin of **StatsD** and the "Code as Craft" ops culture.
+- **Key decisions:** make deploys boring and frequent — a one-button web deployer (**Deployinator**) pushes to production in ~2 minutes, backed by a "test on trunk / keep trunk deployable" discipline. Underpinning it: **measure everything.** StatsD is a tiny UDP daemon that lets any engineer instrument any counter/timer in ~30 minutes so every deploy's effect is visible on a graph within seconds. The thesis: high deploy frequency is *safer*, not riskier, because each change is small and instantly observable.
+- **Tradeoff:** UDP metrics are **fire-and-forget** (a dropped packet loses a data point) — deliberately chosen so instrumentation can never slow down or break the app, trading perfect metric fidelity for near-zero-cost, always-on measurement that makes continuous deployment trustworthy.
+- **Sources:** [Measure Anything, Measure Everything (Code as Craft, 2011 — introduces StatsD)](https://codeascraft.com/2011/02/15/measure-anything-measure-everything/) · [How Etsy Ships Apps](https://www.etsy.com/codeascraft/how-etsy-ships-apps)
+
+### TikTok / ByteDance — Monolith, a real-time recommender with collisionless embeddings
+- **Scale:** the recommendation engine behind TikTok's For You feed; sparse feature space in the **billions**; online training that updates serving models in near-real-time.
+- **Key decisions:** two ideas make it work. (1) A **collisionless embedding table** using cuckoo hashing — most recommender systems hash sparse IDs into a fixed-size table and tolerate collisions (two users/videos sharing a vector); Monolith refuses the collisions, adding **probabilistic filtering + expirable embeddings** to bound memory instead. (2) **Online training**: user interactions stream through **Kafka → Flink**, parameters update on the fly and sync to serving in near-real-time, so the model reflects behavior from minutes ago.
+- **Tradeoff:** explicitly **trades system reliability for real-time learning** — the near-real-time parameter sync and streaming pipeline accept more failure surface and eventual-consistency between training and serving in exchange for freshness, which for engagement-driven recommendation is the dominant metric.
+- **Sources:** [Monolith: Real Time Recommendation System With Collisionless Embedding Table (arXiv 2209.07663)](https://arxiv.org/abs/2209.07663) · [bytedance/monolith (GitHub)](https://github.com/bytedance/monolith)
+
+---
+
+## More: foundational databases & storage papers
+
+### Google — the infrastructure canon (GFS, MapReduce, Bigtable, Borg)
+- **Scale:** the papers that defined the "big data" and cluster-computing era and seeded Hadoop, HBase, and Kubernetes.
+- **Key decisions:** **GFS** — a distributed file system built for *commodity hardware that fails constantly*, with a single logical master for metadata + huge 64MB chunks replicated 3×, optimized for large sequential reads and append-heavy writes. **MapReduce** — restrict distributed computation to two pure functions (map, reduce) so the framework can handle parallelism, data locality, and fault-tolerant re-execution automatically. **Bigtable** — a sparse, distributed, sorted-map (row/column/timestamp) over GFS, the template for the NoSQL wide-column store. **Borg** — cluster management packing many workloads onto shared machines by declared resource needs, the direct ancestor of Kubernetes.
+- **Tradeoff:** each trades a general-purpose abstraction for a constrained one that the system can operate at scale — MapReduce gives up expressiveness for automatic fault tolerance; GFS/Bigtable relax POSIX/relational semantics for throughput and horizontal scale on unreliable hardware.
+- **Sources:** [The Google File System (SOSP '03, PDF)](https://research.google.com/archive/gfs-sosp2003.pdf) · [MapReduce: Simplified Data Processing on Large Clusters (OSDI '04, PDF)](https://research.google.com/archive/mapreduce-osdi04.pdf) · [Bigtable: A Distributed Storage System for Structured Data (OSDI '06)](https://research.google/pubs/bigtable-a-distributed-storage-system-for-structured-data-awarded-best-paper/) · [Large-scale cluster management at Google with Borg (EuroSys '15)](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
+
+### Apache Cassandra — Facebook's decentralized store (origin paper)
+- **Scale:** built at Facebook to power Inbox Search; designed for **billions of writes/day** across hundreds of nodes spanning data centers; later the open-source backbone of Discord, Netflix, Monzo, and more.
+- **Key decisions:** a deliberate **synthesis of two prior systems** — take **Dynamo's** decentralized, consistent-hashing, gossip-based, always-writable ring (no single point of failure, tunable quorum) and combine it with a **Bigtable-style column-family data model** and log-structured (LSM-tree/SSTable) storage engine tuned for high write throughput.
+- **Tradeoff:** inherits Dynamo's **eventual consistency** (apps must tolerate/reconcile divergence) and the operational subtleties of a leaderless ring, in exchange for linear write scalability, multi-datacenter replication, and no failover — the foundational "AP wide-column" design point.
+- **Sources:** [Cassandra — A Decentralized Structured Storage System (Lakshman & Malik, LADIS '09, PDF)](https://www.cs.cornell.edu/projects/ladis2009/papers/lakshman-ladis2009.pdf)
+
+### Snowflake — separating storage from compute (SIGMOD 2016 paper)
+- **Scale:** a cloud-native data warehouse; multiple isolated compute clusters querying one shared copy of data in object storage.
+- **Key decisions:** the thesis is that **true elasticity requires decoupling storage and compute** — shared-nothing warehouses can't scale or upgrade gracefully in the cloud because data and compute are bolted together. Snowflake stores data immutably in **micro-partitions on object storage (S3)** and runs **independent "virtual warehouses"** (compute clusters) that all read the same data and scale up/down/out on demand. A columnar, vectorized, push-based engine plus partition pruning, MVCC snapshot isolation, and time travel round it out.
+- **Tradeoff:** every query reads from remote object storage rather than local disk (mitigated by caching), accepting higher baseline data-access latency in exchange for **independent, per-workload elastic compute**, isolation between teams, and pay-for-what-you-use scaling — the architecture that reset expectations for cloud analytics.
+- **Sources:** [The Snowflake Elastic Data Warehouse (SIGMOD '16, PDF)](https://www.snowflake.com/wp-content/uploads/2019/06/Snowflake_SIGMOD.pdf) · [ACM DL entry](https://dl.acm.org/doi/10.1145/2882903.2903741)
+
+---
+
 ## Aggregators & where to find more
 
 When a system you need isn't above, go to these first — they index thousands of primary write-ups:
