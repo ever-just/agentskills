@@ -17,6 +17,7 @@ holds the decision frameworks; load the file below that matches the problem.
 | [08-cloud-providers.md](08-cloud-providers.md) | To choose managed services: AWS/GCP/Azure/Cloudflare capability→service maps with docs links, and each provider's architecture guidance. |
 | [09-case-studies.md](09-case-studies.md) | Real, sourced examples of how live systems at scale are designed (Netflix, Uber, Discord, Stripe, Figma, Shopify, …). |
 | [10-open-standards.md](10-open-standards.md) | To choose API/network standards: OpenAPI, AsyncAPI, JSON Schema, gRPC, GraphQL, CloudEvents, OAuth/OIDC, OpenTelemetry, 12-factor. |
+| [11-decision-records.md](11-decision-records.md) | To capture a significant decision (ADR templates) or choose between candidate technologies/approaches (option-space framework, adversarial probe, cite-or-die evidence rule). |
 
 ## Checklists (`../checklists/`)
 

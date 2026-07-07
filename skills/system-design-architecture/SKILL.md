@@ -48,11 +48,14 @@ cost/choose-architecture for a software system," this skill applies.
 8. **Conform to standards & choose services.** API/network standards; managed
    services per capability.
    → `references/10-open-standards.md`, `references/08-cloud-providers.md`.
-9. **Review & precedent.** Walk the pillars; cite a real system for each
-   high-scale component.
+9. **Review & precedent.** Walk the pillars; for each high-scale component,
+   name 3–5 real systems that solved it and cite one.
    → `checklists/design-review.md`, `references/09-case-studies.md`.
+10. **Record the decisions.** Capture each significant, hard-to-reverse choice as
+    an ADR; for contested tech choices use the option-space framework.
+    → `references/11-decision-records.md`.
 
-`examples/worked-design-doc.md` shows all nine steps applied to one system.
+`examples/worked-design-doc.md` shows the method applied to one system.
 
 ## Core heuristics (the compressed wisdom)
 
@@ -75,8 +78,12 @@ cost/choose-architecture for a software system," this skill applies.
   unit economics in the design.
 - **Conform to open standards** (OpenAPI/AsyncAPI/OAuth/OTel) by default;
   deviation is a documented decision.
-- **Reason from precedent.** Someone at scale has solved your component — find
-  and cite how (`references/09`, awesome-scalability, Builders' Library).
+- **Reason from precedent.** Someone at scale has solved your component — name
+  3–5 real systems and cite how (`references/09`, awesome-scalability, Builders' Library).
+- **Cite or die.** Every non-obvious claim cites a real source (primary doc/RFC/
+  paper, named engineering post, or `file:line`); an uncited or invented-source
+  claim is dropped or demoted to an assumption/open question, never shipped as
+  fact. Record hard-to-reverse choices as ADRs (`references/11`).
 
 ## Reference library (load on demand)
 
@@ -93,6 +100,7 @@ cost/choose-architecture for a software system," this skill applies.
 | 08 | [cloud-providers](references/08-cloud-providers.md) | AWS/GCP/Azure/Cloudflare capability→service maps + docs |
 | 09 | [case-studies](references/09-case-studies.md) | Real sourced systems: Netflix, Uber, Discord, Stripe, Figma, Shopify… |
 | 10 | [open-standards](references/10-open-standards.md) | OpenAPI, AsyncAPI, JSON Schema, gRPC, GraphQL, CloudEvents, OAuth/OIDC, OTel, 12-factor |
+| 11 | [decision-records](references/11-decision-records.md) | ADR templates + option-space framework for choosing between technologies/approaches; cite-or-die evidence rule |
 
 **Checklists:** [design-review](checklists/design-review.md) ·
 [production-readiness](checklists/production-readiness.md) ·
