@@ -70,7 +70,7 @@ Authoritative-source maps for designing production-grade, scalable software syst
 
 | Skill | Path | Best For |
 |-------|------|----------|
-| System Design & Architecture | [`skills/system-design-architecture/`](skills/system-design-architecture/) | Backend architecture, scaling to millions of users, open standards (OpenAPI/gRPC/OAuth/OTel), AWS Well-Architected, SRE, concurrency, FinOps |
+| System Design & Architecture | [`skills/system-design-architecture/`](skills/system-design-architecture/) | Backend design end-to-end: security, the scaling ladder, capacity/thresholds, cost modeling, architecture archetypes (multi-tenant SaaS, multi-agent/LLM), product layers, cloud service maps (AWS/GCP/Azure/Cloudflare), real-system case studies, open standards — with review checklists + a worked example |
 
 ### ✍️ Writing, Marketing & Content (19 sub-skills)
 A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.

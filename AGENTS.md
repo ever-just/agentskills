@@ -87,7 +87,7 @@
 
 | Skill | Path | Use When |
 |-------|------|----------|
-| **System Design & Architecture** | `skills/system-design-architecture/SKILL.md` | Designing/reviewing backend systems: scalability to millions of users, networking→full stack, API/network open standards (OpenAPI, AsyncAPI, gRPC, OAuth, OTel), AWS Well-Architected, SRE/reliability, concurrency & async, FinOps cost efficiency — maps each problem to its authoritative source + apply-it playbook |
+| **System Design & Architecture** | `skills/system-design-architecture/SKILL.md` | Designing/reviewing backend systems end-to-end. Lean SKILL.md (design method + heuristics) over a 10-file reference library: security/secure-by-design, the scaling ladder (low→high volume), capacity limits/thresholds, cost modeling, architecture archetypes (incl. multi-tenant SaaS + multi-agent/LLM), product layers, cloud provider service maps (AWS/GCP/Azure/Cloudflare), real-system case studies, open standards — plus design/production-readiness/security checklists and a worked example |
 
 ### MARKETING & COPYWRITING
 
