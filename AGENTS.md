@@ -83,6 +83,12 @@
 | **Company Legal & Reputation Research** | `skills/company-legal-reputation-research/SKILL.md` | Vetting a company for court cases, liens, sanctions, debarment, BBB complaints, and reputation signals using free public sources only |
 | **GitHub Search** | `skills/github-search/SKILL.md` | Finding repos/frameworks/code on GitHub with the official search syntax — repo qualifiers, code-search boolean/regex, REST API + rate limits, find-a-framework playbook |
 
+### SOFTWARE ARCHITECTURE & SYSTEM DESIGN
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **System Design & Architecture** | `skills/system-design-architecture/SKILL.md` | Designing/reviewing backend systems: scalability to millions of users, networking→full stack, API/network open standards (OpenAPI, AsyncAPI, gRPC, OAuth, OTel), AWS Well-Architected, SRE/reliability, concurrency & async, FinOps cost efficiency — maps each problem to its authoritative source + apply-it playbook |
+
 ### MARKETING & COPYWRITING
 
 | Skill | Path | Use When |

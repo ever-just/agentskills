@@ -65,6 +65,13 @@ Skills for researching companies, vetting vendors, and surfacing legal and reput
 | Company Legal & Reputation Research | [`skills/company-legal-reputation-research/`](skills/company-legal-reputation-research/) | Court records, liens, sanctions, BBB/Glassdoor, debarment checks — no API keys |
 | GitHub Search | [`skills/github-search/`](skills/github-search/) | Repo/code/topic search with official GitHub syntax, REST API limits, find-a-framework playbook |
 
+### 🏗️ Software Architecture & System Design
+Authoritative-source maps for designing production-grade, scalable software systems.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| System Design & Architecture | [`skills/system-design-architecture/`](skills/system-design-architecture/) | Backend architecture, scaling to millions of users, open standards (OpenAPI/gRPC/OAuth/OTel), AWS Well-Architected, SRE, concurrency, FinOps |
+
 ### ✍️ Writing, Marketing & Content (19 sub-skills)
 A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
 
