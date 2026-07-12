@@ -2,6 +2,8 @@
 
 > This file is designed to be read by AI coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) to discover available skills. Read the relevant SKILL.md file for detailed guidance on any skill.
 
+> **Adding or editing a skill?** Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first — how to structure a skill, where to register it, and how to work here without colliding with other agents.
+
 ## Available Skills
 
 ### VIDEO CREATION
