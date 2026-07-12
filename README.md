@@ -56,6 +56,7 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Custom-Domain Email/DNS Diagnosis | [`skills/custom-domain-email-dns-diagnosis/`](skills/custom-domain-email-dns-diagnosis/) | Registrar-vs-DNS-host split, 'no zone' errors, why email won't configure |
 | Odoo Direct JSON-RPC Access | [`skills/odoo-direct-jsonrpc-access/`](skills/odoo-direct-jsonrpc-access/) | Odoo 19 /jsonrpc access with login+password (no MCP/Bearer needed) |
 | Web Deploy Verification | [`skills/web-deploy-verification/`](skills/web-deploy-verification/) | Confirm a merged change is live — URL polling, local screenshot fallback |
+| Agent Discoverability | [`skills/agent-discoverability/`](skills/agent-discoverability/) | Publishing an MCP server so agents find and connect it: registry + directories, OAuth discovery chain, capability manifest, DNS-AID |
 
 ### 🏢 EverJust Platform (everjust.app Odoo 19 multi-tenant SaaS)
 Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on.
@@ -81,6 +82,8 @@ Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, m
 | EverJust Telephony | [`skills/everjust-telephony/`](skills/everjust-telephony/) | Call logging, recordings/voicemail, outbound calls |
 | EverJust Website (+9 sub-skills) | [`skills/everjust-website/`](skills/everjust-website/) | Pages, blog, forms, forum, i18n, newsletter, SEO, snippets, themes, community |
 | EverJust Website Customization | [`skills/everjust-website-customization/`](skills/everjust-website-customization/) | Durable Odoo tenant edits from the shell (COW views, custom_code_head, base_automation) |
+| EverJust Website GEO Content | [`skills/everjust-website-geo-content/`](skills/everjust-website-geo-content/) | Citable content clusters + per-page schema + sitemap-freshness for AI answer-engine citation on an everjust Odoo site |
+| EverJust Odoo Shell Ops | [`skills/everjust-odoo-shell-ops/`](skills/everjust-odoo-shell-ops/) | Tenant Odoo box-shell ops: DB-only publishing, COW-fork gotcha, CI-rsync recovery, deploy-collision avoidance, ir.cron, nginx |
 
 ### 🔬 AI Agent Auditing & Forensics
 Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.

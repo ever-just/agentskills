@@ -59,6 +59,7 @@
 | **Custom-Domain Email/DNS Diagnosis** | skills/custom-domain-email-dns-diagnosis/SKILL.md | Diagnose why email won't configure on a custom domain — registrar != DNS host (`dig NS` first), registrar API 'no zone' when nameservers are delegated elsewhere, email records can't break the live site, match architecture to the infra |
 | **Odoo Direct JSON-RPC Access** | `skills/odoo-direct-jsonrpc-access/SKILL.md` | Calling Odoo 19's classic /jsonrpc endpoint with a login+password when MCP/Bearer access isn't available — auth, batching, idempotent bulk import |
 | **Web Deploy Verification** | `skills/web-deploy-verification/SKILL.md` | Confirming a merged web change is actually live — URL polling, local-build screenshot fallback |
+| **Agent Discoverability** | `skills/agent-discoverability/SKILL.md` | Publish/register an MCP server so agents find and connect to it: official registry + directories, the OAuth well-known discovery chain, /.well-known/agent/mcp.json, and DNS-AID records (SVCB/TXT/TLSA/DNSSEC) |
 
 ### EVERJUST PLATFORM (everjust.app Odoo 19 multi-tenant SaaS)
 
@@ -93,6 +94,8 @@
 | **EverJust Website SEO** | `skills/everjust-website-seo/SKILL.md` | Meta title/description/OG image/canonical, sitemap/crawlability, social profile JSON-LD, robots.txt, Search Console/IndexNow |
 | **EverJust Website Snippets** | `skills/everjust-website-snippets/SKILL.md` | Author/edit content blocks (s_* snippet triad), oe_structure drop-zones, wrap-don't-rewrite method for on-brand Tailwind ports |
 | **EverJust Website Themes** | `skills/everjust-website-themes/SKILL.md` | Lifting a design-themes block vs a full theme swap, and why brand fonts/colors are always-on for everjust tenants |
+| **EverJust Website GEO Content** | `skills/everjust-website-geo-content/SKILL.md` | Build citable content clusters (pillar/glossary/guides) + per-page FAQPage/DefinedTerm/TechArticle JSON-LD + sitemap-freshness cron so an everjust Odoo site gets cited by AI answer engines |
+| **EverJust Odoo Shell Ops** | `skills/everjust-odoo-shell-ops/SKILL.md` | Operate a tenant Odoo from the box shell: DB-only publishing, COW-fork gotcha, restart-to-compile, CI-rsync recovery, deploy-collision avoidance, ir.cron, nginx stale-inode |
 
 ### AI AGENT AUDITING & FORENSICS
 
