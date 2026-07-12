@@ -57,6 +57,7 @@
 | **EVERJUST Website Infra Views (MCP/XML-RPC)** | skills/everjust-website-infra-views/SKILL.md | Edit header/footer/JSON-LD/CSS infra views + robots.txt on an everjust.app tenant with NO SSH — the MCP `update` tool blocks `ir.ui.view` so write it via remote XML-RPC; an `active=False` fork shadows the base view; MCP/XML-RPC writes hot-invalidate the cache (no restart); `.grid` vs Tailwind; pace requests (503 under load) |
 | **Local-Business AEO/GEO Schema** | skills/local-business-aeo-schema/SKILL.md | Hand-author LocalBusiness/Service/FAQPage/Review/Breadcrumb JSON-LD for local SEO + AI-answer citation — sitewide `@id=#business` node, FAQPage from VISIBLE content, `aggregateRating` on Service not the business (Google Dec-2025), AI-crawler robots allowlist, bot-challenge invisibility, llms.txt reality-check |
 | **Custom-Domain Email/DNS Diagnosis** | skills/custom-domain-email-dns-diagnosis/SKILL.md | Diagnose why email won't configure on a custom domain — registrar != DNS host (`dig NS` first), registrar API 'no zone' when nameservers are delegated elsewhere, email records can't break the live site, match architecture to the infra |
+| **Odoo Direct JSON-RPC Access** | `skills/odoo-direct-jsonrpc-access/SKILL.md` | Calling Odoo 19's classic /jsonrpc endpoint with a login+password when MCP/Bearer access isn't available — auth, batching, idempotent bulk import |
 
 ### AI AGENT AUDITING & FORENSICS
 
