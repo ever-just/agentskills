@@ -14,6 +14,7 @@
 | **MoviePy** | `skills/moviepy/SKILL.md` | Programmatic video editing, compositing, frame-by-frame effects with Python |
 | **Remotion Templates** | `skills/remotion-templates/SKILL.md` | Pre-built video effects, intros, transitions, text animations for Remotion |
 | **Remotion Captions** | `skills/remotion-captions/SKILL.md` | Adding animated subtitles/captions to Remotion videos from SRT files |
+| **Web Embed Video Optimization** | `skills/web-embed-video-optimization/SKILL.md` | Optimizing/transcoding an existing video into a fast, crisp, autoplaying web hero/loop (H.264, faststart, poster, embed) |
 
 ### ANIMATION & MOTION GRAPHICS
 
@@ -48,6 +49,9 @@
 | **MongoDB Schema Audit** | `skills/mongodb-schema-audit/SKILL.md` | Index coverage auditing, relationship validation, data migrations |
 | **Admin Dashboard Verification** | `skills/admin-dashboard-verification/SKILL.md` | Systematic verification of admin dashboard features, drawers, cross-nav |
 | **Bun Testing** | `skills/bun-testing/SKILL.md` | Fast simulation tests with Bun — file verification, mock data, schema checks |
+| **EverJust Website Customization** | `skills/everjust-website-customization/SKILL.md` | Deep, durable Odoo tenant edits from the odoo shell (COW views, custom_code_head CSS/JS, base_automation) — the layer below the MCP/website builder |
+| **CDP Render Verification** | `skills/cdp-render-verification/SKILL.md` | Proving a web change rendered right via headless Chrome over CDP — computed-style checks, mobile emulation, code-leak/overflow detection, flow-driving |
+| **Trust Center & Compliance Program** | `skills/trust-center-compliance-program/SKILL.md` | Self-host Probo + author a coherent SOC 2 / ISO 27001 / GDPR program (controls, policies, risk register, RoPA, DPA, sub-processors) |
 
 ### AI AGENT AUDITING & FORENSICS
 
