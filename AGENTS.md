@@ -132,6 +132,13 @@
 | **shadcn + Tailwind v4 Primitives** | `skills/shadcn-tailwind-v4-primitives/SKILL.md` | Scaffolding a token-based shadcn/ui + Radix primitive set on Tailwind v4 |
 | **UX Decision Rubrics** | `skills/ux-decision-rubrics/SKILL.md` | Choosing the right form control, or scoring which user flows need redesign |
 
+### GTM, PROSPECTING & AGENT ORCHESTRATION
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **ICP Prospect List Builder** | `skills/icp-prospect-list-builder/SKILL.md` | Building a prioritized, source-cited B2B prospect dataset from public data — define an ICP in searchable terms, discover matching companies (source-code/technographic search, competitor customer bases, software + AI directories, Product Hunt API, accelerator portfolios), then categorize, ICP-score, dedupe, and pull size-routed contacts |
+| **Parallel Agent Fan-Out** | `skills/parallel-agent-fanout/SKILL.md` | Orchestrating dozens of concurrent subagents into one verified dataset — 3-wave discovery→pull→synthesis pipeline, shared instruction templates, no-delegation rule, file-on-disk completion checks, batching, incremental commits, recombine + row-integrity validation |
+
 ## Decision Tree
 
 ```
@@ -192,6 +199,8 @@ User needs help with...
 - **Humanizer + Write Concisely** = De-AI and tighten any text
 - **Notebook + Content Research Writer** = Research-backed long-form content
 - **Marketing Psychology + Marketing Copywriting** = Persuasive landing page copy
+- **ICP Prospect List Builder + Parallel Agent Fan-Out** = A full GTM prospect dataset built at scale across many concurrent agents
+- **ICP Prospect List Builder + Company Legal & Reputation Research + Domain Email Enumeration** = A vetted, contactable Tier-1 outreach shortlist
 
 ---
 
