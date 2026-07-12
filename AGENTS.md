@@ -54,6 +54,9 @@
 | **EverJust Website Customization** | `skills/everjust-website-customization/SKILL.md` | Deep, durable Odoo tenant edits from the odoo shell (COW views, custom_code_head CSS/JS, base_automation) — the layer below the MCP/website builder |
 | **CDP Render Verification** | `skills/cdp-render-verification/SKILL.md` | Proving a web change rendered right via headless Chrome over CDP — computed-style checks, mobile emulation, code-leak/overflow detection, flow-driving |
 | **Trust Center & Compliance Program** | `skills/trust-center-compliance-program/SKILL.md` | Self-host Probo + author a coherent SOC 2 / ISO 27001 / GDPR program (controls, policies, risk register, RoPA, DPA, sub-processors) |
+| **EVERJUST Website Infra Views (MCP/XML-RPC)** | skills/everjust-website-infra-views/SKILL.md | Edit header/footer/JSON-LD/CSS infra views + robots.txt on an everjust.app tenant with NO SSH — the MCP `update` tool blocks `ir.ui.view` so write it via remote XML-RPC; an `active=False` fork shadows the base view; MCP/XML-RPC writes hot-invalidate the cache (no restart); `.grid` vs Tailwind; pace requests (503 under load) |
+| **Local-Business AEO/GEO Schema** | skills/local-business-aeo-schema/SKILL.md | Hand-author LocalBusiness/Service/FAQPage/Review/Breadcrumb JSON-LD for local SEO + AI-answer citation — sitewide `@id=#business` node, FAQPage from VISIBLE content, `aggregateRating` on Service not the business (Google Dec-2025), AI-crawler robots allowlist, bot-challenge invisibility, llms.txt reality-check |
+| **Custom-Domain Email/DNS Diagnosis** | skills/custom-domain-email-dns-diagnosis/SKILL.md | Diagnose why email won't configure on a custom domain — registrar != DNS host (`dig NS` first), registrar API 'no zone' when nameservers are delegated elsewhere, email records can't break the live site, match architecture to the infra |
 
 ### AI AGENT AUDITING & FORENSICS
 
@@ -88,6 +91,7 @@
 |-------|------|----------|
 | **Company Legal & Reputation Research** | `skills/company-legal-reputation-research/SKILL.md` | Vetting a company for court cases, liens, sanctions, debarment, BBB complaints, and reputation signals using free public sources only |
 | **GitHub Search** | `skills/github-search/SKILL.md` | Finding repos/frameworks/code on GitHub with the official search syntax — repo qualifiers, code-search boolean/regex, REST API + rate limits, find-a-framework playbook |
+| **Marketing-Site Authenticity Audit** | skills/marketing-site-authenticity-audit/SKILL.md | Audit a company's OWN marketing site for fabricated case studies/testimonials, stock-as-'real job', reused photos, and over-claims (fetch-and-compare the images), then remediate to honest generic examples |
 
 ### SOFTWARE ARCHITECTURE & SYSTEM DESIGN
 

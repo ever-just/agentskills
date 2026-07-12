@@ -51,6 +51,9 @@ Skills for building, deploying, and operating AI-powered platforms.
 | EverJust Website Customization | [`skills/everjust-website-customization/`](skills/everjust-website-customization/) | Durable Odoo tenant edits from the shell (COW views, custom_code_head, base_automation) |
 | CDP Render Verification | [`skills/cdp-render-verification/`](skills/cdp-render-verification/) | Headless-Chrome CDP verification of web changes (computed styles, mobile, flows) |
 | Trust Center & Compliance Program | [`skills/trust-center-compliance-program/`](skills/trust-center-compliance-program/) | Self-host Probo + author SOC 2 / ISO 27001 / GDPR program |
+| EVERJUST Website Infra Views | [`skills/everjust-website-infra-views/`](skills/everjust-website-infra-views/) | Edit infra/chrome/JSON-LD/CSS views + robots.txt on an everjust.app tenant via XML-RPC (MCP blocks `ir.ui.view`) |
+| Local-Business AEO/GEO Schema | [`skills/local-business-aeo-schema/`](skills/local-business-aeo-schema/) | LocalBusiness/Service/FAQ/Review JSON-LD for local SEO + AI-answer citation |
+| Custom-Domain Email/DNS Diagnosis | [`skills/custom-domain-email-dns-diagnosis/`](skills/custom-domain-email-dns-diagnosis/) | Registrar-vs-DNS-host split, 'no zone' errors, why email won't configure |
 
 ### 🔬 AI Agent Auditing & Forensics
 Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.
@@ -70,6 +73,7 @@ Skills for researching companies, vetting vendors, and surfacing legal and reput
 |-------|------|----------|
 | Company Legal & Reputation Research | [`skills/company-legal-reputation-research/`](skills/company-legal-reputation-research/) | Court records, liens, sanctions, BBB/Glassdoor, debarment checks — no API keys |
 | GitHub Search | [`skills/github-search/`](skills/github-search/) | Repo/code/topic search with official GitHub syntax, REST API limits, find-a-framework playbook |
+| Marketing-Site Authenticity Audit | [`skills/marketing-site-authenticity-audit/`](skills/marketing-site-authenticity-audit/) | Audit own marketing site for fabricated case studies/reviews; honest remediation |
 
 ### 🏗️ Software Architecture & System Design
 Authoritative-source maps for designing production-grade, scalable software systems.
