@@ -25,6 +25,7 @@
 | **GSAP** | `skills/gsap/SKILL.md` | Web animations, scroll-linked effects, SVG animations, timeline-based sequences |
 | **Framer Motion** | `skills/framer-motion/SKILL.md` | React UI animations, page transitions, gesture interactions, layout animations |
 | **Lottie Animation** | `skills/lottie-animation/SKILL.md` | Creating animated logos, icons, micro-interactions as Lottie JSON |
+| **SVG Logo & Brand Asset Pipeline** | `skills/svg-logo-brand-asset-pipeline/SKILL.md` | Designing a static vector logo/favicon and exporting the full production asset set; normalizing third-party sourced logos to one monochrome style |
 
 ### PRESENTATIONS
 
