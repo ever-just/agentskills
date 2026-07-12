@@ -52,7 +52,6 @@
 | **MongoDB Schema Audit** | `skills/mongodb-schema-audit/SKILL.md` | Index coverage auditing, relationship validation, data migrations |
 | **Admin Dashboard Verification** | `skills/admin-dashboard-verification/SKILL.md` | Systematic verification of admin dashboard features, drawers, cross-nav |
 | **Bun Testing** | `skills/bun-testing/SKILL.md` | Fast simulation tests with Bun — file verification, mock data, schema checks |
-| **EverJust Website Customization** | `skills/everjust-website-customization/SKILL.md` | Deep, durable Odoo tenant edits from the odoo shell (COW views, custom_code_head CSS/JS, base_automation) — the layer below the MCP/website builder |
 | **CDP Render Verification** | `skills/cdp-render-verification/SKILL.md` | Proving a web change rendered right via headless Chrome over CDP — computed-style checks, mobile emulation, code-leak/overflow detection, flow-driving |
 | **Trust Center & Compliance Program** | `skills/trust-center-compliance-program/SKILL.md` | Self-host Probo + author a coherent SOC 2 / ISO 27001 / GDPR program (controls, policies, risk register, RoPA, DPA, sub-processors) |
 | **EVERJUST Website Infra Views (MCP/XML-RPC)** | skills/everjust-website-infra-views/SKILL.md | Edit header/footer/JSON-LD/CSS infra views + robots.txt on an everjust.app tenant with NO SSH — the MCP `update` tool blocks `ir.ui.view` so write it via remote XML-RPC; an `active=False` fork shadows the base view; MCP/XML-RPC writes hot-invalidate the cache (no restart); `.grid` vs Tailwind; pace requests (503 under load) |
@@ -60,6 +59,40 @@
 | **Custom-Domain Email/DNS Diagnosis** | skills/custom-domain-email-dns-diagnosis/SKILL.md | Diagnose why email won't configure on a custom domain — registrar != DNS host (`dig NS` first), registrar API 'no zone' when nameservers are delegated elsewhere, email records can't break the live site, match architecture to the infra |
 | **Odoo Direct JSON-RPC Access** | `skills/odoo-direct-jsonrpc-access/SKILL.md` | Calling Odoo 19's classic /jsonrpc endpoint with a login+password when MCP/Bearer access isn't available — auth, batching, idempotent bulk import |
 | **Web Deploy Verification** | `skills/web-deploy-verification/SKILL.md` | Confirming a merged web change is actually live — URL polling, local-build screenshot fallback |
+
+### EVERJUST PLATFORM (everjust.app Odoo 19 multi-tenant SaaS)
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **EverJust Platform** | `skills/everjust-platform/SKILL.md` | Operating rules for ANY everjust.app tenant — multi-tenant Odoo 19 CE fork, one Postgres DB per tenant. Read first, before any other everjust-* skill |
+| **EverJust Agent MCP** | `skills/everjust-agent-mcp/SKILL.md` | Connecting to/operating a tenant's built-in MCP server at `https://<tenant>.everjust.app/mcp` — the toolset every other everjust-* skill routes through |
+| **EverJust Mail Ops** | `skills/everjust-mail-ops/SKILL.md` | Sending/reading mail as a tenant mailbox (everjust.mail.account), diagnosing a blocked send, checking domain verification/DKIM, checking suppression — the native webmail stack (NOT Discuss, NOT mass mailing) |
+| **EverJust Mass Mailing** | `skills/everjust-mass-mailing/SKILL.md` | Bulk/campaign email (mailing.mailing/mailing.list/mailing.contact) — building lists, drafting campaigns, sending tests, and the human-gated real blast + reading opens/clicks/bounces |
+| **EverJust Tenant Domain Migration** | `skills/everjust-tenant-domain-migration/SKILL.md` | Moving a live tenant from one public domain to another (rebrand/cutover) — mail identity, canonical bases, signatures, DB-wide old-domain sweep, nginx add-new + 301-retire-old |
+| **EverJust CRM & Sales** | `skills/everjust-crm-sales/SKILL.md` | Leads/opportunities pipeline — create/qualify a lead, move stages, assign salesperson/team, log activities, mark won/lost, UTM attribution |
+| **EverJust Appointments** | `skills/everjust-appointments/SKILL.md` | Online booking → calendar event + optional CRM lead + confirmation email — configure appointment types/slots, create/confirm/reschedule bookings |
+| **EverJust Calendar & Contacts** | `skills/everjust-calendar-contacts/SKILL.md` | The shared res.partner contact spine + calendar.event scheduling, with optional Google/Microsoft calendar sync |
+| **EverJust Client Portal** | `skills/everjust-client-portal/SKILL.md` | Granting a customer self-service `/my/*` portal login and operating what they can see there |
+| **EverJust Documents** | `skills/everjust-documents/SKILL.md` | Browse/create/move folders and files, upload/download, tag, migrate storage, point Documents at the tenant's private cloud |
+| **EverJust Events** | `skills/everjust-events/SKILL.md` | Create/publish an event, manage attendee registrations, wire registrations to CRM leads, schedule reminder email/SMS |
+| **EverJust Payroll & HR** | `skills/everjust-payroll-hr/SKILL.md` | hr.employee/hr.payslip/hr.attendance — read employees/contracts (hr.version), pull attendance, generate/compute a payslip batch |
+| **EverJust Projects** | `skills/everjust-projects/SKILL.md` | project.project/project.task — create/find projects and tasks, move kanban stages, assign, deadlines, tags |
+| **EverJust QuickBooks** | `skills/everjust-quickbooks/SKILL.md` | QuickBooks Online connector — OAuth connect, pull chart of accounts, push a posted invoice Odoo→QBO, check connection health |
+| **EverJust Sign** | `skills/everjust-sign/SKILL.md` | E-signature requests — create a signable PDF, add typed signers by role, send, track signing, download the signed PDF + tamper-evidence log |
+| **EverJust SMS** | `skills/everjust-sms/SKILL.md` | Send SMS to a number or as chatter, use a template, mass-SMS a record set, inspect delivery state and gateway routing |
+| **EverJust Telephony** | `skills/everjust-telephony/SKILL.md` | Voice + call-logging — inspect/log calls, read recordings/voicemail transcriptions, place/trigger outbound calls, call-related SMS |
+| **EverJust Website** | `skills/everjust-website/SKILL.md` | Public marketing site pages (copy-on-write QWeb), nav menus, redirects, per-page SEO metadata, publish/schedule state |
+| **EverJust Website Blog** | `skills/everjust-website-blog/SKILL.md` | Author/publish blog posts — rich content, teaser, cover image, tags, SEO/OG meta, scheduled or back-dated publish |
+| **EverJust Website Community** | `skills/everjust-website-community/SKILL.md` | Reputation/gamification/public profiles — award karma, grant/publish badges |
+| **EverJust Website Customization** | `skills/everjust-website-customization/SKILL.md` | Deep, durable Odoo tenant edits from the odoo shell (COW views, custom_code_head CSS/JS, base_automation) — the layer below the MCP/website builder |
+| **EverJust Website Events** | `skills/everjust-website-events/SKILL.md` | Public event minisite at `/event/<slug>` — Register/Agenda/Talks/Exhibitors sub-pages, publish agenda/speakers |
+| **EverJust Website Forms** | `skills/everjust-website-forms/SKILL.md` | Wire a public form to a backend model — enable a model as a form target, place the form, route submissions (e.g. Contact-Us → CRM lead) |
+| **EverJust Website Forum** | `skills/everjust-website-forum/SKILL.md` | Q&A Forum lifecycle — ask/answer/accept/close, votes, tags, karma economy, moderation |
+| **EverJust Website i18n** | `skills/everjust-website-i18n/SKILL.md` | Multi-language marketing site — activate a language, add it to the site's selector, translate a page's body + SEO fields |
+| **EverJust Website Newsletter** | `skills/everjust-website-newsletter/SKILL.md` | Newsletter subscribe surface (snippet/form) bound to a mailing.list — the front-end intake half of Mass Mailing |
+| **EverJust Website SEO** | `skills/everjust-website-seo/SKILL.md` | Meta title/description/OG image/canonical, sitemap/crawlability, social profile JSON-LD, robots.txt, Search Console/IndexNow |
+| **EverJust Website Snippets** | `skills/everjust-website-snippets/SKILL.md` | Author/edit content blocks (s_* snippet triad), oe_structure drop-zones, wrap-don't-rewrite method for on-brand Tailwind ports |
+| **EverJust Website Themes** | `skills/everjust-website-themes/SKILL.md` | Lifting a design-themes block vs a full theme swap, and why brand fonts/colors are always-on for everjust tenants |
 
 ### AI AGENT AUDITING & FORENSICS
 
@@ -174,6 +207,23 @@ User needs help with...
 │   ├── Audit DB indexes / relationships → MongoDB Schema Audit
 │   ├── Verify admin dashboard features → Admin Dashboard Verification
 │   └── Write fast tests → Bun Testing
+├── EVERJUST.APP TENANT (Odoo 19 multi-tenant SaaS)?
+│   ├── Always read first → EverJust Platform + EverJust Agent MCP
+│   ├── Send/read mail as a mailbox, diagnose a blocked send → EverJust Mail Ops
+│   ├── Bulk/campaign email blast → EverJust Mass Mailing
+│   ├── Rebrand a tenant to a new domain → EverJust Tenant Domain Migration
+│   ├── Leads/pipeline → EverJust CRM & Sales
+│   ├── Booking/scheduling → EverJust Appointments / EverJust Calendar & Contacts
+│   ├── Customer self-service login → EverJust Client Portal
+│   ├── Files/folders → EverJust Documents
+│   ├── Conference/attendee management → EverJust Events
+│   ├── Payroll/attendance → EverJust Payroll & HR
+│   ├── Tasks/kanban → EverJust Projects
+│   ├── Accounting sync → EverJust QuickBooks
+│   ├── E-signature → EverJust Sign
+│   ├── SMS → EverJust SMS
+│   ├── Calls/voicemail → EverJust Telephony
+│   └── Public website → EverJust Website (+ Blog/Community/Events/Forms/Forum/i18n/Newsletter/SEO/Snippets/Themes/Customization)
 ├── RESEARCH / DUE DILIGENCE?
 │   └── Vet a company legally & reputationally → Company Legal & Reputation Research
 └── WRITING?

@@ -1,6 +1,6 @@
 # Agent Skills
 
-> A curated collection of **44+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. Spanning visual asset creation, platform operations, AI-agent auditing, writing, marketing, and content strategy.
+> A curated collection of **90+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. Spanning visual asset creation, platform operations, the full everjust.app Odoo tenant surface, AI-agent auditing, writing, marketing, and content strategy.
 
 > **Contributing a skill?** See [`CONTRIBUTING.md`](CONTRIBUTING.md) for how to structure, place, register, and PR a skill — and how multiple agents can edit this repo without collisions.
 
@@ -49,7 +49,6 @@ Skills for building, deploying, and operating AI-powered platforms.
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
 | Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
 | Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
-| EverJust Website Customization | [`skills/everjust-website-customization/`](skills/everjust-website-customization/) | Durable Odoo tenant edits from the shell (COW views, custom_code_head, base_automation) |
 | CDP Render Verification | [`skills/cdp-render-verification/`](skills/cdp-render-verification/) | Headless-Chrome CDP verification of web changes (computed styles, mobile, flows) |
 | Trust Center & Compliance Program | [`skills/trust-center-compliance-program/`](skills/trust-center-compliance-program/) | Self-host Probo + author SOC 2 / ISO 27001 / GDPR program |
 | EVERJUST Website Infra Views | [`skills/everjust-website-infra-views/`](skills/everjust-website-infra-views/) | Edit infra/chrome/JSON-LD/CSS views + robots.txt on an everjust.app tenant via XML-RPC (MCP blocks `ir.ui.view`) |
@@ -57,6 +56,31 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Custom-Domain Email/DNS Diagnosis | [`skills/custom-domain-email-dns-diagnosis/`](skills/custom-domain-email-dns-diagnosis/) | Registrar-vs-DNS-host split, 'no zone' errors, why email won't configure |
 | Odoo Direct JSON-RPC Access | [`skills/odoo-direct-jsonrpc-access/`](skills/odoo-direct-jsonrpc-access/) | Odoo 19 /jsonrpc access with login+password (no MCP/Bearer needed) |
 | Web Deploy Verification | [`skills/web-deploy-verification/`](skills/web-deploy-verification/) | Confirm a merged change is live — URL polling, local screenshot fallback |
+
+### 🏢 EverJust Platform (everjust.app Odoo 19 multi-tenant SaaS)
+Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| EverJust Platform | [`skills/everjust-platform/`](skills/everjust-platform/) | Operating rules for any everjust.app tenant — read first |
+| EverJust Agent MCP | [`skills/everjust-agent-mcp/`](skills/everjust-agent-mcp/) | Connecting to a tenant's MCP server and its toolset |
+| EverJust Mail Ops | [`skills/everjust-mail-ops/`](skills/everjust-mail-ops/) | Send/read mail as a tenant mailbox, diagnose blocked sends, domain verification |
+| EverJust Mass Mailing | [`skills/everjust-mass-mailing/`](skills/everjust-mass-mailing/) | Bulk/campaign email — lists, drafts, tests, human-gated blasts, analytics |
+| EverJust Tenant Domain Migration | [`skills/everjust-tenant-domain-migration/`](skills/everjust-tenant-domain-migration/) | Rebrand/cutover a tenant to a new public domain |
+| EverJust CRM & Sales | [`skills/everjust-crm-sales/`](skills/everjust-crm-sales/) | Leads/opportunities pipeline management |
+| EverJust Appointments | [`skills/everjust-appointments/`](skills/everjust-appointments/) | Online booking → calendar + CRM lead + confirmation |
+| EverJust Calendar & Contacts | [`skills/everjust-calendar-contacts/`](skills/everjust-calendar-contacts/) | Contact spine + calendar scheduling/sync |
+| EverJust Client Portal | [`skills/everjust-client-portal/`](skills/everjust-client-portal/) | Customer self-service `/my/*` portal access |
+| EverJust Documents | [`skills/everjust-documents/`](skills/everjust-documents/) | Folders/files, upload/download, storage |
+| EverJust Events | [`skills/everjust-events/`](skills/everjust-events/) | Event creation, registrations, CRM/reminder wiring |
+| EverJust Payroll & HR | [`skills/everjust-payroll-hr/`](skills/everjust-payroll-hr/) | Employees, contracts, attendance, payslips |
+| EverJust Projects | [`skills/everjust-projects/`](skills/everjust-projects/) | Projects/tasks, kanban, assignment |
+| EverJust QuickBooks | [`skills/everjust-quickbooks/`](skills/everjust-quickbooks/) | QBO OAuth connector, invoice/chart-of-accounts sync |
+| EverJust Sign | [`skills/everjust-sign/`](skills/everjust-sign/) | E-signature requests and signed-PDF audit trail |
+| EverJust SMS | [`skills/everjust-sms/`](skills/everjust-sms/) | SMS send, templates, mass-SMS, delivery state |
+| EverJust Telephony | [`skills/everjust-telephony/`](skills/everjust-telephony/) | Call logging, recordings/voicemail, outbound calls |
+| EverJust Website (+9 sub-skills) | [`skills/everjust-website/`](skills/everjust-website/) | Pages, blog, forms, forum, i18n, newsletter, SEO, snippets, themes, community |
+| EverJust Website Customization | [`skills/everjust-website-customization/`](skills/everjust-website-customization/) | Durable Odoo tenant edits from the shell (COW views, custom_code_head, base_automation) |
 
 ### 🔬 AI Agent Auditing & Forensics
 Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.
