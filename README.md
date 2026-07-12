@@ -33,6 +33,7 @@ Open-source tools for programmatic video, animation, and presentation creation. 
 | Remotion Templates | [`skills/remotion-templates/`](skills/remotion-templates/) | Pre-built video effects for Remotion |
 | Remotion Captions | [`skills/remotion-captions/`](skills/remotion-captions/) | Animated subtitles for Remotion |
 | Web Embed Video Optimization | [`skills/web-embed-video-optimization/`](skills/web-embed-video-optimization/) | Optimizing/embedding an existing video as a fast, autoplaying web hero/loop |
+| SVG Logo & Brand Asset Pipeline | [`skills/svg-logo-brand-asset-pipeline/`](skills/svg-logo-brand-asset-pipeline/) | Static logo/favicon design + full icon-set export; normalizing sourced logos to one style |
 
 ### 🤖 Platform Operations
 Skills for building, deploying, and operating AI-powered platforms.
