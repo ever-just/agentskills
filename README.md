@@ -30,6 +30,7 @@ Open-source tools for programmatic video, animation, and presentation creation. 
 | Framer Motion | [`skills/framer-motion/`](skills/framer-motion/) | React UI animations, transitions |
 | Remotion Templates | [`skills/remotion-templates/`](skills/remotion-templates/) | Pre-built video effects for Remotion |
 | Remotion Captions | [`skills/remotion-captions/`](skills/remotion-captions/) | Animated subtitles for Remotion |
+| Web Embed Video Optimization | [`skills/web-embed-video-optimization/`](skills/web-embed-video-optimization/) | Optimizing/embedding an existing video as a fast, autoplaying web hero/loop |
 
 ### 🤖 Platform Operations
 Skills for building, deploying, and operating AI-powered platforms.
@@ -45,6 +46,9 @@ Skills for building, deploying, and operating AI-powered platforms.
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
 | Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
 | Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
+| EverJust Website Customization | [`skills/everjust-website-customization/`](skills/everjust-website-customization/) | Durable Odoo tenant edits from the shell (COW views, custom_code_head, base_automation) |
+| CDP Render Verification | [`skills/cdp-render-verification/`](skills/cdp-render-verification/) | Headless-Chrome CDP verification of web changes (computed styles, mobile, flows) |
+| Trust Center & Compliance Program | [`skills/trust-center-compliance-program/`](skills/trust-center-compliance-program/) | Self-host Probo + author SOC 2 / ISO 27001 / GDPR program |
 
 ### 🔬 AI Agent Auditing & Forensics
 Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.
