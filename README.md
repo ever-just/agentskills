@@ -54,6 +54,7 @@ Skills for building, deploying, and operating AI-powered platforms.
 | EVERJUST Website Infra Views | [`skills/everjust-website-infra-views/`](skills/everjust-website-infra-views/) | Edit infra/chrome/JSON-LD/CSS views + robots.txt on an everjust.app tenant via XML-RPC (MCP blocks `ir.ui.view`) |
 | Local-Business AEO/GEO Schema | [`skills/local-business-aeo-schema/`](skills/local-business-aeo-schema/) | LocalBusiness/Service/FAQ/Review JSON-LD for local SEO + AI-answer citation |
 | Custom-Domain Email/DNS Diagnosis | [`skills/custom-domain-email-dns-diagnosis/`](skills/custom-domain-email-dns-diagnosis/) | Registrar-vs-DNS-host split, 'no zone' errors, why email won't configure |
+| Odoo Direct JSON-RPC Access | [`skills/odoo-direct-jsonrpc-access/`](skills/odoo-direct-jsonrpc-access/) | Odoo 19 /jsonrpc access with login+password (no MCP/Bearer needed) |
 
 ### 🔬 AI Agent Auditing & Forensics
 Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.
