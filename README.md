@@ -100,6 +100,14 @@ Battle-tested methods from a real Next.js + Tailwind v4 console redesign — how
 | shadcn + Tailwind v4 Primitives | [`skills/shadcn-tailwind-v4-primitives/`](skills/shadcn-tailwind-v4-primitives/) | Scaffolding token-based shadcn/ui + Radix primitives on Tailwind v4 |
 | UX Decision Rubrics | [`skills/ux-decision-rubrics/`](skills/ux-decision-rubrics/) | Objective form-control choice + user-story clarity scoring |
 
+### 🎯 GTM, Prospecting & Agent Orchestration
+Skills for building large sales/GTM datasets from public data and for orchestrating the concurrent subagents that produce them.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| ICP Prospect List Builder | [`skills/icp-prospect-list-builder/`](skills/icp-prospect-list-builder/) | Building a prioritized, source-cited prospect dataset (companies + size-routed contacts) from public data — ICP scoring, ranked discovery sources incl. the Product Hunt API, dedup |
+| Parallel Agent Fan-Out | [`skills/parallel-agent-fanout/`](skills/parallel-agent-fanout/) | Orchestrating dozens of concurrent subagents into one verified dataset — 3-wave pipeline, no-delegation rule, file-on-disk checks, recombine + row-integrity validation |
+
 ## How to Use
 
 ### For Windsurf / Cascade
