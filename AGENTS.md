@@ -122,6 +122,16 @@
 | **DOCX Export** | `skills/white-paper-writing/blastum-docx/SKILL.md` | Generate .docx files from markdown |
 | **Markdown to PDF** | `skills/white-paper-writing/blastum-markdown-to-pdf/SKILL.md` | Convert markdown to PDF |
 
+### FRONTEND ENGINEERING & AGENT ORCHESTRATION
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Parallel Agent Refactor** | `skills/parallel-agent-refactor/SKILL.md` | Running a large multi-file refactor/migration/codemod across routes — fan out disjoint-ownership write-agents behind typecheck+build barriers |
+| **Empirical Responsive Audit** | `skills/empirical-responsive-audit/SKILL.md` | Auditing a web UI for mobile/layout defects (overflow, sub-44px targets, sub-16px inputs) by rendering it; shipping a Playwright pre-merge gate |
+| **Dark Mode Token Migration** | `skills/dark-mode-token-migration/SKILL.md` | Adding dark mode to an app that uses raw color utilities — semantic token layer + no-flash toggle, light stays pixel-identical |
+| **shadcn + Tailwind v4 Primitives** | `skills/shadcn-tailwind-v4-primitives/SKILL.md` | Scaffolding a token-based shadcn/ui + Radix primitive set on Tailwind v4 |
+| **UX Decision Rubrics** | `skills/ux-decision-rubrics/SKILL.md` | Choosing the right form control, or scoring which user flows need redesign |
+
 ## Decision Tree
 
 ```

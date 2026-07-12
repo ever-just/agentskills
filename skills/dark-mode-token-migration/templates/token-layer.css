@@ -1,0 +1,102 @@
+/* ============================================================================
+ * token-layer.css — semantic token layer for dark-mode-token-migration
+ * ----------------------------------------------------------------------------
+ * Drop this at the top of your global stylesheet (e.g. app/globals.css),
+ * AFTER `@import "tailwindcss";` (Tailwind v4).
+ *
+ * THE INVARIANT: every :root token value below EQUALS the raw utility it
+ * replaces, so migrating `bg-stone-50 -> bg-background` is pixel-identical in
+ * light mode. Values shown are the Tailwind `stone` family — swap the hexes
+ * for your app's actual current palette (slate/gray/zinc/neutral) if different.
+ * Keep the accent hue (--destructive) IDENTICAL in :root and .dark.
+ * ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --background: #fafaf9;            /* stone-50  — app canvas               */
+  --foreground: #1c1917;           /* stone-900 — primary text             */
+
+  --card: #ffffff;                 /* white     — panels/inputs (NOT bg)   */
+  --card-foreground: #1c1917;      /* stone-900                            */
+
+  --popover: #ffffff;              /* white                                */
+  --popover-foreground: #1c1917;   /* stone-900                            */
+
+  --muted: #f5f5f4;                /* stone-100 — subtle filled surface    */
+  --muted-foreground: #78716c;     /* stone-500 — secondary/label text     */
+
+  --accent: #f5f5f4;               /* stone-100 — hover surface            */
+  --accent-foreground: #1c1917;    /* stone-900                            */
+
+  --primary: #1c1917;              /* stone-900 — emphasis fill            */
+  --primary-foreground: #fafaf9;   /* stone-50  — text on emphasis         */
+
+  --secondary: #f5f5f4;            /* stone-100                            */
+  --secondary-foreground: #1c1917; /* stone-900                            */
+
+  --border: #e7e5e4;               /* stone-200 — dividers, card edges     */
+  --input: #d6d3d1;                /* stone-300 — form-control borders     */
+  --ring: #1c1917;                 /* stone-900 — focus ring on neutrals   */
+
+  --destructive: #dc2626;          /* red-600   — THE ONE HUE (keep in .dark) */
+  --destructive-foreground: #fafaf9;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #0c0a09;           /* stone-950 */
+  --foreground: #fafaf9;           /* stone-50  */
+
+  --card: #1c1917;                 /* stone-900 — a step lighter than page */
+  --card-foreground: #fafaf9;      /* stone-50  */
+
+  --popover: #1c1917;              /* stone-900 */
+  --popover-foreground: #fafaf9;   /* stone-50  */
+
+  --muted: #292524;                /* stone-800 */
+  --muted-foreground: #a8a29e;     /* stone-400 */
+
+  --accent: #292524;               /* stone-800 */
+  --accent-foreground: #fafaf9;    /* stone-50  */
+
+  --primary: #fafaf9;              /* stone-50  — emphasis inverts to light */
+  --primary-foreground: #1c1917;   /* stone-900 */
+
+  --secondary: #292524;            /* stone-800 */
+  --secondary-foreground: #fafaf9; /* stone-50  */
+
+  --border: #292524;               /* stone-800 */
+  --input: #292524;                /* stone-800 */
+  --ring: #d6d3d1;                 /* stone-300 */
+
+  --destructive: #dc2626;          /* red-600 — IDENTICAL to light on purpose */
+  --destructive-foreground: #fafaf9;
+}
+
+/* --- Tailwind v4: bind each token to a utility (bg-background, etc.) --------
+ * These resolve at the USE site, so utilities follow `.dark` automatically.
+ * For Tailwind v3, delete this block and map the vars into
+ * tailwind.config.js `theme.extend.colors` instead (see SKILL.md Step 1). */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+}

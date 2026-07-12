@@ -89,6 +89,17 @@ A comprehensive collection for producing high-quality written content. See [`ski
 | Planning & Brainstorming | Writing Skills, Writing Plans, Brainstorming | TDD-based writing, strategic documentation, structured ideation |
 | Document Export | DOCX Export, Markdown to PDF | Final deliverable generation |
 
+### ⚙️ Frontend Engineering & Agent Orchestration
+Battle-tested methods from a real Next.js + Tailwind v4 console redesign — how to fan the work out across agents, audit it empirically, theme it, and build the component layer.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Parallel Agent Refactor | [`skills/parallel-agent-refactor/`](skills/parallel-agent-refactor/) | Large multi-file migrations via disjoint-ownership subagent fan-out + wave barriers |
+| Empirical Responsive Audit | [`skills/empirical-responsive-audit/`](skills/empirical-responsive-audit/) | Mechanical mobile/layout defect detection with a Playwright probe (ships a CI gate) |
+| Dark Mode Token Migration | [`skills/dark-mode-token-migration/`](skills/dark-mode-token-migration/) | Adding dark mode via a semantic token layer, with light kept pixel-identical |
+| shadcn + Tailwind v4 Primitives | [`skills/shadcn-tailwind-v4-primitives/`](skills/shadcn-tailwind-v4-primitives/) | Scaffolding token-based shadcn/ui + Radix primitives on Tailwind v4 |
+| UX Decision Rubrics | [`skills/ux-decision-rubrics/`](skills/ux-decision-rubrics/) | Objective form-control choice + user-story clarity scoring |
+
 ## How to Use
 
 ### For Windsurf / Cascade
