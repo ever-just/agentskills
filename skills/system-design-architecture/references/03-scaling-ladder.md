@@ -232,3 +232,7 @@ Match the symptom you can *measure* to the next move. Do not skip rungs; do not 
 - [Notion — Sharding Postgres](https://www.notion.com/blog/sharding-postgres-at-notion) · [Notion — Building & scaling the data lake](https://www.notion.com/blog/building-and-scaling-notions-data-lake)
 - [Shopify — A pods architecture to scale](https://shopify.engineering/a-pods-architecture-to-allow-shopify-to-scale) · [Shopify — Shard balancing at terabyte scale](https://shopify.engineering/mysql-database-shard-balancing-terabyte-scale)
 - [Stack Overflow — nine on-prem servers](https://www.datacenterdynamics.com/en/news/stack-overflow-still-on-prem-runs-qa-platform-off-just-nine-servers/) · [InfoQ — obsessing over performance](https://www.infoq.com/news/2015/06/scaling-stack-overflow/)
+
+---
+
+**Related in this skill:** [`04-capacity-limits`](04-capacity-limits.md) — measure the symptom/threshold that forces the next rung · [`05-cost-modeling`](05-cost-modeling.md) — the cost each rung adds · [`06-architecture-archetypes`](06-architecture-archetypes.md) — when the rung is "decompose the monolith" · [`09-case-studies`](09-case-studies.md) — real systems climbing this ladder.

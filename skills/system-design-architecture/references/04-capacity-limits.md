@@ -285,3 +285,7 @@ You provision for **peak plus headroom**, never for the average ([SRE School, He
 8. **Derive concrete limits** from the above: rate-limit (sustained + burst), pool sizes (HikariCP formula), autoscale target (50–70%, scale on the first-saturating metric), circuit-breaker rates/durations tied to the SLO (§9).
 9. **Provision for peak + N** with ~70% steady-state utilization, verify the system still meets SLO with N instances down at peak, and set a **runway alert** well before max capacity (§10).
 10. **Re-measure after every change** — latency numbers, α/β, and peak-to-average all drift; thresholds are living values, not one-time constants.
+
+---
+
+**Related in this skill:** [`03-scaling-ladder`](03-scaling-ladder.md) — a breached threshold here is the signal to climb a rung · [`05-cost-modeling`](05-cost-modeling.md) — capacity provisioning drives cost · [`../checklists/production-readiness.md`](../checklists/production-readiness.md) — the load-test/SLO gate before traffic.

@@ -354,3 +354,7 @@ Map your product's dominant characteristic to a starting archetype. These compos
 2. **Archetypes compose; don't pick just one.** EVERJUST is a modular monolith (Odoo) + multi-tenant SaaS (DB-per-tenant silo) + control plane + optional agent/MCP layer.
 3. **Match the conflict/consistency model to the domain** (Figma chose property-LWW over CRDTs because the domain allowed it) rather than reaching for the most sophisticated pattern.
 4. **For LLM systems, complexity is a cost, not a badge** — the winning move is usually the simplest workflow that hits the eval bar, not the most autonomous agent.
+
+---
+
+**Related in this skill:** [`07-product-layers`](07-product-layers.md) — the layers each archetype needs · [`03-scaling-ladder`](03-scaling-ladder.md) — how each archetype scales once chosen · [`09-case-studies`](09-case-studies.md) — real systems per archetype · [`11-decision-records`](11-decision-records.md) — record the archetype choice as an ADR.

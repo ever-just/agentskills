@@ -318,3 +318,7 @@ A case study is precedent, not a template. To turn one into your own design deci
 3. **Notice the corrections.** Uber's DOMA and Airbnb's macroservices are companies walking *back* from microservice sprawl; Figma, Notion, Instagram, and Shopify scaled boring databases (Postgres/MySQL) far further than "you must switch to NoSQL" folklore suggests. The strongest signal is what mature teams *stopped* doing.
 4. **Prefer incremental, reversible moves.** The recurring migration pattern (Stripe, Notion, Canva, Dropbox) is dual-write → backfill → verify with a comparison harness → cut over → clean up, never a big bang. Copy the *migration method* as readily as the end-state architecture.
 5. **Cite the primary source in your design doc.** Link the specific post/paper and pull the concrete numbers (shard counts, latency budgets, node counts). "Notion used 480 logical shards over 32 databases because 480 is highly divisible" is a defensible design input; "big companies shard, so we should" is not.
+
+---
+
+**Related in this skill:** [`03-scaling-ladder`](03-scaling-ladder.md) — the ladder these systems climbed · [`06-architecture-archetypes`](06-architecture-archetypes.md) — which archetype each one is · [`11-decision-records`](11-decision-records.md) — turn a precedent into a cited decision.
