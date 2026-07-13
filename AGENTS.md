@@ -128,6 +128,7 @@
 
 | Skill | Path | Use When |
 |-------|------|----------|
+| **Deep Research** | `skills/deep-research/AGENT_SKILL_DEEP_RESEARCH.md` | Multi-source deep-research harness — fan-out web searches, fetch and adversarially verify sources, synthesize a cited report on any topic |
 | **Intelligence Dossier** | `skills/intelligence-dossier/SKILL.md` | Building, populating, and maintaining a structured intelligence dossier on a private company — folder architecture, sections, ongoing maintenance |
 | **Industry Context Research** | `skills/industry-context-research/SKILL.md` | Building the industry-context layer of a dossier across six dimensions: Economics, History, Legal/Regulatory, Political, Sociological/Workforce, Technology |
 | **Verification Audit** | `skills/verification-audit/SKILL.md` | Cross-verifying every major finding in an intelligence dossier against independent sources — downgrade confidence, retract unverifiable claims |
