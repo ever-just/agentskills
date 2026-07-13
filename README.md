@@ -76,6 +76,7 @@ Generic Odoo 19 development skills — not tied to a specific everjust.app tenan
 | Odoo Community/Enterprise Parity | [`skills/odoo-community-enterprise-parity/`](skills/odoo-community-enterprise-parity/) | Replicating Enterprise features in Community via OCA modules |
 | Odoo Module 18→19 Migration | [`skills/odoo-module-18-to-19-migration/`](skills/odoo-module-18-to-19-migration/) | Porting modules through Odoo 19's model/field renames + security rewrite |
 | Odoo Multi-Tenant SaaS | [`skills/odoo-multi-tenant-saas/`](skills/odoo-multi-tenant-saas/) | Self-hosted multi-tenant SaaS on Odoo 19 CE — isolated DB per tenant |
+| Odoo Blue/Green Zero-Downtime Deploy | [`skills/odoo-bluegreen-zero-downtime/`](skills/odoo-bluegreen-zero-downtime/) | Ship addon changes to docker-compose Odoo with zero downtime — verified live `-u`, code-isolation trap, cutover state machine |
 
 ### 🎨 Design & Frontend Artifacts
 

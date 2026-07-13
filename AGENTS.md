@@ -114,6 +114,7 @@
 | **Odoo Community/Enterprise Parity** | `skills/odoo-community-enterprise-parity/SKILL.md` | Replicating Enterprise-only features in Odoo 19 Community Edition via OCA modules, custom addons, and strategic integration |
 | **Odoo Module 18→19 Migration** | `skills/odoo-module-18-to-19-migration/SKILL.md` | Porting OCA or custom Odoo modules from 18.0 to 19.0 — 130 model renames, 51 field renames, security rewrite, view schema changes |
 | **Odoo Multi-Tenant SaaS** | `skills/odoo-multi-tenant-saas/SKILL.md` | Building a self-hosted multi-tenant SaaS platform on Odoo 19 CE — isolated Postgres DB per tenant, custom subdomain, fully debranded UI from one binary |
+| **Odoo Blue/Green Zero-Downtime Deploy** | `skills/odoo-bluegreen-zero-downtime/SKILL.md` | Shipping addon changes + module upgrades to docker-compose Odoo with zero downtime — verified live-`-u` behavior, per-color code-isolation trap, asset flush+pre-warm, abort-safe cutover state machine, schema-breaking escape hatch |
 
 ### DESIGN & FRONTEND ARTIFACTS
 
