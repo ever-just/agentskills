@@ -47,6 +47,7 @@
 | **Deployment Testing** | `skills/deployment-testing/SKILL.md` | Verifying deployments, health checks, smoke testing |
 | **Email Mastery** | `skills/email-mastery/EMAIL_SKILLS.md` | AI email classification, response generation, template design |
 | **UI/UX Audit** | `skills/ui-ux-audit/SKILL.md` | Mobile and desktop UI/UX issue detection and remediation |
+| **UX Evaluation** | `skills/ux-evaluation/SKILL.md` | Diagnosing where a UX problem lives (strategy, structure, skeleton, surface) before fixing it; IA, interaction design, design systems |
 | **GoDaddy API** | `skills/godaddy-api/SKILL.md` | Domain management, DNS records, availability checks via GoDaddy REST API |
 | **Sentry Instrumentation** | `skills/sentry-instrumentation/SKILL.md` | Adding error tracking to Express/Next.js routes, verification testing |
 | **MongoDB Schema Audit** | `skills/mongodb-schema-audit/SKILL.md` | Index coverage auditing, relationship validation, data migrations |
@@ -127,6 +128,7 @@
 
 | Skill | Path | Use When |
 |-------|------|----------|
+| **Deep Research** | `skills/deep-research/AGENT_SKILL_DEEP_RESEARCH.md` | Multi-source deep-research harness — fan-out web searches, fetch and adversarially verify sources, synthesize a cited report on any topic |
 | **Intelligence Dossier** | `skills/intelligence-dossier/SKILL.md` | Building, populating, and maintaining a structured intelligence dossier on a private company — folder architecture, sections, ongoing maintenance |
 | **Industry Context Research** | `skills/industry-context-research/SKILL.md` | Building the industry-context layer of a dossier across six dimensions: Economics, History, Legal/Regulatory, Political, Sociological/Workforce, Technology |
 | **Verification Audit** | `skills/verification-audit/SKILL.md` | Cross-verifying every major finding in an intelligence dossier against independent sources — downgrade confidence, retract unverifiable claims |

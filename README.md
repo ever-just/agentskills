@@ -1,6 +1,6 @@
 # Agent Skills
 
-> A curated collection of **90+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. Spanning visual asset creation, platform operations, the full everjust.app Odoo tenant surface, AI-agent auditing, writing, marketing, and content strategy.
+> A curated collection of **115+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. Spanning visual asset creation, platform operations, the full everjust.app Odoo tenant surface, AI-agent auditing, writing, marketing, and content strategy.
 
 > **Contributing a skill?** See [`CONTRIBUTING.md`](CONTRIBUTING.md) for how to structure, place, register, and PR a skill — and how multiple agents can edit this repo without collisions.
 
@@ -44,6 +44,7 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Deployment Testing | [`skills/deployment-testing/`](skills/deployment-testing/) | Verifying deployments across environments |
 | Email Mastery | [`skills/email-mastery/`](skills/email-mastery/) | AI email processing, classification, response |
 | UI/UX Audit | [`skills/ui-ux-audit/`](skills/ui-ux-audit/) | Mobile & desktop UI/UX issue detection |
+| UX Evaluation | [`skills/ux-evaluation/`](skills/ux-evaluation/) | Layered UX critique & diagnosis (strategy → surface) |
 | GoDaddy API | [`skills/godaddy-api/`](skills/godaddy-api/) | Domain management, DNS records via GoDaddy REST API |
 | Sentry Instrumentation | [`skills/sentry-instrumentation/`](skills/sentry-instrumentation/) | Error tracking for Express/Next.js routes |
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
@@ -90,6 +91,7 @@ Building and verifying a company intelligence dossier from open sources — doss
 
 | Skill | Path | Best For |
 |-------|------|----------|
+| Deep Research | [`skills/deep-research/`](skills/deep-research/) | Multi-source research harness — fan-out search, adversarial verification, cited synthesis |
 | Intelligence Dossier | [`skills/intelligence-dossier/`](skills/intelligence-dossier/) | Structured dossier architecture + maintenance for a private company |
 | Industry Context Research | [`skills/industry-context-research/`](skills/industry-context-research/) | Six-dimension industry context layer (Econ/History/Legal/Political/Workforce/Tech) |
 | Verification Audit | [`skills/verification-audit/`](skills/verification-audit/) | Cross-verify dossier findings against independent sources |
