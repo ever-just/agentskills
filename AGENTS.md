@@ -52,6 +52,8 @@
 | **MongoDB Schema Audit** | `skills/mongodb-schema-audit/SKILL.md` | Index coverage auditing, relationship validation, data migrations |
 | **Admin Dashboard Verification** | `skills/admin-dashboard-verification/SKILL.md` | Systematic verification of admin dashboard features, drawers, cross-nav |
 | **Bun Testing** | `skills/bun-testing/SKILL.md` | Fast simulation tests with Bun — file verification, mock data, schema checks |
+| **Web Visibility** | `skills/web-visibility/SKILL.md` | SEO + AEO/GEO discoverability for search engines AND AI answer engines (ChatGPT Search, Perplexity, AI Overviews) — JSON-LD, robots.txt/llms.txt/IndexNow, auditing or building visibility into a new product |
+| **GitHub Research** | `skills/github-research/SKILL.md` | Searching GitHub intelligently for specs, reference implementations, adopters, config patterns — right surface (REST/GraphQL/code search), right qualifiers, gh CLI vs MCP |
 | **CDP Render Verification** | `skills/cdp-render-verification/SKILL.md` | Proving a web change rendered right via headless Chrome over CDP — computed-style checks, mobile emulation, code-leak/overflow detection, flow-driving |
 | **Trust Center & Compliance Program** | `skills/trust-center-compliance-program/SKILL.md` | Self-host Probo + author a coherent SOC 2 / ISO 27001 / GDPR program (controls, policies, risk register, RoPA, DPA, sub-processors) |
 | **EVERJUST Website Infra Views (MCP/XML-RPC)** | skills/everjust-website-infra-views/SKILL.md | Edit header/footer/JSON-LD/CSS infra views + robots.txt on an everjust.app tenant with NO SSH — the MCP `update` tool blocks `ir.ui.view` so write it via remote XML-RPC; an `active=False` fork shadows the base view; MCP/XML-RPC writes hot-invalidate the cache (no restart); `.grid` vs Tailwind; pace requests (503 under load) |
@@ -60,6 +62,13 @@
 | **Odoo Direct JSON-RPC Access** | `skills/odoo-direct-jsonrpc-access/SKILL.md` | Calling Odoo 19's classic /jsonrpc endpoint with a login+password when MCP/Bearer access isn't available — auth, batching, idempotent bulk import |
 | **Web Deploy Verification** | `skills/web-deploy-verification/SKILL.md` | Confirming a merged web change is actually live — URL polling, local-build screenshot fallback |
 | **Agent Discoverability** | `skills/agent-discoverability/SKILL.md` | Publish/register an MCP server so agents find and connect to it: official registry + directories, the OAuth well-known discovery chain, /.well-known/agent/mcp.json, and DNS-AID records (SVCB/TXT/TLSA/DNSSEC) |
+| **Generative Engine Optimization** | `skills/generative-engine-optimization/SKILL.md` | Optimizing a site so AI answer engines (ChatGPT, Perplexity, Google AI Overviews/Mode, Copilot) cite it as THE answer for category/intent searches, not just brand-name lookups |
+| **MCP Server Discoverability** | `skills/mcp-server-discoverability/SKILL.md` | Making a hosted MCP server + REST API discoverable/usable by AI agents — MCP Registry, /.well-known OAuth discovery, connector directories, agent-ranking tool descriptions |
+| **Reverse-Proxy CMS Indexing** | `skills/reverse-proxy-cms-indexing/SKILL.md` | Fixing SEO/indexing for a CMS behind a Host-rewriting reverse proxy (nginx/Cloudflare) — wrong robots.txt/sitemap/canonical from internal-vs-public host mismatch, ESPECIALLY on everjust.app/customdomain.ai |
+| **GitHub Actions → EC2 Deploy** | `skills/github-actions-ec2-deploy/SKILL.md` | CI/CD pipeline that deploys on every push to master by SSHing into an EC2 instance, pulling code, rebuilding containers, verifying health |
+| **GitHub Repo Management** | `skills/github-repo-management/SKILL.md` | Initializing a local dir as a git repo, creating a new GitHub repo (public/private), pushing existing work, cleaning up after renames/deletes — via `gh` CLI |
+| **Twilio Embedded Telephony** | `skills/twilio-embedded-telephony/SKILL.md` | Building a fully embedded phone system (calls + SMS) inside a web app using Twilio Voice JS SDK + Programmable SMS — no browser extensions, 100% white-labeled |
+| **Product Hunt Launch** | `skills/product-hunt-launch/SKILL.md` | Preparing and shipping a Product Hunt launch — copy, on-brand gallery assets at PH's exact sizes, demo video to YouTube, manual-submission handoff (the API has no launch-creation mutation) |
 
 ### EVERJUST PLATFORM (everjust.app Odoo 19 multi-tenant SaaS)
 
@@ -96,6 +105,48 @@
 | **EverJust Website Themes** | `skills/everjust-website-themes/SKILL.md` | Lifting a design-themes block vs a full theme swap, and why brand fonts/colors are always-on for everjust tenants |
 | **EverJust Website GEO Content** | `skills/everjust-website-geo-content/SKILL.md` | Build citable content clusters (pillar/glossary/guides) + per-page FAQPage/DefinedTerm/TechArticle JSON-LD + sitemap-freshness cron so an everjust Odoo site gets cited by AI answer engines |
 | **EverJust Odoo Shell Ops** | `skills/everjust-odoo-shell-ops/SKILL.md` | Operate a tenant Odoo from the box shell: DB-only publishing, COW-fork gotcha, restart-to-compile, CI-rsync recovery, deploy-collision avoidance, ir.cron, nginx stale-inode |
+
+### ODOO PLATFORM DEVELOPMENT (generic Odoo, not everjust-tenant-specific)
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Odoo Community/Enterprise Parity** | `skills/odoo-community-enterprise-parity/SKILL.md` | Replicating Enterprise-only features in Odoo 19 Community Edition via OCA modules, custom addons, and strategic integration |
+| **Odoo Module 18→19 Migration** | `skills/odoo-module-18-to-19-migration/SKILL.md` | Porting OCA or custom Odoo modules from 18.0 to 19.0 — 130 model renames, 51 field renames, security rewrite, view schema changes |
+| **Odoo Multi-Tenant SaaS** | `skills/odoo-multi-tenant-saas/SKILL.md` | Building a self-hosted multi-tenant SaaS platform on Odoo 19 CE — isolated Postgres DB per tenant, custom subdomain, fully debranded UI from one binary |
+
+### DESIGN & FRONTEND ARTIFACTS
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Canvas Design** | `skills/canvas-design/SKILL.md` | Creating beautiful visual art (poster/design/static piece) as .png/.pdf using design philosophy and original composition |
+| **Frontend Design** | `skills/frontend-design/SKILL.md` | Building distinctive, production-grade frontend interfaces with high design quality — web components, pages, artifacts, apps |
+| **Web Artifacts Builder** | `skills/web-artifacts-builder/SKILL.md` | Multi-component claude.ai HTML artifacts using React/Tailwind/shadcn — state management, routing, complex components (not simple single-file JSX) |
+| **LLM Deeplink Widget** | `skills/llm-deeplink-widget/SKILL.md` | Building an "Ask AI about us" widget — icon buttons that deep-link a visitor into their own LLM app (ChatGPT/Claude/Perplexity/Google AI Mode/Grok) with a pre-filled prompt |
+
+### RESEARCH, OSINT & COMPETITIVE INTELLIGENCE
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Intelligence Dossier** | `skills/intelligence-dossier/SKILL.md` | Building, populating, and maintaining a structured intelligence dossier on a private company — folder architecture, sections, ongoing maintenance |
+| **Industry Context Research** | `skills/industry-context-research/SKILL.md` | Building the industry-context layer of a dossier across six dimensions: Economics, History, Legal/Regulatory, Political, Sociological/Workforce, Technology |
+| **Verification Audit** | `skills/verification-audit/SKILL.md` | Cross-verifying every major finding in an intelligence dossier against independent sources — downgrade confidence, retract unverifiable claims |
+| **Client Discovery OSINT** | `skills/client-discovery-osint/SKILL.md` | Identifying the clients/customers of a private company using only open-source intelligence (bootstrapped VARs/consultancies rarely publish client lists) |
+| **Competitor Identification** | `skills/competitor-identification/SKILL.md` | Finding and validating the nearest competitors for a company via manufacturer partner networks, free APIs, and dataset screening — ranked Top 10 |
+| **Supplier Verification** | `skills/supplier-verification/SKILL.md` | Turning an unverified partner-logo wall into a confirmed, evidence-ranked supplier relationship map with products, manufacturing origin, tariff exposure |
+| **OEM Partner Verification** | `skills/oem-partner-verification/SKILL.md` | Verifying whether a company's claimed OEM/manufacturer partnerships are reciprocally confirmed on the manufacturer's own site |
+| **Commercial Property Research** | `skills/commercial-property-research/SKILL.md` | Researching a company's physical facilities, warehouse operations, and real estate footprint from public sources |
+| **Domain Email Enumeration** | `skills/domain-email-enumeration/SKILL.md` | Discovering all email addresses, mail infrastructure, and contact patterns associated with a domain via DNS + OSINT tools |
+| **Google Dorking OSINT** | `skills/google-dorking-osint/SKILL.md` | Finding publicly indexed documents, exposed files, and hidden intelligence about a target company via Google advanced search operators |
+| **Ad Transparency Audit** | `skills/ad-transparency-audit/SKILL.md` | Determining a company's actual paid ad activity by cross-referencing installed tracking pixels against public ad transparency platforms |
+| **Open-Source Traffic Analysis** | `skills/open-source-traffic-analysis/SKILL.md` | Estimating any website's traffic, keyword profile, and visibility with free/open-source tools — no SimilarWeb Pro/Ahrefs/SEMrush needed |
+| **Website Tech Stack Analysis** | `skills/website-techstack-analysis/SKILL.md` | Uncovering the full tech stack behind a website — frameworks, CMS, CDN, analytics, hosting, server software, security headers |
+| **LinkedIn Activity Intelligence** | `skills/linkedin-activity-intelligence/SKILL.md` | Extracting structured intelligence from a LinkedIn activity feed when direct API/scraping is blocked — MHTML parsing, authenticated video download, batch image analysis |
+| **Era-Validated LinkedIn Analysis** | `skills/era-validated-linkedin-analysis/SKILL.md` | QA methodology preventing misattribution when a LinkedIn feed spans multiple employers — era separation to avoid contaminating a dossier |
+| **Video Intelligence** | `skills/video-intelligence/SKILL.md` | Extracting intelligence from video content (YouTube/Vimeo/company sites) — facility scale, team composition, product demos, signage, event attendance |
+| **Visual Intelligence** | `skills/visual-intelligence/SKILL.md` | Extracting business intelligence from video frames (facilities/products/team/branding/equipment) via frame extraction + multimodal vision |
+| **Contact Sheet Image Analysis** | `skills/contact-sheet-image-analysis/SKILL.md` | Gridding large batches of images into contact sheets for efficient AI vision review instead of reading images one-by-one |
+| **Web Crawl Intelligence Extraction** | `skills/web-crawl-intelligence-extraction/SKILL.md` | Processing saved "webcomplete" captures, Wayback Machine archives, video transcripts, and API dumps to extract intelligence never systematically analyzed |
+| **Business Model Canvas Builder** | `skills/business-model-canvas/SKILL.md` | Building a rigorous 9-block Osterwalder Business Model Canvas for a company from structured intelligence data |
 
 ### AI AGENT AUDITING & FORENSICS
 

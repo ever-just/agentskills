@@ -49,6 +49,8 @@ Skills for building, deploying, and operating AI-powered platforms.
 | MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
 | Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
 | Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
+| Web Visibility | [`skills/web-visibility/`](skills/web-visibility/) | SEO + AEO/GEO discoverability for search AND AI answer engines |
+| GitHub Research | [`skills/github-research/`](skills/github-research/) | Intelligent GitHub search for specs, implementations, adopters |
 | CDP Render Verification | [`skills/cdp-render-verification/`](skills/cdp-render-verification/) | Headless-Chrome CDP verification of web changes (computed styles, mobile, flows) |
 | Trust Center & Compliance Program | [`skills/trust-center-compliance-program/`](skills/trust-center-compliance-program/) | Self-host Probo + author SOC 2 / ISO 27001 / GDPR program |
 | EVERJUST Website Infra Views | [`skills/everjust-website-infra-views/`](skills/everjust-website-infra-views/) | Edit infra/chrome/JSON-LD/CSS views + robots.txt on an everjust.app tenant via XML-RPC (MCP blocks `ir.ui.view`) |
@@ -57,6 +59,57 @@ Skills for building, deploying, and operating AI-powered platforms.
 | Odoo Direct JSON-RPC Access | [`skills/odoo-direct-jsonrpc-access/`](skills/odoo-direct-jsonrpc-access/) | Odoo 19 /jsonrpc access with login+password (no MCP/Bearer needed) |
 | Web Deploy Verification | [`skills/web-deploy-verification/`](skills/web-deploy-verification/) | Confirm a merged change is live — URL polling, local screenshot fallback |
 | Agent Discoverability | [`skills/agent-discoverability/`](skills/agent-discoverability/) | Publishing an MCP server so agents find and connect it: registry + directories, OAuth discovery chain, capability manifest, DNS-AID |
+| Generative Engine Optimization | [`skills/generative-engine-optimization/`](skills/generative-engine-optimization/) | Get AI answer engines to cite a site as THE answer, not just a brand lookup |
+| MCP Server Discoverability | [`skills/mcp-server-discoverability/`](skills/mcp-server-discoverability/) | Make a hosted MCP server + API discoverable/usable by AI agents |
+| Reverse-Proxy CMS Indexing | [`skills/reverse-proxy-cms-indexing/`](skills/reverse-proxy-cms-indexing/) | Fix robots.txt/sitemap/canonical mismatches behind a Host-rewriting proxy |
+| GitHub Actions → EC2 Deploy | [`skills/github-actions-ec2-deploy/`](skills/github-actions-ec2-deploy/) | CI/CD: push-to-deploy pipeline over SSH into EC2 |
+| GitHub Repo Management | [`skills/github-repo-management/`](skills/github-repo-management/) | Init/create/push/cleanup GitHub repos via `gh` CLI |
+| Twilio Embedded Telephony | [`skills/twilio-embedded-telephony/`](skills/twilio-embedded-telephony/) | Embedded calls + SMS in a web app via Twilio Voice JS SDK |
+| Product Hunt Launch | [`skills/product-hunt-launch/`](skills/product-hunt-launch/) | PH launch copy, gallery assets, video prep, manual-submission handoff |
+
+### 🐘 Odoo Platform Development
+Generic Odoo 19 development skills — not tied to a specific everjust.app tenant.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Odoo Community/Enterprise Parity | [`skills/odoo-community-enterprise-parity/`](skills/odoo-community-enterprise-parity/) | Replicating Enterprise features in Community via OCA modules |
+| Odoo Module 18→19 Migration | [`skills/odoo-module-18-to-19-migration/`](skills/odoo-module-18-to-19-migration/) | Porting modules through Odoo 19's model/field renames + security rewrite |
+| Odoo Multi-Tenant SaaS | [`skills/odoo-multi-tenant-saas/`](skills/odoo-multi-tenant-saas/) | Self-hosted multi-tenant SaaS on Odoo 19 CE — isolated DB per tenant |
+
+### 🎨 Design & Frontend Artifacts
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Canvas Design | [`skills/canvas-design/`](skills/canvas-design/) | Original visual art as .png/.pdf posters/designs |
+| Frontend Design | [`skills/frontend-design/`](skills/frontend-design/) | Distinctive, production-grade frontend interfaces |
+| Web Artifacts Builder | [`skills/web-artifacts-builder/`](skills/web-artifacts-builder/) | Multi-component React/Tailwind/shadcn claude.ai artifacts |
+| LLM Deeplink Widget | [`skills/llm-deeplink-widget/`](skills/llm-deeplink-widget/) | "Ask AI about us" widget deep-linking into ChatGPT/Claude/Perplexity |
+
+### 🕵️ Research, OSINT & Competitive Intelligence
+Building and verifying a company intelligence dossier from open sources — dossier architecture, source verification, and specialized extraction techniques (LinkedIn, video, images, web archives).
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Intelligence Dossier | [`skills/intelligence-dossier/`](skills/intelligence-dossier/) | Structured dossier architecture + maintenance for a private company |
+| Industry Context Research | [`skills/industry-context-research/`](skills/industry-context-research/) | Six-dimension industry context layer (Econ/History/Legal/Political/Workforce/Tech) |
+| Verification Audit | [`skills/verification-audit/`](skills/verification-audit/) | Cross-verify dossier findings against independent sources |
+| Client Discovery OSINT | [`skills/client-discovery-osint/`](skills/client-discovery-osint/) | Identify a private company's clients from open sources |
+| Competitor Identification | [`skills/competitor-identification/`](skills/competitor-identification/) | Ranked Top-10 competitor discovery and validation |
+| Supplier Verification | [`skills/supplier-verification/`](skills/supplier-verification/) | Evidence-ranked supplier map from a partner-logo wall |
+| OEM Partner Verification | [`skills/oem-partner-verification/`](skills/oem-partner-verification/) | Confirm claimed OEM partnerships against the manufacturer's own site |
+| Commercial Property Research | [`skills/commercial-property-research/`](skills/commercial-property-research/) | Facilities/warehouse/real-estate footprint from public records |
+| Domain Email Enumeration | [`skills/domain-email-enumeration/`](skills/domain-email-enumeration/) | Discover emails + mail infra for a domain via DNS + OSINT |
+| Google Dorking OSINT | [`skills/google-dorking-osint/`](skills/google-dorking-osint/) | Advanced search-operator OSINT for exposed docs/intel |
+| Ad Transparency Audit | [`skills/ad-transparency-audit/`](skills/ad-transparency-audit/) | Real ad spend vs. pixel infrastructure, via ad transparency platforms |
+| Open-Source Traffic Analysis | [`skills/open-source-traffic-analysis/`](skills/open-source-traffic-analysis/) | Free-tool website traffic/keyword estimation |
+| Website Tech Stack Analysis | [`skills/website-techstack-analysis/`](skills/website-techstack-analysis/) | Full tech stack (framework/CMS/CDN/hosting/security headers) |
+| LinkedIn Activity Intelligence | [`skills/linkedin-activity-intelligence/`](skills/linkedin-activity-intelligence/) | Structured intel from a LinkedIn feed when API/scraping is blocked |
+| Era-Validated LinkedIn Analysis | [`skills/era-validated-linkedin-analysis/`](skills/era-validated-linkedin-analysis/) | Prevent employer-era misattribution in LinkedIn analysis |
+| Video Intelligence | [`skills/video-intelligence/`](skills/video-intelligence/) | Intel extraction from YouTube/Vimeo/company video |
+| Visual Intelligence | [`skills/visual-intelligence/`](skills/visual-intelligence/) | Intel from video frames via multimodal vision |
+| Contact Sheet Image Analysis | [`skills/contact-sheet-image-analysis/`](skills/contact-sheet-image-analysis/) | Grid large image batches for efficient AI vision review |
+| Web Crawl Intelligence Extraction | [`skills/web-crawl-intelligence-extraction/`](skills/web-crawl-intelligence-extraction/) | Extract intel from saved captures/archives/transcripts/API dumps |
+| Business Model Canvas Builder | [`skills/business-model-canvas/`](skills/business-model-canvas/) | 9-block Osterwalder BMC from structured intelligence data |
 
 ### 🏢 EverJust Platform (everjust.app Odoo 19 multi-tenant SaaS)
 Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on.
