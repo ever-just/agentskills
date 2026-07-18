@@ -70,6 +70,8 @@
 | **GitHub Repo Management** | `skills/github-repo-management/SKILL.md` | Initializing a local dir as a git repo, creating a new GitHub repo (public/private), pushing existing work, cleaning up after renames/deletes — via `gh` CLI |
 | **Twilio Embedded Telephony** | `skills/twilio-embedded-telephony/SKILL.md` | Building a fully embedded phone system (calls + SMS) inside a web app using Twilio Voice JS SDK + Programmable SMS — no browser extensions, 100% white-labeled |
 | **Product Hunt Launch** | `skills/product-hunt-launch/SKILL.md` | Preparing and shipping a Product Hunt launch — copy, on-brand gallery assets at PH's exact sizes, demo video to YouTube, manual-submission handoff (the API has no launch-creation mutation) |
+| **Deploy-Log Forensics** | `skills/deploy-log-forensics/SKILL.md` | Attributing what changed on production (commit → module → tenant → time) from CI/CD run logs when there's NO server access — run→commit-range mapping, log change-markers, caused-vs-exposed, diagnostic-dispatch hygiene |
+| **Production Revert Discipline** | `skills/production-revert-discipline/SKILL.md` | Safely reverting a deployed feature on a stateful platform — culprit binding, dependency check on later commits, what a revert does NOT undo (DB installs, exposed core surfaces), the stale-revert decay rule |
 
 ### EVERJUST PLATFORM (everjust.app Odoo 19 multi-tenant SaaS)
 
@@ -159,6 +161,7 @@
 | **Agent Quality Grading** | `skills/agent-quality-grading/SKILL.md` | Grading agent conversations (task/speed/tools/message), generated assets, and prompts/configs |
 | **Finding → Fix Remediation** | `skills/finding-forensic-remediation/SKILL.md` | Turning audit findings into a git-grounded, prioritized fix backlog (root cause, when-introduced, status, exact fix) |
 | **Temporal Finding Validation** | `skills/temporal-finding-validation/SKILL.md` | Cross-checking findings vs the commit timeline (UTC-normalized) to confirm still-live vs already-fixed |
+| **Unmerged-Work Census** | `skills/unmerged-work-census/SKILL.md` | Finding ALL work that never reached the default branch — hidden code on stale-description PRs, never-PR'd branches, git cherry vs history-rewrite ghosts, local-clone drift, stashes/dangling commits; read-only, spot-verified |
 
 ### WRITING & PROSE QUALITY
 

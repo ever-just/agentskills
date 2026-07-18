@@ -67,6 +67,8 @@ Skills for building, deploying, and operating AI-powered platforms.
 | GitHub Repo Management | [`skills/github-repo-management/`](skills/github-repo-management/) | Init/create/push/cleanup GitHub repos via `gh` CLI |
 | Twilio Embedded Telephony | [`skills/twilio-embedded-telephony/`](skills/twilio-embedded-telephony/) | Embedded calls + SMS in a web app via Twilio Voice JS SDK |
 | Product Hunt Launch | [`skills/product-hunt-launch/`](skills/product-hunt-launch/) | PH launch copy, gallery assets, video prep, manual-submission handoff |
+| Deploy-Log Forensics | [`skills/deploy-log-forensics/`](skills/deploy-log-forensics/) | Attribute production changes from CI/CD run logs with no server access — which deploy carried which commit to which target, when |
+| Production Revert Discipline | [`skills/production-revert-discipline/`](skills/production-revert-discipline/) | Roll back a deployed feature safely — culprit binding, later-commit dependency check, what a revert does NOT undo |
 
 ### 🐘 Odoo Platform Development
 Generic Odoo 19 development skills — not tied to a specific everjust.app tenant.
@@ -150,6 +152,7 @@ Skills for auditing a *deployed* AI-agent platform from its real logs — extrac
 | Agent Quality Grading | [`skills/agent-quality-grading/`](skills/agent-quality-grading/) | Grade conversations (task/speed/tools/message-quality), generated assets, and prompts/configs — with verbatim evidence |
 | Finding → Fix Remediation | [`skills/finding-forensic-remediation/`](skills/finding-forensic-remediation/) | Turn findings into a git-grounded backlog: root cause at path:line, when-introduced, status, exact fix |
 | Temporal Finding Validation | [`skills/temporal-finding-validation/`](skills/temporal-finding-validation/) | Cross-check findings vs the commit timeline (UTC-normalized) — still-live vs already-fixed |
+| Unmerged-Work Census | [`skills/unmerged-work-census/`](skills/unmerged-work-census/) | Sweep for work that never landed: stale-description PRs, never-PR'd branches, rewrite ghosts (git cherry + spot-verify), local drift |
 
 ### 🔍 Research & Due Diligence
 Skills for researching companies, vetting vendors, and surfacing legal and reputation risk using only free public sources.
