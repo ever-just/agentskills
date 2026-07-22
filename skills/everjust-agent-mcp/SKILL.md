@@ -96,6 +96,18 @@ All tools take a `model` (Odoo dotted name, e.g. `res.partner`, `crm.lead`,
 | `update` | `(model, ids, values)` | `write` — set `values` on the given ids. |
 | `delete` | `(model, ids, confirm)` | `unlink`. **Requires `confirm: true`.** ACL-gated (`unlink` right). |
 | `call` | `(model, method, ids?, args?, kwargs?, confirm?)` | Escape hatch — call any ORM/model method. Read-only methods run directly; **non-read methods require `confirm: true`.** |
+| `mail_send` | `(account_id, to, subject, body?, body_html?, cc?, bcc?, in_reply_to?, confirm?)` | Send from an `everjust.mail.account` mailbox — the ONLY way to send mail here. See [[everjust-mail-ops]]. |
+
+Newer tenants also expose `platform_info`, `list_installed_modules`, `whats_new`,
+and the `website_*` page-editing tools — this table predates those; run
+`describe_model`/check `platform_info` on connect for the live, authoritative
+tool list rather than trusting an enumeration here.
+
+> **Never `create`/`update` on `mail.mail` or `mail.message`.** Both are
+> hard-blocked (server v1.4.0+) — a raw row there can deliver via the mail
+> server while staying permanently invisible in the mailbox UI. Use
+> `mail_send` (or `call` → `everjust.mail.account.compose_send`) — see
+> [[everjust-mail-ops]] for the full send/receive model.
 
 Odoo **domain** syntax (used by `search` and `count`) is a list of triples and
 logical operators, e.g.
@@ -339,6 +351,14 @@ describe_model(model="account.move").your_access
    syntax (`[["field","op","value"]]`), not free-text or SQL `WHERE`. Booleans
    use `true`/`false` (Odoo `False`), and dotted paths (`stage_id.name`) traverse
    relations.
+
+9. **Mail is not a generic model — use `mail_send`, never `create`.** This
+   platform's mail is a from-scratch stack on `everjust.mail.*` (not Odoo
+   Discuss/IMAP). `mail.mail`/`mail.message` are hard-blocked from `create`/
+   `update`, and `call` on them is read-only, specifically to force this. This
+   holds even if you separately have a raw Odoo API key / direct JSON-RPC
+   access that bypasses the MCP for some other guarded model — that channel
+   enforces none of this, so don't reuse it for mail. See [[everjust-mail-ops]].
 
 ## See also
 

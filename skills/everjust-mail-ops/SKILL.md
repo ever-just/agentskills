@@ -1,6 +1,6 @@
 ---
 name: everjust-mail-ops
-description: Operate the everjust.app NATIVE mail platform (send/receive as a mailbox, inspect a domain's verification, read a mailbox's entries, check suppression) via the Odoo MCP/ORM. Use when the task is to send an email as an everjust.app tenant address, read/triage a mailbox, diagnose why a send is blocked, check a sending domain's DKIM/verification state, or verify a bounce/complaint suppression. This is the everjust.mail.* stack (custom webmail), NOT Odoo Discuss and NOT raw mail.mail — do not reach for mail.thread/Discuss/message_post. Always read the returned delivery result; a filed Sent entry is not proof of delivery. Cross-references [[everjust-platform]] and [[everjust-agent-mcp]].
+description: Operate the everjust.app NATIVE mail platform (send/receive as a mailbox, inspect a domain's verification, read a mailbox's entries, check suppression) via the Odoo MCP/ORM. Use when the task is to send an email as an everjust.app tenant address, read/triage a mailbox, diagnose why a send is blocked, check a sending domain's DKIM/verification state, or verify a bounce/complaint suppression. This is the everjust.mail.* stack (custom webmail), NOT Odoo Discuss and NOT raw mail.mail — do not reach for mail.thread/Discuss/message_post, and do not hand-roll mail.mail even via a raw Odoo API key that bypasses the MCP (it can deliver while staying invisible in the mailbox UI). Send through compose_send or the MCP's mail_send tool only. Always read the returned delivery result; a filed Sent entry is not proof of delivery. Cross-references [[everjust-platform]] and [[everjust-agent-mcp]].
 ---
 
 # EVERJUST Mail Ops — Agent Skill
@@ -85,6 +85,14 @@ on success, or `{"ok": False, "error": "..."}` on an access/parse failure BEFORE
 anything is persisted. **You must read the transport keys** (`queued`, `delivery`) — see
 Pitfalls. SES creds never live in this method; they're in the `ir.mail_server` row,
 IAM-scoped to that one identity.
+
+**If you're connected via `everjust_agent_mcp`, call the dedicated `mail_send` tool** —
+`{name: "mail_send", arguments: {account_id, to, subject, body|body_html, cc?, bcc?,
+in_reply_to?, confirm: true}}` — it's a thin wrapper over `compose_send` with the exact
+same contract. `in_reply_to` there is an `everjust.mail.entry` id (from `search` on that
+model), not a `mail.message` id. As of MCP server v1.4.0, `mail.mail` and `mail.message`
+are **hard-blocked** from the generic `create`/`update`/`call` tools for exactly the
+reason in Pitfall 1 below — `mail_send` is the only path left, by design.
 
 Also present: `_cron_canary_roundtrip` on `everjust.mail.account` — a scheduled
 send→SES→SNS→backend→deliver health check. Ships DISABLED; a no-op unless
@@ -209,7 +217,19 @@ Bounces/complaints arrive automatically via the backend's HMAC `/everjust_mail/b
    `compose_send` → `_ui_transport_send`, which enforces the verified-identity / 300-hr /
    suppression gates and selects the IAM-scoped SES server by `from_filter`. A hand-rolled
    `mail.mail` bypasses every gate — it can mail a suppressed address, send from an
-   unverified identity, or pick the wrong (or no) transport.
+   unverified identity, or pick the wrong (or no) transport. It can also **actually
+   deliver and still be permanently invisible in the mailbox UI**: the webmail Sent/Inbox
+   view is driven by `everjust.mail.entry` rows (per-mailbox: `account_id`, `folder_id`,
+   `message_id`), not by `mail.message.model`/`res_id`. A raw `mail.mail` create typically
+   sets neither — real send, zero trace in the UI, and the operator has no way to tell
+   from the mailbox whether anything went out. Use `compose_send` (or the MCP `mail_send`
+   tool) — it does both the send AND the entry-filing atomically. **This applies even if
+   you're operating through a raw Odoo API key / direct JSON-RPC that bypasses the MCP
+   entirely** (e.g. because some other guarded model needed it — `mail.template`,
+   `ir.ui.view`, `appointment.type`) — that channel has none of `everjust_agent_mcp`'s
+   guardrails or hard-blocks, so the discipline has to come from you, not the transport.
+   Reach for `compose_send` specifically for mail, every time, regardless of which channel
+   you're otherwise using for the rest of the task.
 
 2. **A filed Sent entry is NOT proof of delivery.** `compose_send` files the Sent
    `everjust.mail.entry` BEFORE transport, so a Sent row exists even when the send was
