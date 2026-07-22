@@ -205,7 +205,7 @@
 | **Launch Strategy** | `skills/white-paper-writing/marketing-launch-strategy/SKILL.md` | Product launch and go-to-market strategy |
 | **Pricing Strategy** | `skills/white-paper-writing/marketing-pricing-strategy/SKILL.md` | SaaS pricing, packaging, monetization |
 | **Marketing Psychology** | `skills/white-paper-writing/marketing-psychology/SKILL.md` | 30+ psychological principles for marketing |
-| **AI Marketing Skills** | `skills/white-paper-writing/ai-marketing-skills/` | 17 marketing frameworks (content ideas, LinkedIn, case studies, homepage audit) |
+| **AI Marketing Skills** | `skills/white-paper-writing/ai-marketing-skills/` | 23 marketing frameworks (content ideas, LinkedIn, case studies, homepage audit) |
 
 ### PLANNING & BRAINSTORMING
 
@@ -238,6 +238,22 @@
 |-------|------|----------|
 | **ICP Prospect List Builder** | `skills/icp-prospect-list-builder/SKILL.md` | Building a prioritized, source-cited B2B prospect dataset from public data — define an ICP in searchable terms, discover matching companies (source-code/technographic search, competitor customer bases, software + AI directories, Product Hunt API, accelerator portfolios), then categorize, ICP-score, dedupe, and pull size-routed contacts |
 | **Parallel Agent Fan-Out** | `skills/parallel-agent-fanout/SKILL.md` | Orchestrating dozens of concurrent subagents into one verified dataset — 3-wave discovery→pull→synthesis pipeline, shared instruction templates, no-delegation rule, file-on-disk completion checks, batching, incremental commits, recombine + row-integrity validation |
+
+### SOFTWARE ENGINEERING PRACTICES
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Diagnosing Bugs** | `skills/diagnosing-bugs/SKILL.md` | Hard bugs and performance regressions — build a tight red/green feedback loop before hypothesizing, then reproduce, minimize, rank hypotheses, instrument, fix with a regression test, clean up |
+| **TDD** | `skills/tdd/SKILL.md` | Building features or fixing bugs test-first — what makes a test worth keeping (behavior through public interfaces), pre-agreed seams, and the anti-patterns (implementation-coupled, tautological, horizontal-sliced) that make tests lie |
+| **Resolving Merge Conflicts** | `skills/resolving-merge-conflicts/SKILL.md` | An in-progress git merge/rebase conflict — understand each side's intent from commits/PRs/issues before resolving hunks, then run checks and finish |
+
+### AGENT WORKFLOW & SESSION CONTINUITY
+
+| Skill | Path | Use When |
+|-------|------|----------|
+| **Grilling** | `skills/grilling/SKILL.md` | Stress-testing a plan, decision, or idea — a relentless, one-question-at-a-time Socratic interview with recommended answers, deferring only real decisions to the human |
+| **Handoff** | `skills/handoff/SKILL.md` | Ending a session, running low on context, or continuing work in a new session — compact the conversation into a standalone handoff doc (state, decisions + why, suggested skills), redacted, referencing rather than duplicating other artifacts |
+| **Wayfinder** | `skills/wayfinder/SKILL.md` | Planning work too big for one agent session as a shared map of decision tickets on an issue tracker (or local files), resolved one at a time across as many sessions as it takes |
 
 ## Decision Tree
 

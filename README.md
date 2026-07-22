@@ -201,6 +201,24 @@ Skills for building large sales/GTM datasets from public data and for orchestrat
 | ICP Prospect List Builder | [`skills/icp-prospect-list-builder/`](skills/icp-prospect-list-builder/) | Building a prioritized, source-cited prospect dataset (companies + size-routed contacts) from public data — ICP scoring, ranked discovery sources incl. the Product Hunt API, dedup |
 | Parallel Agent Fan-Out | [`skills/parallel-agent-fanout/`](skills/parallel-agent-fanout/) | Orchestrating dozens of concurrent subagents into one verified dataset — 3-wave pipeline, no-delegation rule, file-on-disk checks, recombine + row-integrity validation |
 
+### 🛠️ Software Engineering Practices
+Day-to-day engineering technique skills — debugging, testing, and git hygiene — distinct from Software Architecture & System Design's big-picture design work.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Diagnosing Bugs | [`skills/diagnosing-bugs/`](skills/diagnosing-bugs/) | A disciplined diagnosis loop for hard bugs/perf regressions — build a red-capable feedback loop first, then reproduce, minimize, rank hypotheses, instrument, fix with a regression test |
+| TDD | [`skills/tdd/`](skills/tdd/) | Red/green/refactor done well — tests at pre-agreed seams, testing behavior not implementation, avoiding tautological and horizontal-sliced tests |
+| Resolving Merge Conflicts | [`skills/resolving-merge-conflicts/`](skills/resolving-merge-conflicts/) | Resolving an in-progress git merge/rebase conflict by intent, not by guesswork |
+
+### 🧭 Agent Workflow & Session Continuity
+Skills for the meta-work of running a long AI-assisted effort — stress-testing plans, carrying context across sessions, and planning work too big for one sitting.
+
+| Skill | Path | Best For |
+|-------|------|----------|
+| Grilling | [`skills/grilling/`](skills/grilling/) | A relentless, one-question-at-a-time interview to stress-test a plan or decision before acting on it |
+| Handoff | [`skills/handoff/`](skills/handoff/) | Compacting a conversation into a standalone doc so a fresh session can pick up the work |
+| Wayfinder | [`skills/wayfinder/`](skills/wayfinder/) | Planning huge, multi-session work as a map of decision tickets on an issue tracker, resolved one at a time |
+
 ## How to Use
 
 ### For Windsurf / Cascade
