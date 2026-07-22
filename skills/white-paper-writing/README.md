@@ -31,7 +31,7 @@ Curated collection of agent skills imported from GitHub repos to support writing
 | **[marketing-launch-strategy](./marketing-launch-strategy/)** | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | Product launch and go-to-market strategy planning. |
 | **[marketing-pricing-strategy](./marketing-pricing-strategy/)** | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | SaaS pricing, packaging, and monetization strategy. |
 | **[marketing-psychology](./marketing-psychology/)** | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | 30+ psychological principles and mental models for marketing: first principles, jobs to be done, social proof, scarcity, loss aversion, anchoring, framing, and more. |
-| **[ai-marketing-skills](./ai-marketing-skills/)** | [BrianRWagner/ai-marketing-skills](https://github.com/BrianRWagner/ai-marketing-skills) | 17 marketing frameworks including content idea generator, LinkedIn authority builder, newsletter creation, testimonial collector, case study builder, homepage audit, de-AI-ify, and YouTube summarizer. |
+| **[ai-marketing-skills](./ai-marketing-skills/)** | [BrianRWagner/ai-marketing-skills](https://github.com/BrianRWagner/ai-marketing-skills) | 23 marketing frameworks including content idea generator, LinkedIn authority builder, newsletter creation, testimonial collector, case study builder, homepage audit, de-AI-ify, and YouTube summarizer. |
 
 ### Planning & Brainstorming
 
@@ -80,6 +80,6 @@ Curated collection of agent skills imported from GitHub repos to support writing
 | [SHADOWPR0/beautiful_prose](https://github.com/SHADOWPR0/beautiful_prose) | Community | Anti-slop writing style contract |
 | [blader/humanizer](https://github.com/blader/humanizer) | Community | Wikipedia-based AI writing pattern removal |
 | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | Official | Full SaaS marketing stack by Corey Haines |
-| [BrianRWagner/ai-marketing-skills](https://github.com/BrianRWagner/ai-marketing-skills) | Community | 17 marketing frameworks |
+| [BrianRWagner/ai-marketing-skills](https://github.com/BrianRWagner/ai-marketing-skills) | Community | 23 marketing frameworks |
 | [obra/superpowers](https://github.com/obra/superpowers) | Community | Agentic skills framework & dev methodology |
 | [NeoLabHQ/context-engineering-kit](https://github.com/NeoLabHQ/context-engineering-kit) | Community | Elements of Style as agent skill |
