@@ -1,6 +1,6 @@
 ---
 name: everjust-documents
-description: Operate the "Documents" app of an everjust.app Odoo 19 tenant (browse/create/move folders and files, upload, download, tag, migrate storage, point Documents at the tenant's private cloud) via the Odoo MCP/ORM. Use to read or mutate a tenant's documents — create a folder (dms.directory) or file (dms.file), fetch a file's bytes, move/archive/lock/tag a file, or wire the app to Nextcloud-over-WebDAV. This is the OCA dms stack (dms.file / dms.directory / dms.storage) plus the bespoke everjust_documents layer that stores every file PHYSICALLY in the tenant's Nextcloud over WebDAV (fs_storage + fs_attachment) — NOT Odoo Enterprise "documents.document" (that model does not exist here), NOT raw ir.attachment. Only some tenants have it installed (tcstartupweek + headsup as of 2026-07, NOT connectdomain) — check first. Files depend on live Nextcloud connectivity and a webdav4 monkeypatch. Cross-references [[everjust-platform]], [[everjust-agent-mcp]]; sibling of [[everjust-mail-ops]], [[everjust-sms]].
+description: Operate the "Documents" app of an everjust.app Odoo 19 tenant (browse/create/move folders and files, upload, download, tag, migrate storage, point Documents at the tenant's private cloud) via the Odoo MCP/ORM. Use to read or mutate a tenant's documents — create a folder (dms.directory) or file (dms.file), fetch a file's bytes, move/archive/lock/tag a file, or wire the app to Nextcloud-over-WebDAV. This is the OCA dms stack (dms.file / dms.directory / dms.storage) plus the bespoke everjust_documents layer that stores every file PHYSICALLY in the tenant's Nextcloud over WebDAV (fs_storage + fs_attachment) — NOT Odoo Enterprise "documents.document" (that model does not exist here), NOT raw ir.attachment. Only some tenants have it installed (tcstartupweek + headsup as of 2026-07, NOT connectdomain) — check first. Files depend on live Nextcloud connectivity and a webdav4 monkeypatch. Cross-refs [[everjust-platform]], [[everjust-agent-mcp]], [[everjust-mail-ops]], [[everjust-sms]].
 ---
 
 # EVERJUST Documents — Agent Skill
@@ -18,7 +18,7 @@ The addons are three OCA modules — **`dms`** (Document Management System:
 storage backend: `fs.storage`), **`fs_attachment`** (routes `ir.attachment` bytes to
 an fs.storage) — plus one bespoke EVERJUST glue module, **`everjust_documents`**,
 that wires all three at Nextcloud over WebDAV. Custom source:
-`/Users/cloudaistudio/Desktop/ww.everjust.app/addons/everjust_documents/`.
+`<ww.everjust.app>/addons/everjust_documents/`.
 
 ## When to use this skill
 

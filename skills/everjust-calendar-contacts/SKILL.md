@@ -10,7 +10,7 @@ create/find/update contacts, segment them with tags, and schedule/read calendar
 events (with attendees and RSVP state), all through the Odoo MCP / ORM. This is
 **stock Odoo `calendar` + `contacts`** (Odoo 19 CE fork) with a **thin everjust layer** —
 not a bespoke app. Ground truth for this skill was read from the addon source under
-`/Users/cloudaistudio/Desktop/ww.everjust.app/addons/` and introspected live on the
+`<ww.everjust.app>/addons/` and introspected live on the
 `connectdomain` tenant.
 
 You reach every model through the platform's Odoo MCP tools (`search`, `get`, `count`,
