@@ -30,7 +30,7 @@ Purpose: Think through the problem before writing any code
 
 **Command:**
 ```bash
-ls -R /Users/cloudaistudio/Desktop/twincitiesstartupweek/
+ls -R <twincitiesstartupweek>/
 ```
 
 **What I Found:**
@@ -58,7 +58,7 @@ raw/
 
 **Command:**
 ```
-read_file("/Users/cloudaistudio/Desktop/twincitiesstartupweek/data/history/complete-timeline.md")
+read_file("<twincitiesstartupweek>/data/history/complete-timeline.md")
 ```
 
 **What I Learned:**

@@ -9,7 +9,7 @@ Operate the **everjust.app native mail platform** as a running agent: send mail 
 tenant mailbox, read and triage a mailbox, check a sending domain's verification, and
 inspect suppression — all through the Odoo MCP / ORM (`env["..."]`, `search`, `read`,
 `call` an exposed method). Canonical infrastructure reference:
-`/Users/cloudaistudio/Desktop/ww.everjust.app/docs/EMAIL_INFRASTRUCTURE.md`. The addons
+`<ww.everjust.app>/docs/mail/EMAIL_INFRASTRUCTURE.md`. The addons
 are `everjust_mail` (data + transport) and `everjust_mail_ui` (webmail JSON-RPC).
 
 ## When to use this skill

@@ -1,6 +1,6 @@
 ---
 name: everjust-quickbooks
-description: Operate the QuickBooks Online accounting connector of an everjust.app tenant (connect via OAuth, pull the chart of accounts QBO→Odoo, push a posted customer invoice Odoo→QBO, check connection/reconnect health) via the Odoo MCP/ORM. Use when the task is to sync accounts from QuickBooks, push an Odoo invoice to QuickBooks, diagnose a dead/expiring QBO connection, or reason about which Intuit env (sandbox vs production) a tenant is on. This is the everjust_quickbooks stack (custom account extension); the OAuth token lifecycle is the whole game. IMPORTANT: this module is NOT installed on any tenant yet — it lives in the addon tree, so treat every recipe as "once it is installed." CRITICAL: refresh tokens ROTATE and are committed immediately under a Postgres advisory lock — NEVER mutate qbo tokens outside qbo.client helpers, and always check needs_reconnect(). Default env is sandbox. Cross-references [[everjust-platform]] and [[everjust-agent-mcp]]; sibling of [[everjust-mail-ops]] and [[everjust-sms]].
+description: Operate the QuickBooks Online accounting connector of an everjust.app tenant (connect via OAuth, pull the chart of accounts QBO→Odoo, push a posted customer invoice Odoo→QBO, check connection/reconnect health) via the Odoo MCP/ORM. Use when the task is to sync accounts from QuickBooks, push an Odoo invoice to QuickBooks, diagnose a dead/expiring QBO connection, or reason about which Intuit env (sandbox vs production) a tenant is on. This is the everjust_quickbooks stack (custom account extension); the OAuth token lifecycle is the whole game. IMPORTANT: this module is NOT installed on any tenant yet — it lives in the addon tree, so treat every recipe as "once it is installed." CRITICAL: refresh tokens ROTATE and are committed immediately under a Postgres advisory lock — NEVER mutate qbo tokens outside qbo.client helpers, and always check needs_reconnect(). Default env is sandbox. Cross-refs [[everjust-platform]], [[everjust-agent-mcp]], [[everjust-mail-ops]], [[everjust-sms]].
 ---
 
 # EVERJUST QuickBooks — Agent Skill
@@ -12,7 +12,7 @@ connection health — all through the Odoo MCP / ORM (`search`, `get`/`read`, `c
 `update`/`write`, `call` a model method; see [[everjust-agent-mcp]] for opening the
 session against the right tenant DB). The everjust-specific addon is
 **`everjust_quickbooks`** (source:
-`/Users/cloudaistudio/Desktop/ww.everjust.app/addons/everjust_quickbooks/`). It depends
+`<ww.everjust.app>/addons/everjust_quickbooks/`). It depends
 on stock Odoo **`account`**.
 
 > **NOT INSTALLED ANYWHERE YET.** As of this writing `everjust_quickbooks` is present in

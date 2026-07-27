@@ -10,7 +10,7 @@ number, send SMS as chatter on a contact/lead, apply an SMS template, mass-text 
 records, and read back delivery state — all through the Odoo MCP / ORM (`search`, `get`,
 `create`, `update`, `call`, `describe_model`; see [[everjust-agent-mcp]] for opening the
 session against the right tenant DB). The everjust-specific addon is **`everjust_sms_gateway`**
-(source: `/Users/cloudaistudio/Desktop/ww.everjust.app/addons/everjust_sms_gateway/`).
+(source: `<ww.everjust.app>/addons/everjust_sms_gateway/`).
 
 The crucial everjust fact: **the SMS data models are stock Odoo (`sms.sms`, `sms.composer`,
 `sms.template`), but the TRANSPORT is swapped per company.** `everjust_sms_gateway` overrides

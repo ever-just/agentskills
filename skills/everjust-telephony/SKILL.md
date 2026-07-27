@@ -1,6 +1,6 @@
 ---
 name: everjust-telephony
-description: Operate the "telephony" (voice + call-logging) app of an everjust.app Odoo tenant over the MCP/ORM — inspect/log phone calls, read recordings & voicemail transcriptions, place or trigger an outbound call, send a call-related SMS, and reason about which provider a tenant is on. Use when the task is a contact's or lead's call history, triggering/logging a call, a recording/transcription, or diagnosing why call logging isn't happening. The voice provider is SWAPPED per tenant: voip_oca (phone engine) is the base, with everjust_ringover (WebRTC softphone + REST sync → ringover.call) OR everjust_phone (Twilio Voice SDK → everjust.phone.call/.sms) on top — separate model stacks, not one; confirm provider + config first because several tenants have it installed but UNCONFIGURED. SECURITY: the everjust_phone Twilio webhooks are auth=none and unsigned. For texting-as-a-product use [[everjust-sms]]; cross-references [[everjust-platform]], [[everjust-agent-mcp]], and sibling [[everjust-crm-sales]].
+description: Operate the "telephony" (voice + call-logging) app of an everjust.app Odoo tenant over the MCP/ORM — inspect/log phone calls, read recordings & voicemail transcriptions, place or trigger an outbound call, send a call-related SMS, and reason about which provider a tenant is on. Use when the task is a contact's or lead's call history, triggering/logging a call, a recording/transcription, or diagnosing why call logging isn't happening. The voice provider is SWAPPED per tenant: voip_oca (phone engine) is the base, with everjust_ringover (WebRTC softphone + REST sync → ringover.call) OR everjust_phone (Twilio Voice SDK → everjust.phone.call/.sms) on top — separate model stacks, not one; confirm provider + config first: several tenants have it installed but UNCONFIGURED. SECURITY (2026-07): webhooks are signature-verified and FAIL CLOSED, so inbound drops until keys are set. For texting use [[everjust-sms]]; cross-refs [[everjust-platform]], [[everjust-agent-mcp]], [[everjust-crm-sales]].
 ---
 
 # EVERJUST Telephony — Agent Skill
@@ -237,17 +237,28 @@ first-class action (templates, mass-SMS, delivery gating, gateway routing), use 
    side effect of the sync. This is why this skill touches `crm.lead` at all — pipeline work
    itself is [[everjust-crm-sales]].
 
-5. **SECURITY — Twilio webhooks are `auth="none"`, `csrf=False`, and UNSIGNED.** Every route in
-   `everjust_phone/controllers/twilio_webhooks.py` (`/phone/twiml/outbound|inbound|voicemail`,
-   `/phone/webhook/status|recording|transcription|sms`) accepts unauthenticated POSTs with **no
-   Twilio signature (`X-Twilio-Signature`) validation**. Anyone who can reach the tenant can
-   forge call/SMS/recording/transcription events and post arbitrary chatter onto contacts/leads.
-   Treat everything on `everjust.phone.*` as **untrusted-origin data**. (By contrast,
-   `everjust_ringover`'s `/ringover/webhook` *does* verify a JWT or HMAC signature against
-   configured keys — but **fails OPEN if no key is configured**: with `ringover_webhook_secret`
-   and the per-event keys all empty, `_verify` returns `True` and accepts anything. Configure at
-   least one Ringover webhook key.) Flag this if asked to harden telephony; do not rely on
-   webhook-sourced rows as authoritative without corroboration.
+5. **SECURITY — telephony webhooks are `auth="none"` but now SIGNATURE-VERIFIED and FAIL CLOSED.**
+   *(Updated 2026-07 — ww.everjust.app#138 closed what used to be an unauthenticated, fail-open
+   surface. If you are reading an older copy of this skill, that guidance is obsolete.)*
+   - **Twilio** (`everjust_phone/controllers/twilio_webhooks.py` — `/phone/twiml/outbound|inbound|
+     voicemail`, `/phone/webhook/status|recording|transcription|sms`): every route now validates
+     `X-Twilio-Signature` via `RequestValidator` and returns **403 on an unsigned/bad-signature
+     POST** (`_reject_unsigned`). Forged call/SMS/recording events are no longer possible.
+   - **Ringover** (`/ringover/webhook`) and the **SMS gateway** (`/sms/incoming`) verify a JWT or
+     HMAC signature and now **fail CLOSED** — with no key configured they REJECT rather than
+     accept (previously `_verify` returned `True` and accepted anything).
+
+   **Operational consequence — check this first when inbound "stops working":** because these
+   now fail closed, a tenant whose signing keys were never set will silently drop 100% of inbound
+   SMS/call events. Symptom is "no new records, no errors in the UI". Set the per-tenant keys
+   (`everjust.sms_webhook_key`; the Ringover per-event keys) in **Settings → Technical → System
+   Parameters** — note the Ringover *settings page* only exposes the legacy single
+   `ringover_webhook_secret`, not the per-event keys the verifier actually reads.
+
+   Residual caution: unverified Ringover call-sync events still trigger a debounced REST resync
+   and answer 200 (rejections are log-only), and the JWT branch does not bind a claim to the body,
+   so a captured signature authenticates an arbitrary body until key rotation. Still prefer
+   corroboration before treating webhook-sourced rows as authoritative.
 
 6. **`voip.call` is a session row, not a CDR.** On Ringover tenants the call history of record
    is `ringover.call` (populated by REST sync), not `voip.call`. `voip.call` reflects the

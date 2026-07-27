@@ -41,7 +41,7 @@ do that"
 **Step 2: Repository Structure Analysis**
 ```bash
 # First, understand what already exists
-ls -R /Users/cloudaistudio/Desktop/twincitiesstartupweek/
+ls -R <twincitiesstartupweek>/
 ```
 
 Found existing folders:

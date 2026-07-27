@@ -19,8 +19,8 @@ addon (it deliberately does not exist yet). What is everjust-specific is the
 the same `mail.blacklist` suppression, and the same **account-wide** SES
 reputation as the native webmail. So the models are vanilla, but the operating
 rules are not. Canonical infra reference:
-`/Users/cloudaistudio/Desktop/ww.everjust.app/docs/EMAIL_INFRASTRUCTURE.md` §6
-and `docs/MAIL_MASS_MAILING_REVIEW.md`.
+`<ww.everjust.app>/docs/mail/EMAIL_INFRASTRUCTURE.md` §6
+and `docs/mail/MAIL_MASS_MAILING_REVIEW.md`.
 
 ## When to use this skill
 

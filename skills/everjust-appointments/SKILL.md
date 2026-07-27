@@ -9,7 +9,7 @@ Operate the **everjust.app custom Appointments app** as a running agent: define 
 appointment type + its weekly availability, take/confirm/reschedule/cancel bookings, and read
 a customer's appointment history — all through the Odoo MCP / ORM (`env["..."]`, `search`,
 `read`, `create`, `write`, and `call` an exposed method). The addon is `everjust_appointment`
-(source under `/Users/cloudaistudio/Desktop/ww.everjust.app/addons/everjust_appointment/`).
+(source under `<ww.everjust.app>/addons/everjust_appointment/`).
 It is a **bespoke, LGPL, community reimplementation of the Enterprise-only appointment
 module** — the manifest says so ("Replaces the Enterprise-only appointment module"). Do not
 reach for Odoo's stock `appointment.type`/`calendar.appointment.*` field set or its
