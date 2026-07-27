@@ -117,12 +117,13 @@ Building and verifying a company intelligence dossier from open sources — doss
 | Business Model Canvas Builder | [`skills/business-model-canvas/`](skills/business-model-canvas/) | 9-block Osterwalder BMC from structured intelligence data |
 
 ### 🏢 EverJust Platform (everjust.app Odoo 19 multi-tenant SaaS)
-Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on.
+Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on; `everjust-control-plane` covers the layer above the tenants (signup, billing, provisioning).
 
 | Skill | Path | Best For |
 |-------|------|----------|
 | EverJust Platform | [`skills/everjust-platform/`](skills/everjust-platform/) | Operating rules for any everjust.app tenant — read first |
 | EverJust Agent MCP | [`skills/everjust-agent-mcp/`](skills/everjust-agent-mcp/) | Connecting to a tenant's MCP server and its toolset |
+| EverJust Control Plane | [`skills/everjust-control-plane/`](skills/everjust-control-plane/) | Signup, Stripe billing, tenant provisioning, suspend/resume — the layer above the tenants |
 | EverJust Mail Ops | [`skills/everjust-mail-ops/`](skills/everjust-mail-ops/) | Send/read mail as a tenant mailbox, diagnose blocked sends, domain verification |
 | EverJust Mass Mailing | [`skills/everjust-mass-mailing/`](skills/everjust-mass-mailing/) | Bulk/campaign email — lists, drafts, tests, human-gated blasts, analytics |
 | EverJust Tenant Domain Migration | [`skills/everjust-tenant-domain-migration/`](skills/everjust-tenant-domain-migration/) | Rebrand/cutover a tenant to a new public domain |
