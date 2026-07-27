@@ -26,18 +26,46 @@ The four things that make this platform surprising:
 
 All ops are role-bounded (run AS your Odoo user) and **every call is audited to `everjust.mcp.log`**.
 
+> **Call `platform_info` FIRST on every new connection.** The server's own
+> instructions say so, and it is the only authoritative answer to *what server
+> version am I on and which tools exist here* — the table below is a summary and
+> can lag a deploy. Tool availability differs per tenant and per server version;
+> never assume a tool exists because it is listed here.
+
+**Discovery & orientation**
+
 | Tool | Signature | Notes |
 |---|---|---|
-| `list_models` | `(filter)` | Discover installed models. Start here on a new tenant. |
+| `platform_info` | `()` | **Call this first.** Server version + capabilities. Authoritative tool list. |
+| `list_models` | `(filter)` | Discover installed models. |
 | `describe_model` | `(model)` | Returns fields **+ `your_access`** = `{read, create, write, unlink}` booleans for *your* user. Check this before assuming you can write. |
+| `list_installed_modules` | `()` | Which apps this tenant actually has — tenants differ a lot. |
+| `whats_new` | `()` | Recent platform changes. |
+
+**Read**
+
+| Tool | Signature | Notes |
+|---|---|---|
 | `search` | `(model, domain, fields, limit, order)` | Odoo domain syntax. |
 | `get` | `(model, ids, fields)` | Read by id. |
 | `count` | `(model, domain)` | |
 | `find` | `(model, name)` | `name_search` — fuzzy by display name. |
-| `create` | `(model, values)` | ACL-gated. |
-| `update` | `(model, ids, values)` | ACL-gated. |
-| `delete` | `(model, ids, confirm)` | **`confirm: true` REQUIRED**, ACL-gated. |
+
+**Write (all ACL-gated)**
+
+| Tool | Signature | Notes |
+|---|---|---|
+| `create` | `(model, values)` | |
+| `update` | `(model, ids, values)` | |
+| `delete` | `(model, ids, confirm)` | **`confirm: true` REQUIRED**. |
 | `call` | `(model, method, ids, args, kwargs, confirm)` | Escape hatch. Any **non-read** method needs **`confirm: true`**. |
+
+**Capability tools** (present only where the feature is installed — check `platform_info`)
+
+| Tool | Notes |
+|---|---|
+| `mail_send` | Send from a tenant mailbox. **Server ≥ 1.4.0.** The ONLY correct way to send — see [[everjust-mail-ops]]. Never hand-roll `mail.mail`. |
+| `website_pages` · `website_new_page` · `website_edit_page` · `website_publish` · `website_menu` · `website_redirect` | Role-bounded website editing — see [[everjust-website]]. |
 
 **Two hard gates:** `delete` and `call` (non-read) require `confirm: true`. And Odoo ACLs still block anything your user's role can't do — *even when you set `confirm: true`*. Confirmation is not elevation.
 
@@ -53,7 +81,7 @@ It's Odoo 19 CE underneath regardless of what the branding says. *Why: debrandin
 On this fork, `everjust_admin_role` rewires `implied_ids` so **Administrator implies EVERY installed app**. Granting it to an automation user hands over the whole tenant. *Why: one checkbox = total access here; that blast radius is unacceptable for a bot.*
 
 **4. Mail lives in `everjust.mail.*`, not `mail.mail`. Never write `mail.mail` directly.**
-Drafts are `everjust.mail.entry` (not `mail.mail`). Threading is by **`thread_root`**, not Odoo's `message_id`/`parent_id` chains. Compose/read/reply through the `everjust.mail.*` models. *Why: `mail.mail` is bypassed by the native platform; writing it does nothing useful and corrupts nothing you can see.*
+Drafts are `everjust.mail.entry` (not `mail.mail`). Threading is by **`thread_root`**, not Odoo's `message_id`/`parent_id` chains. Compose/read/reply through the `everjust.mail.*` models. *Why: a hand-rolled `mail.mail` row is NOT inert — it rides the same transport `compose_send` uses, so it can really deliver to a real person, while skipping the verified-identity, rate-limit and suppression gates and filing no `everjust.mail.entry`. The message is then permanently invisible in the mailbox UI (which reads `everjust.mail.entry`, not `mail.message`), so nobody can see, find, or reply to what you sent. Use `mail_send` (server ≥ 1.4.0), which the server now hard-blocks `mail.mail`/`mail.message` writes in favour of.*
 
 **5. Sending is hard-gated — read the `{queued, delivery}` result every time.**
 To send, the `everjust.mail.domain` must be `verification_state='verified'` (`is_sendable`). Sends come back as one of:
