@@ -449,6 +449,7 @@ webmaster@TARGET.com
 
 ## Integration with other skills
 
+- **[programmatic-osint-sources](../programmatic-osint-sources/SKILL.md)** — the broad companion catalog for everything *beyond* email/avatar: breach exposure, infra/subdomain recon, code-repo email harvesting, contact-enrichment APIs, public-records people data, presence oracles, phone/social. Go there once you've moved past the email-specific workflow here.
 - **website-techstack-analysis** — DNS/MX findings shared between both skills
 - **intelligence-dossier** — populate `01_Company_Profile/email_contacts.md` and `02_People_and_Organization/`
 - **company-legal-reputation-research** — registrant emails from WHOIS history
