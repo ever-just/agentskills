@@ -263,6 +263,58 @@ engine — there's no "list all emails at a domain" query. Two useful directions
   succeeds if the real email is in your candidate set — so Gravatar *confirms and enriches*
   guesses rather than generating new addresses from nothing.
 
+**Can it start from a LinkedIn profile or a website? No.** Gravatar is keyed *only* by the
+email (its hash) — there is no reverse index by name, company, domain, LinkedIn, or URL.
+LinkedIn/websites are **sources for the email guess**, not Gravatar inputs: LinkedIn name →
+infer `first.last@company.com` (Phase 4) → hash → check Gravatar; or scrape an email off a
+site → then enrich it. Gravatar can go *email → LinkedIn/website* (profile `accounts[]`),
+never *LinkedIn/website → email*.
+
+**Every valid Gravatar input (only 4 — all reduce to the email):**
+
+| Input | How it's used |
+|-------|---------------|
+| Email address | Lowercased + trimmed, then hashed — the primary key |
+| The hash (MD5 or SHA-256 of the email) | Direct lookup; what a profile page exposes |
+| Gravatar username / profile slug (`gravatar.com/<username>`) | Vanity URL → resolves to a hash → profile |
+| Profile ID | Identifier form used by the MCP `get_*_by_id` tools |
+
+No name, domain, company, phone, LinkedIn, or website is ever a lookup key.
+
+**Limits:**
+- **Lookup, not search** — you must already have the email/hash/username; can't enumerate a
+  domain or search by name, so it *confirms/enriches*, never *discovers* new addresses.
+- **Low coverage** — only returns data if the person registered a Gravatar *and* left it
+  public; most emails → 404. Hit rate skews high for developer/tech audiences
+  (WordPress, GitHub, Stack Overflow), low for the general public.
+- **Reverse (hash → email) is a guess attack** — MD5/SHA-256 are one-way; only works if the
+  real email is in your wordlist. SHA-256 makes it harder.
+- **Self-reported data** — name/location/links are optional and owner-supplied; can be
+  sparse, fake, or stale. Private profiles may return an avatar but no fields.
+- **Rate limits** — unauthenticated calls are throttled; the v3 API key raises limits/fields
+  but adds nothing for basic existence/avatar checks.
+
+#### Gravatar-like tools (email → avatar/identity across services)
+
+Gravatar isn't the only email→identity pivot. These broaden coverage or self-host:
+
+```bash
+# unavatar — universal avatar API: resolves by EMAIL, USERNAME, or DOMAIN across Gravatar,
+# GitHub, X/Twitter, Google, Instagram + 70 more. No API key/SDK; open-source, self-hostable.
+curl -s "https://unavatar.io/$EMAIL?json"          # returns the resolved avatar URL + source
+# Repo: https://github.com/microlinkhq/unavatar
+
+# Libravatar — open-source, FEDERATED, self-hostable Gravatar (same MD5/SHA-256-of-email key).
+# Same URL scheme as Gravatar; useful when a target uses Libravatar instead of Gravatar.
+#   https://www.libravatar.org/avatar/<hash>   (software: ivatar)
+
+# Epieos — hosted reverse-lookup across 140+ services (Google gaia account, Gravatar, Skype,
+# holehe et al.) from one email or phone. Free tier ~ Google + Skype data. https://epieos.com
+```
+**unavatar** is the closest "Gravatar but broader" — it accepts **username and domain**, not
+just email, and chains multiple providers. **Epieos** is the one-stop web pivot (it overlaps
+GHunt's Google-account resolution + holehe + Gravatar in a single lookup).
+
 **Legal/ToS note:** GHunt and TeamsEnum use undocumented internal endpoints and your own
 authenticated sessions — appropriate for OSINT/recon on your own prospecting, but ToS-gray
 and fragile. Gravatar's plain endpoints are public by design and carry no such caveat.
@@ -376,6 +428,10 @@ webmaster@TARGET.com
 | nodauf/GoMapEnum | — | User enum across Azure/ADFS/OWA/O365/Teams in one tool | https://github.com/nodauf/GoMapEnum |
 | gremwell/o365enum | — | Valid M365 usernames via ActiveSync/Autodiscover/office.com | https://github.com/gremwell/o365enum |
 | anotherhadi/gravatar-recon | — | Email → Gravatar profile, avatar, social/contact links (no API key) | https://github.com/anotherhadi/gravatar-recon |
+| microlinkhq/unavatar | 4,000+ | Email/username/domain → avatar across Gravatar/GitHub/X/Google + 70 more (no API key) | https://github.com/microlinkhq/unavatar |
+| Libravatar (ivatar) | — | Open-source, federated, self-hostable Gravatar-compatible avatar-by-email | https://git.linux-kernel.at/oliver/ivatar |
+| Epieos | — | Hosted email/phone reverse lookup across 140+ services (Google account, Gravatar, holehe) | https://epieos.com |
+| dlamblin/ReverseGravatar | — | Reverse a Gravatar MD5 hash back to an email (dictionary attack) | https://github.com/dlamblin/ReverseGravatar |
 
 ## MCP servers
 
