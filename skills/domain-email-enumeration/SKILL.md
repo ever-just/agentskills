@@ -30,6 +30,26 @@ mkdir -p /tmp/email-verify-run && cd /tmp/email-verify-run
 # Install: download binary from GitHub releases or build with cargo
 ```
 
+### Provider people-API verification (the "Gmail profile-photo" trick)
+
+These confirm an account **exists** — and often return a name/photo — by querying the
+same internal people/presence APIs that power Gmail's To-field autocomplete, Teams
+presence, and Gravatar. Unlike SMTP checks, these actually work on Gmail (see Phase 4.5).
+
+```bash
+# GHunt — email -> Google account (gaia ID, display name, profile photo, Workspace vs
+# personal, Maps/YouTube/Calendar). This is the tool behind the Gmail profile-photo trick.
+pipx install ghunt
+ghunt login          # paste base64 cookies from the GHunt browser extension (auth REQUIRED)
+
+# TeamsEnum — email -> valid Microsoft 365 account + presence + device
+git clone https://github.com/sse-secure-systems/TeamsEnum.git
+# requires an authenticated M365 token/creds (MSAL); see repo README
+
+# Gravatar — NO install, NO API key, NO SDK. Pure HTTP against a hash of the email.
+# See Phase 4.5 for the exact one-liners.
+```
+
 ### Optional tools
 
 ```bash
@@ -142,6 +162,82 @@ holehe TARGET_EMAIL@domain.com --only-used
 # Use a verification service or check MX + RCPT TO manually
 ```
 
+### Phase 4.5: Account-existence verification via provider people-APIs (the "Gmail profile-photo" trick)
+
+When you type an address into Gmail's **To** field and a name + profile photo appear
+*before you send*, that's Google Contacts autocomplete backed by Google's internal
+**People API**. If the address maps to a Google account, the API returns its permanent
+**gaia ID, display name, and profile photo**; if not, nothing comes back. That
+"something vs. nothing" is a clean account-existence signal — no email is ever sent.
+
+**Why this matters here:** SMTP RCPT verification (see Phase 4) is unreliable on the
+biggest providers — Gmail returns `250 OK` for every address (catch-all at the protocol
+level), so it tells you nothing. These people-API checks *do* work on Gmail and M365.
+
+Use this to **confirm which pattern-inferred guesses are live** and attach a name/photo.
+
+#### Google (Gmail + Workspace) — GHunt
+
+```bash
+# One-time auth (GHunt needs YOUR Google session cookies; anonymous access is closed):
+ghunt login          # paste base64 cookies from the GHunt browser extension
+
+# Verify + enrich a single address:
+ghunt email target@gmail.com
+# Returns: account exists? gaia ID, display name, profile photo URL,
+#          personal Gmail vs Workspace seat, linked Maps/YouTube/Calendar activity.
+
+# JSON out for scripting a candidate list:
+ghunt email target@company.com --json /tmp/ghunt_target.json
+```
+Works on **Workspace domains too** (any `@company.com` whose MX is Google) — check MX
+first in Phase 1. Caveat: uses undocumented internal endpoints and requires authenticated
+cookies; Google periodically tightens this and rate-limits, so batch modestly.
+
+#### Microsoft 365 / Teams
+
+```bash
+# GetCredentialType — lightweight existence check (no session needed), IfExistsResult:
+#   0 = account exists, 1 = does not, 5 = exists in a different/managed tenant
+curl -s https://login.microsoftonline.com/common/GetCredentialType \
+  -H 'Content-Type: application/json' \
+  -d '{"Username":"target@company.com"}' | grep -o '"IfExistsResult":[0-9]*'
+
+# TeamsEnum — richer: valid account + presence status + device (needs an M365 token)
+python3 TeamsEnum.py -a token -t <TOKEN> -e emails.txt
+```
+Only relevant when Phase 1 shows the MX is Microsoft (`*.protection.outlook.com`).
+
+#### Universal (any provider) — Gravatar: no key, no SDK, just HTTP
+
+Gravatar identifies accounts by a **hash of the lowercased, trimmed email** (MD5 legacy,
+SHA-256 supported). Everything below is unauthenticated — you build a URL and GET it.
+
+```bash
+EMAIL="target@anydomain.com"
+HASH=$(printf '%s' "$EMAIL" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]' | md5sum | cut -d' ' -f1)
+
+# 1) Existence check — d=404 makes Gravatar 404 when no avatar is registered:
+curl -s -o /dev/null -w "%{http_code}\n" "https://gravatar.com/avatar/$HASH?d=404"
+#   200 = a Gravatar exists for this email   |   404 = none
+
+# 2) Public profile (name, location, social/website links) — plain JSON, no auth:
+curl -s "https://gravatar.com/$HASH.json"
+
+# 3) The avatar image itself:
+#   https://gravatar.com/avatar/$HASH
+```
+**Does Gravatar need an API/SDK? No.** The three calls above need nothing — no account,
+no key, no library. An API key is *only* required for the newer **v3 REST API**
+(`https://api.gravatar.com/v3/profiles/<hash>`, `Authorization: Bearer <key>`), which you'd
+reach for solely for higher rate limits or extra fields. For enumeration, the plain URLs
+are enough. Automate with [anotherhadi/gravatar-recon](https://github.com/anotherhadi/gravatar-recon)
+or [hashtray](https://pypi.org/project/hashtray/) if you want profile aggregation.
+
+**Legal/ToS note:** GHunt and TeamsEnum use undocumented internal endpoints and your own
+authenticated sessions — appropriate for OSINT/recon on your own prospecting, but ToS-gray
+and fragile. Gravatar's plain endpoints are public by design and carry no such caveat.
+
 ### Phase 5: People-sourced enumeration
 
 Cross-reference known employees with email patterns:
@@ -246,6 +342,11 @@ webmaster@TARGET.com
 | khast3x/h8mail | 5,041 | Email breach hunting | https://github.com/khast3x/h8mail |
 | initstring/linkedin2username | 1,731 | Generate emails from LinkedIn | https://github.com/initstring/linkedin2username |
 | p1ngul1n0/blackbird | 6,135 | Username/email search across platforms | https://github.com/p1ngul1n0/blackbird |
+| mxrch/GHunt | 16,000+ | Email → Google account (gaia ID, name, **profile photo**, Workspace vs personal) via Google's People API — the "Gmail profile-photo" trick | https://github.com/mxrch/GHunt |
+| sse-secure-systems/TeamsEnum | — | Email → valid M365 account + Teams presence + device | https://github.com/sse-secure-systems/TeamsEnum |
+| nodauf/GoMapEnum | — | User enum across Azure/ADFS/OWA/O365/Teams in one tool | https://github.com/nodauf/GoMapEnum |
+| gremwell/o365enum | — | Valid M365 usernames via ActiveSync/Autodiscover/office.com | https://github.com/gremwell/o365enum |
+| anotherhadi/gravatar-recon | — | Email → Gravatar profile, avatar, social/contact links (no API key) | https://github.com/anotherhadi/gravatar-recon |
 
 ## MCP servers
 
