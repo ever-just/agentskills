@@ -72,6 +72,20 @@ claude mcp add openosint -- python3 -m openosint.mcp_server
 
 # theHarvester MCP wrapper
 # https://github.com/schwarztim/sec-theharvester-mcp
+
+# Gravatar — OFFICIAL remote MCP (Automattic). 6 tools: get_profile_by_email/_id,
+# get_inferred_interests_by_email/_id, get_avatar_by_email/_id. API key optional
+# (GRAVATAR_API_KEY only for enhanced fields/limits). Self-host, then connect:
+claude mcp add gravatar -- npx mcp-remote http://localhost:8787/mcp
+# Repo: https://github.com/Automattic/mcp-server-gravatar-remote
+
+# GHunt — no first-party MCP. Use an OSINT MCP that bundles it (Google account by
+# email/ID). osint-tools-mcp-server ships GHunt + Sherlock/Holehe/theHarvester/
+# Maigret/Blackbird/SpiderFoot:
+#   git clone https://github.com/frishtik/osint-tools-mcp-server
+#   pip install -r requirements.txt   # then add via JSON config (command: python …)
+#   GHunt still needs its own `ghunt login` cookies (see Phase 4.5).
+# Curated index of OSINT MCP servers: https://github.com/soxoj/awesome-osint-mcp-servers
 ```
 
 ---
@@ -234,6 +248,21 @@ reach for solely for higher rate limits or extra fields. For enumeration, the pl
 are enough. Automate with [anotherhadi/gravatar-recon](https://github.com/anotherhadi/gravatar-recon)
 or [hashtray](https://pypi.org/project/hashtray/) if you want profile aggregation.
 
+**Can Gravatar *find* emails/contacts?** It's a **pivot/enrichment** tool, not a discovery
+engine — there's no "list all emails at a domain" query. Two useful directions:
+- **Forward (email → contact):** a known/guessed email resolves to a public identity —
+  display name, location, website, and **verified social accounts** listed on the profile
+  (`<hash>.json` → `accounts[]`). Great for turning a validated address into a person +
+  their other profiles.
+- **Reverse (profile/hash → email):** a Gravatar profile page exposes the account's
+  **hash**, and the hash can sometimes be turned back into the email. MD5 is one-way, so
+  this is a **dictionary/guess attack** — hash your candidate emails (pattern-inferred
+  from Phase 4, or a wordlist) and match against the target hash. Tools:
+  [hashtray](https://pypi.org/project/hashtray/) and
+  [dlamblin/ReverseGravatar](https://github.com/dlamblin/ReverseGravatar). It only
+  succeeds if the real email is in your candidate set — so Gravatar *confirms and enriches*
+  guesses rather than generating new addresses from nothing.
+
 **Legal/ToS note:** GHunt and TeamsEnum use undocumented internal endpoints and your own
 authenticated sessions — appropriate for OSINT/recon on your own prospecting, but ToS-gray
 and fragile. Gravatar's plain endpoints are public by design and carry no such caveat.
@@ -352,6 +381,9 @@ webmaster@TARGET.com
 
 | Server | URL |
 |--------|-----|
+| mcp-server-gravatar-remote (**official** Gravatar) | https://github.com/Automattic/mcp-server-gravatar-remote |
+| osint-tools-mcp-server (**bundles GHunt** + 6 more) | https://github.com/frishtik/osint-tools-mcp-server |
+| awesome-osint-mcp-servers (curated index) | https://github.com/soxoj/awesome-osint-mcp-servers |
 | OpenOSINT | https://github.com/OpenOSINT/OpenOSINT |
 | sec-theharvester-mcp | https://github.com/schwarztim/sec-theharvester-mcp |
 | osint-mcp-server | https://github.com/badchars/osint-mcp-server |
