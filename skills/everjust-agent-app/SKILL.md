@@ -86,8 +86,11 @@ app authenticates the user against their tenant's Odoo via
 bound to the Odoo identity (`account_id = "<db>:<uid>"`). The Odoo web session
 isn't kept — MCP uses the API-key bearer, not the web session. LLM cost is
 platform-absorbed (one backend Anthropic key; no metering/BYO-key in v1).
-Recommended follow-up: an `everjust_agent_connect` endpoint that mints the agent
-API key from the post-login Odoo session, so sign-in and connect become one step.
+One-step connect is built: `everjust_agent_connect` exposes
+`POST /everjust/agent/provision` (JSON-RPC, `auth="none"`) which authenticates
+with EVERJUST credentials and mints the role-bounded agent key in one call, so
+the backend folds sign-in and connect together (no key paste). Older tenants
+without the route return 404 and the app falls back to manual paste.
 
 ## Connect / onboarding
 
