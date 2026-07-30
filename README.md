@@ -115,6 +115,7 @@ Building and verifying a company intelligence dossier from open sources — doss
 | Contact Sheet Image Analysis | [`skills/contact-sheet-image-analysis/`](skills/contact-sheet-image-analysis/) | Grid large image batches for efficient AI vision review |
 | Web Crawl Intelligence Extraction | [`skills/web-crawl-intelligence-extraction/`](skills/web-crawl-intelligence-extraction/) | Extract intel from saved captures/archives/transcripts/API dumps |
 | Business Model Canvas Builder | [`skills/business-model-canvas/`](skills/business-model-canvas/) | 9-block Osterwalder BMC from structured intelligence data |
+| Programmatic OSINT Sources | [`skills/programmatic-osint-sources/`](skills/programmatic-osint-sources/) | Data-rich sources pullable with low lift (keyless/free-tier APIs): identifier → breach exposure, subdomains/infra, code-repo emails, contact enrichment, officers/owners, account-existence, phone/social — each with a concrete call + caveats |
 
 ### 🏢 EverJust Platform (everjust.app Odoo 19 multi-tenant SaaS)
 Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on; `everjust-control-plane` covers the layer above the tenants (signup, billing, provisioning).

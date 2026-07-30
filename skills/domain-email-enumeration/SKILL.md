@@ -30,6 +30,26 @@ mkdir -p /tmp/email-verify-run && cd /tmp/email-verify-run
 # Install: download binary from GitHub releases or build with cargo
 ```
 
+### Provider people-API verification (the "Gmail profile-photo" trick)
+
+These confirm an account **exists** — and often return a name/photo — by querying the
+same internal people/presence APIs that power Gmail's To-field autocomplete, Teams
+presence, and Gravatar. Unlike SMTP checks, these actually work on Gmail (see Phase 4.5).
+
+```bash
+# GHunt — email -> Google account (gaia ID, display name, profile photo, Workspace vs
+# personal, Maps/YouTube/Calendar). This is the tool behind the Gmail profile-photo trick.
+pipx install ghunt
+ghunt login          # paste base64 cookies from the GHunt browser extension (auth REQUIRED)
+
+# TeamsEnum — email -> valid Microsoft 365 account + presence + device
+git clone https://github.com/sse-secure-systems/TeamsEnum.git
+# requires an authenticated M365 token/creds (MSAL); see repo README
+
+# Gravatar — NO install, NO API key, NO SDK. Pure HTTP against a hash of the email.
+# See Phase 4.5 for the exact one-liners.
+```
+
 ### Optional tools
 
 ```bash
@@ -52,6 +72,20 @@ claude mcp add openosint -- python3 -m openosint.mcp_server
 
 # theHarvester MCP wrapper
 # https://github.com/schwarztim/sec-theharvester-mcp
+
+# Gravatar — OFFICIAL remote MCP (Automattic). 6 tools: get_profile_by_email/_id,
+# get_inferred_interests_by_email/_id, get_avatar_by_email/_id. API key optional
+# (GRAVATAR_API_KEY only for enhanced fields/limits). Self-host, then connect:
+claude mcp add gravatar -- npx mcp-remote http://localhost:8787/mcp
+# Repo: https://github.com/Automattic/mcp-server-gravatar-remote
+
+# GHunt — no first-party MCP. Use an OSINT MCP that bundles it (Google account by
+# email/ID). osint-tools-mcp-server ships GHunt + Sherlock/Holehe/theHarvester/
+# Maigret/Blackbird/SpiderFoot:
+#   git clone https://github.com/frishtik/osint-tools-mcp-server
+#   pip install -r requirements.txt   # then add via JSON config (command: python …)
+#   GHunt still needs its own `ghunt login` cookies (see Phase 4.5).
+# Curated index of OSINT MCP servers: https://github.com/soxoj/awesome-osint-mcp-servers
 ```
 
 ---
@@ -141,6 +175,149 @@ holehe TARGET_EMAIL@domain.com --only-used
 # SMTP verification (careful — can trigger alerts)
 # Use a verification service or check MX + RCPT TO manually
 ```
+
+### Phase 4.5: Account-existence verification via provider people-APIs (the "Gmail profile-photo" trick)
+
+When you type an address into Gmail's **To** field and a name + profile photo appear
+*before you send*, that's Google Contacts autocomplete backed by Google's internal
+**People API**. If the address maps to a Google account, the API returns its permanent
+**gaia ID, display name, and profile photo**; if not, nothing comes back. That
+"something vs. nothing" is a clean account-existence signal — no email is ever sent.
+
+**Why this matters here:** SMTP RCPT verification (see Phase 4) is unreliable on the
+biggest providers — Gmail returns `250 OK` for every address (catch-all at the protocol
+level), so it tells you nothing. These people-API checks *do* work on Gmail and M365.
+
+Use this to **confirm which pattern-inferred guesses are live** and attach a name/photo.
+
+#### Google (Gmail + Workspace) — GHunt
+
+```bash
+# One-time auth (GHunt needs YOUR Google session cookies; anonymous access is closed):
+ghunt login          # paste base64 cookies from the GHunt browser extension
+
+# Verify + enrich a single address:
+ghunt email target@gmail.com
+# Returns: account exists? gaia ID, display name, profile photo URL,
+#          personal Gmail vs Workspace seat, linked Maps/YouTube/Calendar activity.
+
+# JSON out for scripting a candidate list:
+ghunt email target@company.com --json /tmp/ghunt_target.json
+```
+Works on **Workspace domains too** (any `@company.com` whose MX is Google) — check MX
+first in Phase 1. Caveat: uses undocumented internal endpoints and requires authenticated
+cookies; Google periodically tightens this and rate-limits, so batch modestly.
+
+#### Microsoft 365 / Teams
+
+```bash
+# GetCredentialType — lightweight existence check (no session needed), IfExistsResult:
+#   0 = account exists, 1 = does not, 5 = exists in a different/managed tenant
+curl -s https://login.microsoftonline.com/common/GetCredentialType \
+  -H 'Content-Type: application/json' \
+  -d '{"Username":"target@company.com"}' | grep -o '"IfExistsResult":[0-9]*'
+
+# TeamsEnum — richer: valid account + presence status + device (needs an M365 token)
+python3 TeamsEnum.py -a token -t <TOKEN> -e emails.txt
+```
+Only relevant when Phase 1 shows the MX is Microsoft (`*.protection.outlook.com`).
+
+#### Universal (any provider) — Gravatar: no key, no SDK, just HTTP
+
+Gravatar identifies accounts by a **hash of the lowercased, trimmed email** (MD5 legacy,
+SHA-256 supported). Everything below is unauthenticated — you build a URL and GET it.
+
+```bash
+EMAIL="target@anydomain.com"
+HASH=$(printf '%s' "$EMAIL" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]' | md5sum | cut -d' ' -f1)
+
+# 1) Existence check — d=404 makes Gravatar 404 when no avatar is registered:
+curl -s -o /dev/null -w "%{http_code}\n" "https://gravatar.com/avatar/$HASH?d=404"
+#   200 = a Gravatar exists for this email   |   404 = none
+
+# 2) Public profile (name, location, social/website links) — plain JSON, no auth:
+curl -s "https://gravatar.com/$HASH.json"
+
+# 3) The avatar image itself:
+#   https://gravatar.com/avatar/$HASH
+```
+**Does Gravatar need an API/SDK? No.** The three calls above need nothing — no account,
+no key, no library. An API key is *only* required for the newer **v3 REST API**
+(`https://api.gravatar.com/v3/profiles/<hash>`, `Authorization: Bearer <key>`), which you'd
+reach for solely for higher rate limits or extra fields. For enumeration, the plain URLs
+are enough. Automate with [anotherhadi/gravatar-recon](https://github.com/anotherhadi/gravatar-recon)
+or [hashtray](https://pypi.org/project/hashtray/) if you want profile aggregation.
+
+**Can Gravatar *find* emails/contacts?** It's a **pivot/enrichment** tool, not a discovery
+engine — there's no "list all emails at a domain" query. Two useful directions:
+- **Forward (email → contact):** a known/guessed email resolves to a public identity —
+  display name, location, website, and **verified social accounts** listed on the profile
+  (`<hash>.json` → `accounts[]`). Great for turning a validated address into a person +
+  their other profiles.
+- **Reverse (profile/hash → email):** a Gravatar profile page exposes the account's
+  **hash**, and the hash can sometimes be turned back into the email. MD5 is one-way, so
+  this is a **dictionary/guess attack** — hash your candidate emails (pattern-inferred
+  from Phase 4, or a wordlist) and match against the target hash. Tools:
+  [hashtray](https://pypi.org/project/hashtray/) and
+  [dlamblin/ReverseGravatar](https://github.com/dlamblin/ReverseGravatar). It only
+  succeeds if the real email is in your candidate set — so Gravatar *confirms and enriches*
+  guesses rather than generating new addresses from nothing.
+
+**Can it start from a LinkedIn profile or a website? No.** Gravatar is keyed *only* by the
+email (its hash) — there is no reverse index by name, company, domain, LinkedIn, or URL.
+LinkedIn/websites are **sources for the email guess**, not Gravatar inputs: LinkedIn name →
+infer `first.last@company.com` (Phase 4) → hash → check Gravatar; or scrape an email off a
+site → then enrich it. Gravatar can go *email → LinkedIn/website* (profile `accounts[]`),
+never *LinkedIn/website → email*.
+
+**Every valid Gravatar input (only 4 — all reduce to the email):**
+
+| Input | How it's used |
+|-------|---------------|
+| Email address | Lowercased + trimmed, then hashed — the primary key |
+| The hash (MD5 or SHA-256 of the email) | Direct lookup; what a profile page exposes |
+| Gravatar username / profile slug (`gravatar.com/<username>`) | Vanity URL → resolves to a hash → profile |
+| Profile ID | Identifier form used by the MCP `get_*_by_id` tools |
+
+No name, domain, company, phone, LinkedIn, or website is ever a lookup key.
+
+**Limits:**
+- **Lookup, not search** — you must already have the email/hash/username; can't enumerate a
+  domain or search by name, so it *confirms/enriches*, never *discovers* new addresses.
+- **Low coverage** — only returns data if the person registered a Gravatar *and* left it
+  public; most emails → 404. Hit rate skews high for developer/tech audiences
+  (WordPress, GitHub, Stack Overflow), low for the general public.
+- **Reverse (hash → email) is a guess attack** — MD5/SHA-256 are one-way; only works if the
+  real email is in your wordlist. SHA-256 makes it harder.
+- **Self-reported data** — name/location/links are optional and owner-supplied; can be
+  sparse, fake, or stale. Private profiles may return an avatar but no fields.
+- **Rate limits** — unauthenticated calls are throttled; the v3 API key raises limits/fields
+  but adds nothing for basic existence/avatar checks.
+
+#### Gravatar-like tools (email → avatar/identity across services)
+
+Gravatar isn't the only email→identity pivot. These broaden coverage or self-host:
+
+```bash
+# unavatar — universal avatar API: resolves by EMAIL, USERNAME, or DOMAIN across Gravatar,
+# GitHub, X/Twitter, Google, Instagram + 70 more. No API key/SDK; open-source, self-hostable.
+curl -s "https://unavatar.io/$EMAIL?json"          # returns the resolved avatar URL + source
+# Repo: https://github.com/microlinkhq/unavatar
+
+# Libravatar — open-source, FEDERATED, self-hostable Gravatar (same MD5/SHA-256-of-email key).
+# Same URL scheme as Gravatar; useful when a target uses Libravatar instead of Gravatar.
+#   https://www.libravatar.org/avatar/<hash>   (software: ivatar)
+
+# Epieos — hosted reverse-lookup across 140+ services (Google gaia account, Gravatar, Skype,
+# holehe et al.) from one email or phone. Free tier ~ Google + Skype data. https://epieos.com
+```
+**unavatar** is the closest "Gravatar but broader" — it accepts **username and domain**, not
+just email, and chains multiple providers. **Epieos** is the one-stop web pivot (it overlaps
+GHunt's Google-account resolution + holehe + Gravatar in a single lookup).
+
+**Legal/ToS note:** GHunt and TeamsEnum use undocumented internal endpoints and your own
+authenticated sessions — appropriate for OSINT/recon on your own prospecting, but ToS-gray
+and fragile. Gravatar's plain endpoints are public by design and carry no such caveat.
 
 ### Phase 5: People-sourced enumeration
 
@@ -246,11 +423,23 @@ webmaster@TARGET.com
 | khast3x/h8mail | 5,041 | Email breach hunting | https://github.com/khast3x/h8mail |
 | initstring/linkedin2username | 1,731 | Generate emails from LinkedIn | https://github.com/initstring/linkedin2username |
 | p1ngul1n0/blackbird | 6,135 | Username/email search across platforms | https://github.com/p1ngul1n0/blackbird |
+| mxrch/GHunt | 16,000+ | Email → Google account (gaia ID, name, **profile photo**, Workspace vs personal) via Google's People API — the "Gmail profile-photo" trick | https://github.com/mxrch/GHunt |
+| sse-secure-systems/TeamsEnum | — | Email → valid M365 account + Teams presence + device | https://github.com/sse-secure-systems/TeamsEnum |
+| nodauf/GoMapEnum | — | User enum across Azure/ADFS/OWA/O365/Teams in one tool | https://github.com/nodauf/GoMapEnum |
+| gremwell/o365enum | — | Valid M365 usernames via ActiveSync/Autodiscover/office.com | https://github.com/gremwell/o365enum |
+| anotherhadi/gravatar-recon | — | Email → Gravatar profile, avatar, social/contact links (no API key) | https://github.com/anotherhadi/gravatar-recon |
+| microlinkhq/unavatar | 4,000+ | Email/username/domain → avatar across Gravatar/GitHub/X/Google + 70 more (no API key) | https://github.com/microlinkhq/unavatar |
+| Libravatar (ivatar) | — | Open-source, federated, self-hostable Gravatar-compatible avatar-by-email | https://git.linux-kernel.at/oliver/ivatar |
+| Epieos | — | Hosted email/phone reverse lookup across 140+ services (Google account, Gravatar, holehe) | https://epieos.com |
+| dlamblin/ReverseGravatar | — | Reverse a Gravatar MD5 hash back to an email (dictionary attack) | https://github.com/dlamblin/ReverseGravatar |
 
 ## MCP servers
 
 | Server | URL |
 |--------|-----|
+| mcp-server-gravatar-remote (**official** Gravatar) | https://github.com/Automattic/mcp-server-gravatar-remote |
+| osint-tools-mcp-server (**bundles GHunt** + 6 more) | https://github.com/frishtik/osint-tools-mcp-server |
+| awesome-osint-mcp-servers (curated index) | https://github.com/soxoj/awesome-osint-mcp-servers |
 | OpenOSINT | https://github.com/OpenOSINT/OpenOSINT |
 | sec-theharvester-mcp | https://github.com/schwarztim/sec-theharvester-mcp |
 | osint-mcp-server | https://github.com/badchars/osint-mcp-server |
@@ -260,6 +449,7 @@ webmaster@TARGET.com
 
 ## Integration with other skills
 
+- **[programmatic-osint-sources](../programmatic-osint-sources/SKILL.md)** — the broad companion catalog for everything *beyond* email/avatar: breach exposure, infra/subdomain recon, code-repo email harvesting, contact-enrichment APIs, public-records people data, presence oracles, phone/social. Go there once you've moved past the email-specific workflow here.
 - **website-techstack-analysis** — DNS/MX findings shared between both skills
 - **intelligence-dossier** — populate `01_Company_Profile/email_contacts.md` and `02_People_and_Organization/`
 - **company-legal-reputation-research** — registrant emails from WHOIS history

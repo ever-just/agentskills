@@ -153,6 +153,7 @@
 | **Contact Sheet Image Analysis** | `skills/contact-sheet-image-analysis/SKILL.md` | Gridding large batches of images into contact sheets for efficient AI vision review instead of reading images one-by-one |
 | **Web Crawl Intelligence Extraction** | `skills/web-crawl-intelligence-extraction/SKILL.md` | Processing saved "webcomplete" captures, Wayback Machine archives, video transcripts, and API dumps to extract intelligence never systematically analyzed |
 | **Business Model Canvas Builder** | `skills/business-model-canvas/SKILL.md` | Building a rigorous 9-block Osterwalder Business Model Canvas for a company from structured intelligence data |
+| **Programmatic OSINT Sources** | `skills/programmatic-osint-sources/SKILL.md` | Catalog of data-rich sources pullable programmatically with low lift (keyless/free-tier APIs) — identifier (email/name/domain/username/phone/company/IP) → breach exposure, subdomains/infra, code-repo emails, contact enrichment, officers/owners, account-existence, phone/social — each with a concrete call and auth/ToS caveats |
 
 ### AI AGENT AUDITING & FORENSICS
 
