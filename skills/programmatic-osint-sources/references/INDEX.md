@@ -25,6 +25,7 @@ Each file is a self-contained catalog for one category. Entries follow a consist
 | [phone-and-messaging.md](phone-and-messaging.md) | Twilio Lookup, Veriphone, NumVerify/Abstract, Truecaller, X syndication, Telegram, Discord, WhatsApp, Signal | phone → carrier/line-type/name; handle/phone → messaging-app identity |
 | [market-signals.md](market-signals.md) | Greenhouse/Lever/Ashby/SmartRecruiters/USAJOBS, GDELT, Meta Ad Library, Yelp/Nominatim, WhatCMS/BuiltWith | company → hiring intent, tech stack, news, ads, physical presence |
 | [connectors.md](connectors.md) | Which Claude connectors / MCP servers supply this data (Apollo/Clay/Twilio have; HIBP, Malwarebytes, Lusha, Exa, Firecrawl, badchars/osint-mcp-server…) | "get this via a connector instead of curl" — prioritized free / no-account / low-lift |
+| [connector-test-results.md](connector-test-results.md) | Live-verified scorecard (2026-07): Lusha / Phoenix HG / Sprouts / Vibe — what each returned + credit costs + free-preview-vs-reveal gotchas | "which connectors actually work and what they cost" |
 
 ## Suggested waterfalls
 

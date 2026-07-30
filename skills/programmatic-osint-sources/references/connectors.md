@@ -13,6 +13,11 @@ Prioritized for **free / free-tier**, **no account** (bonus), and **low lift to 
 >
 > **Snapshot:** compiled 2026-07 from the live registry. Availability/tiers change — re-check
 > `ListConnectors` / the connector directory before relying on any row.
+>
+> **Live-verified:** Lusha, Phoenix by HG Insights, Sprouts, and Vibe Prospecting were probed
+> against real queries on 2026-07-30 — all four work. See
+> [connector-test-results.md](connector-test-results.md) for the scorecard, credit costs, and the
+> free-preview-vs-paid-reveal gotcha (Lusha returns name/title/LinkedIn free; email = 1 cr, phone = 5 cr).
 
 ---
 
