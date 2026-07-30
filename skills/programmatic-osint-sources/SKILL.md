@@ -102,6 +102,7 @@ Load the file for the category you need — see **[references/INDEX.md](referenc
 - **[presence-oracles.md](references/presence-oracles.md)** — identifier → "real person + profile" existence checks across consumer platforms (the direct generalization of the Gravatar trick).
 - **[phone-and-messaging.md](references/phone-and-messaging.md)** — phone → carrier/line-type/name, and messaging-app footprint (Telegram/Discord/X/WhatsApp/Signal).
 - **[market-signals.md](references/market-signals.md)** — hiring signals (job boards), news (GDELT), ad transparency, maps/reviews, tech-fingerprint.
+- **[connectors.md](references/connectors.md)** — how to get this data via **Claude connectors / MCP servers** instead of raw `curl`, prioritized free / no-account / low-lift (what's already connected, 1-click directory options, remote-URL MCPs, and self-host power tools).
 
 ---
 

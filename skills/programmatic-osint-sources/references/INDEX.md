@@ -24,6 +24,7 @@ Each file is a self-contained catalog for one category. Entries follow a consist
 | [presence-oracles.md](presence-oracles.md) | Microsoft GetUserRealm/GetCredentialType, Duolingo, Chess.com, Spotify, ignorant, Keybase, Reddit, HN Algolia, Slack, GHunt/holehe/Maigret (cross-ref) | email/username/phone → "does a real person exist here?" + profile |
 | [phone-and-messaging.md](phone-and-messaging.md) | Twilio Lookup, Veriphone, NumVerify/Abstract, Truecaller, X syndication, Telegram, Discord, WhatsApp, Signal | phone → carrier/line-type/name; handle/phone → messaging-app identity |
 | [market-signals.md](market-signals.md) | Greenhouse/Lever/Ashby/SmartRecruiters/USAJOBS, GDELT, Meta Ad Library, Yelp/Nominatim, WhatCMS/BuiltWith | company → hiring intent, tech stack, news, ads, physical presence |
+| [connectors.md](connectors.md) | Which Claude connectors / MCP servers supply this data (Apollo/Clay/Twilio have; HIBP, Malwarebytes, Lusha, Exa, Firecrawl, badchars/osint-mcp-server…) | "get this via a connector instead of curl" — prioritized free / no-account / low-lift |
 
 ## Suggested waterfalls
 
