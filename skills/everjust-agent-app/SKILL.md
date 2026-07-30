@@ -77,6 +77,18 @@ Invariants (all covered by tests in `backend/tests/`):
 - Deny → a synthetic `tool_result` ("user declined") so Claude offers an
   alternative rather than stalling.
 
+## Auth (same as EVERJUST)
+
+EVERJUST has no separate account system — users sign in with their tenant Odoo
+email + password (+ optional 2FA) at `<tenant>.everjust.app/web/login`. So the
+app authenticates the user against their tenant's Odoo via
+`/web/session/authenticate`; the backend then issues a first-party session token
+bound to the Odoo identity (`account_id = "<db>:<uid>"`). The Odoo web session
+isn't kept — MCP uses the API-key bearer, not the web session. LLM cost is
+platform-absorbed (one backend Anthropic key; no metering/BYO-key in v1).
+Recommended follow-up: an `everjust_agent_connect` endpoint that mints the agent
+API key from the post-login Odoo session, so sign-in and connect become one step.
+
 ## Connect / onboarding
 
 The bearer is minted on desktop Odoo (My Preferences → Account Security →
