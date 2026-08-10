@@ -190,6 +190,8 @@
 | **Company Legal & Reputation Research** | `skills/company-legal-reputation-research/SKILL.md` | Vetting a company for court cases, liens, sanctions, debarment, BBB complaints, and reputation signals using free public sources only |
 | **GitHub Search** | `skills/github-search/SKILL.md` | Finding repos/frameworks/code on GitHub with the official search syntax — repo qualifiers, code-search boolean/regex, REST API + rate limits, find-a-framework playbook |
 | **Marketing-Site Authenticity Audit** | skills/marketing-site-authenticity-audit/SKILL.md | Audit a company's OWN marketing site for fabricated case studies/testimonials, stock-as-'real job', reused photos, and over-claims (fetch-and-compare the images), then remediate to honest generic examples |
+| **Product Footprint Inventory** | `skills/product-footprint-inventory/SKILL.md` | Itemize everything a product/company encompasses — code, infra, web + social presence, data, written IP, commercial rails, ecosystem position, history — via a 12-dimension read-only fan-out + session mining + buyer's-counsel critic. For selling, buying, carve-outs, data rooms, "what do we actually own" |
+| **Claude Session Archaeology** | `skills/claude-session-archaeology/SKILL.md` | Reconstruct what work was really done from Claude Code transcripts (`~/.claude/projects/**/*.jsonl`) — streaming grep/jq for 150MB files, the CLAUDE.md boilerplate false-positive trap, core/partial/incidental tagging, fork detection |
 
 ### SOFTWARE ARCHITECTURE & SYSTEM DESIGN
 

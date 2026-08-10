@@ -158,13 +158,15 @@ Skills for auditing a *deployed* AI-agent platform from its real logs — extrac
 | Unmerged-Work Census | [`skills/unmerged-work-census/`](skills/unmerged-work-census/) | Sweep for work that never landed: stale-description PRs, never-PR'd branches, rewrite ghosts (git cherry + spot-verify), local drift |
 
 ### 🔍 Research & Due Diligence
-Skills for researching companies, vetting vendors, and surfacing legal and reputation risk using only free public sources.
+Skills for researching companies, vetting vendors, inventorying what you own, and surfacing legal and reputation risk using only free public sources.
 
 | Skill | Path | Best For |
 |-------|------|----------|
 | Company Legal & Reputation Research | [`skills/company-legal-reputation-research/`](skills/company-legal-reputation-research/) | Court records, liens, sanctions, BBB/Glassdoor, debarment checks — no API keys |
 | GitHub Search | [`skills/github-search/`](skills/github-search/) | Repo/code/topic search with official GitHub syntax, REST API limits, find-a-framework playbook |
 | Marketing-Site Authenticity Audit | [`skills/marketing-site-authenticity-audit/`](skills/marketing-site-authenticity-audit/) | Audit own marketing site for fabricated case studies/reviews; honest remediation |
+| Product Footprint Inventory | [`skills/product-footprint-inventory/`](skills/product-footprint-inventory/) | Itemize an entire product/company — code, infra, presence, data, IP, commercial, history — for a sale, carve-out, or data room |
+| Claude Session Archaeology | [`skills/claude-session-archaeology/`](skills/claude-session-archaeology/) | Mine Claude Code transcripts to reconstruct what work was really done, incl. work that never reached git |
 
 ### 🏗️ Software Architecture & System Design
 Authoritative-source maps for designing production-grade, scalable software systems.
