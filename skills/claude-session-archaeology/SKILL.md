@@ -33,16 +33,37 @@ done | sort -rn
 ```
 Quote `"$d"` — these directory names begin with `-` and unquoted they are parsed as `ls` options.
 
-## The one trap that ruins this: CLAUDE.md boilerplate
-**Every session embeds the user's global `CLAUDE.md` in its context.** If your search term appears anywhere in that file — a project name, a credential label, a path — then *every session on the machine* scores 30–40 hits for it while containing no actual work on the subject.
+## The one trap that ruins this: embedded boilerplate
+**Every session embeds the user's global context in its transcript — and there are at least TWO such files, not one.** The global `CLAUDE.md` is the obvious one. The auto-memory index (`~/.claude/projects/<dir>/memory/MEMORY.md`) is the one that catches people out: it is injected into every session in its project, and it is a *summary of past work*, so it disproportionately contains exactly the project nouns you are searching for. If your term appears in either file, *every session on the machine* scores 30–40 hits while containing no actual work on the subject.
 
-**Calibrate before you classify.** Count occurrences per file, then read the distribution:
+**Never assume a term is clean — verify it.** Before trusting any keyword, grep the boilerplate itself:
+
+```bash
+grep -ic 'KEYWORD' ~/CLAUDE.md ~/.claude/CLAUDE.md 2>/dev/null
+grep -ric 'KEYWORD' ~/.claude/projects/*/memory/MEMORY.md 2>/dev/null
+```
+
+This is not optional. On a real run the operator asserted that a predecessor brand name was absent from the boilerplate and therefore high-precision; it was in fact present in `MEMORY.md`, and treating every hit as signal would have produced **1,412 false positives**.
+
+**Then calibrate.** Count occurrences per file and read the distribution:
 
 ```bash
 for f in *.jsonl; do printf '%7d %s\n' "$(grep -oi 'KEYWORD' "$f" | wc -l)" "$f"; done | sort -rn
 ```
 
-Typical shape: a cluster at 30–45 (boilerplate only), then a gap, then the real sessions at hundreds or thousands. In a recent run the real ones ran 471 → 19,358 hits while the noise floor sat near 40. Treat anything under ~50 as boilerplate until a title check says otherwise, and never deep-dive it.
+Typical shape: a cluster at 30–45 (boilerplate only), then a gap, then the real sessions at hundreds or thousands. In one run the real ones ran 471 → 19,358 hits while the noise floor sat near 40. Treat anything under ~50 as boilerplate until a title check says otherwise, and never deep-dive it.
+
+**Count events, not occurrences,** when a term repeats heavily inside single messages: `rg -c` counts matching lines/events and gives a far more stable floor than `grep -o | wc -l`.
+
+## Most of the corpus is not where you are looking
+`~/.claude/projects/<dir>/*.jsonl` holds the **main** session transcripts. Subagent and workflow transcripts live *nested deeper* — and they vastly outnumber the main ones. Measure both before you scope:
+
+```bash
+find ~/.claude/projects -maxdepth 2 -name '*.jsonl' | wc -l   # main sessions
+find ~/.claude/projects -mindepth 3 -name '*.jsonl' | wc -l   # subagent / workflow
+```
+
+On one machine that was **45 main against 3,678 nested** — the nested corpus was 98% of the files and had never been swept. Also note that most project directories contain **no transcripts at all** (only `memory/`, `workflows/scripts/`, `file-history/`), so "30 project dirs" does not mean 30 dirs worth searching. Decide explicitly whether the nested corpus is in scope; for "what work was done" it usually is, because that is where fan-out agents did the actual work.
 
 ## The streaming recipe
 Never `Read` these files. Never run `jq` over a whole 140 MB file when a tail will do. Always append `2>/dev/null` — some lines fail to parse and will abort an unguarded `jq`.
