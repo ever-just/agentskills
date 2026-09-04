@@ -1,313 +1,354 @@
-# Agent Skills
+# agentskills
 
-> A curated collection of **115+ AI agent skills** — structured knowledge files that teach coding agents (Windsurf/Cascade, Claude Code, Cursor, Codex, Gemini CLI) how to accomplish complex tasks. Spanning visual asset creation, platform operations, the full everjust.app Odoo tenant surface, AI-agent auditing, writing, marketing, and content strategy.
+Agent skills for Claude Code and other file-reading coding agents
 
-> **Contributing a skill?** See [`CONTRIBUTING.md`](CONTRIBUTING.md) for how to structure, place, register, and PR a skill — and how multiple agents can edit this repo without collisions.
+**Status:** Maintained · 168 `SKILL.md` files · MIT · public
 
-## What Are Agent Skills?
+[![license](https://img.shields.io/badge/license-MIT-1D1D1F?style=flat)](./LICENSE)
+[![skills](https://img.shields.io/badge/skills-168-1D1D1F?style=flat)](./AGENTS.md)
 
-Agent skills are **structured SKILL.md files** that give AI coding agents deep expertise in specific tools and workflows. Instead of relying on generic training data, skills provide:
+[Skill index](./AGENTS.md) · [Contributing](./CONTRIBUTING.md) · [Skill authoring](./skills/white-paper-writing/blastum-skill-authoring/SKILL.md) · [Agent Skills spec](https://agentskills.io) · [Claude Code skills docs](https://code.claude.com/docs/en/skills)
 
-- **Step-by-step instructions** tailored for AI agents
-- **Code templates** and scaffolding commands
-- **Decision trees** for choosing the right approach
-- **Common pitfalls** and how to avoid them
-- **Combination patterns** for multi-tool workflows
+|  |  |
+|---|---|
+| **What it is** | A library of 168 `SKILL.md` procedures that teach a coding agent a job |
+| **Who it's for** | Anyone driving Claude Code, Cursor, Windsurf, Codex or Gemini CLI |
+| **Live at** | [github.com/ever-just/agentskills](https://github.com/ever-just/agentskills) — the repo *is* the product; there is no hosted service and no account |
+| **Stack** | Markdown + YAML frontmatter · no build step · zero runtime dependencies |
+| **Status** | Maintained · 168 skills across 130 directories · 70 commits · 26 merged PRs · last skill landed 2026-08-14 |
 
-## Skill Categories
+A skill is a single Markdown file that tells an agent how to do one job properly: the method,
+the decision tree, the commands, and the mistakes that were actually made the first time.
+This repo holds 168 of them, written while shipping real systems and corrected afterwards.
+Clone it, drop the directories you want into your agent's skills folder, and the agent stops
+improvising.
 
-### 🎬 Visual Asset Creation
-Open-source tools for programmatic video, animation, and presentation creation. No API keys needed — everything runs locally.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Remotion | [`skills/remotion/`](skills/remotion/) | React video creation, product demos, social clips |
-| Motion Canvas | [`skills/motion-canvas/`](skills/motion-canvas/) | TypeScript explainer videos, tutorials |
-| Manim | [`skills/manim/`](skills/manim/) | Python math/science animations |
-| GSAP | [`skills/gsap/`](skills/gsap/) | Web animations, scroll effects |
-| Slidev | [`skills/slidev/`](skills/slidev/) | Markdown/Vue animated presentations |
-| D3.js | [`skills/d3-visualization/`](skills/d3-visualization/) | Animated data visualizations |
-| Lottie | [`skills/lottie-animation/`](skills/lottie-animation/) | Logo/icon JSON animations |
-| MoviePy | [`skills/moviepy/`](skills/moviepy/) | Python video editing/compositing |
-| Framer Motion | [`skills/framer-motion/`](skills/framer-motion/) | React UI animations, transitions |
-| Remotion Templates | [`skills/remotion-templates/`](skills/remotion-templates/) | Pre-built video effects for Remotion |
-| Remotion Captions | [`skills/remotion-captions/`](skills/remotion-captions/) | Animated subtitles for Remotion |
-| Web Embed Video Optimization | [`skills/web-embed-video-optimization/`](skills/web-embed-video-optimization/) | Optimizing/embedding an existing video as a fast, autoplaying web hero/loop |
-| SVG Logo & Brand Asset Pipeline | [`skills/svg-logo-brand-asset-pipeline/`](skills/svg-logo-brand-asset-pipeline/) | Static logo/favicon design + full icon-set export; normalizing sourced logos to one style |
-
-### 🤖 Platform Operations
-Skills for building, deploying, and operating AI-powered platforms.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Conversation Review | [`skills/conversation-review/`](skills/conversation-review/) | Auditing AI conversations (includes prompts, queries, sample reports) |
-| Deployment Testing | [`skills/deployment-testing/`](skills/deployment-testing/) | Verifying deployments across environments |
-| Email Mastery | [`skills/email-mastery/`](skills/email-mastery/) | AI email processing, classification, response |
-| UI/UX Audit | [`skills/ui-ux-audit/`](skills/ui-ux-audit/) | Mobile & desktop UI/UX issue detection |
-| UX Evaluation | [`skills/ux-evaluation/`](skills/ux-evaluation/) | Layered UX critique & diagnosis (strategy → surface) |
-| GoDaddy API | [`skills/godaddy-api/`](skills/godaddy-api/) | Domain management, DNS records via GoDaddy REST API |
-| Sentry Instrumentation | [`skills/sentry-instrumentation/`](skills/sentry-instrumentation/) | Error tracking for Express/Next.js routes |
-| MongoDB Schema Audit | [`skills/mongodb-schema-audit/`](skills/mongodb-schema-audit/) | Index coverage, relationship validation, migrations |
-| Admin Dashboard Verification | [`skills/admin-dashboard-verification/`](skills/admin-dashboard-verification/) | Systematic admin feature verification |
-| Bun Testing | [`skills/bun-testing/`](skills/bun-testing/) | Fast simulation tests with Bun runtime |
-| Web Visibility | [`skills/web-visibility/`](skills/web-visibility/) | SEO + AEO/GEO discoverability for search AND AI answer engines |
-| GitHub Research | [`skills/github-research/`](skills/github-research/) | Intelligent GitHub search for specs, implementations, adopters |
-| CDP Render Verification | [`skills/cdp-render-verification/`](skills/cdp-render-verification/) | Headless-Chrome CDP verification of web changes (computed styles, mobile, flows) |
-| Trust Center & Compliance Program | [`skills/trust-center-compliance-program/`](skills/trust-center-compliance-program/) | Self-host Probo + author SOC 2 / ISO 27001 / GDPR program |
-| EVERJUST Website Infra Views | [`skills/everjust-website-infra-views/`](skills/everjust-website-infra-views/) | Edit infra/chrome/JSON-LD/CSS views + robots.txt on an everjust.app tenant via XML-RPC (MCP blocks `ir.ui.view`) |
-| Local-Business AEO/GEO Schema | [`skills/local-business-aeo-schema/`](skills/local-business-aeo-schema/) | LocalBusiness/Service/FAQ/Review JSON-LD for local SEO + AI-answer citation |
-| Custom-Domain Email/DNS Diagnosis | [`skills/custom-domain-email-dns-diagnosis/`](skills/custom-domain-email-dns-diagnosis/) | Registrar-vs-DNS-host split, 'no zone' errors, why email won't configure |
-| Odoo Direct JSON-RPC Access | [`skills/odoo-direct-jsonrpc-access/`](skills/odoo-direct-jsonrpc-access/) | Odoo 19 /jsonrpc access with login+password (no MCP/Bearer needed) |
-| Web Deploy Verification | [`skills/web-deploy-verification/`](skills/web-deploy-verification/) | Confirm a merged change is live — URL polling, local screenshot fallback |
-| Agent Discoverability | [`skills/agent-discoverability/`](skills/agent-discoverability/) | Publishing an MCP server so agents find and connect it: registry + directories, OAuth discovery chain, capability manifest, DNS-AID |
-| Generative Engine Optimization | [`skills/generative-engine-optimization/`](skills/generative-engine-optimization/) | Get AI answer engines to cite a site as THE answer, not just a brand lookup |
-| MCP Server Discoverability | [`skills/mcp-server-discoverability/`](skills/mcp-server-discoverability/) | Make a hosted MCP server + API discoverable/usable by AI agents |
-| Reverse-Proxy CMS Indexing | [`skills/reverse-proxy-cms-indexing/`](skills/reverse-proxy-cms-indexing/) | Fix robots.txt/sitemap/canonical mismatches behind a Host-rewriting proxy |
-| GitHub Actions → EC2 Deploy | [`skills/github-actions-ec2-deploy/`](skills/github-actions-ec2-deploy/) | CI/CD: push-to-deploy pipeline over SSH into EC2 |
-| GitHub Repo Management | [`skills/github-repo-management/`](skills/github-repo-management/) | Init/create/push/cleanup GitHub repos via `gh` CLI |
-| Twilio Embedded Telephony | [`skills/twilio-embedded-telephony/`](skills/twilio-embedded-telephony/) | Embedded calls + SMS in a web app via Twilio Voice JS SDK |
-| Product Hunt Launch | [`skills/product-hunt-launch/`](skills/product-hunt-launch/) | PH launch copy, gallery assets, video prep, manual-submission handoff |
-| Deploy-Log Forensics | [`skills/deploy-log-forensics/`](skills/deploy-log-forensics/) | Attribute production changes from CI/CD run logs with no server access — which deploy carried which commit to which target, when |
-| Production Revert Discipline | [`skills/production-revert-discipline/`](skills/production-revert-discipline/) | Roll back a deployed feature safely — culprit binding, later-commit dependency check, what a revert does NOT undo |
-
-### 🐘 Odoo Platform Development
-Generic Odoo 19 development skills — not tied to a specific everjust.app tenant.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Odoo Community/Enterprise Parity | [`skills/odoo-community-enterprise-parity/`](skills/odoo-community-enterprise-parity/) | Replicating Enterprise features in Community via OCA modules |
-| Odoo Module 18→19 Migration | [`skills/odoo-module-18-to-19-migration/`](skills/odoo-module-18-to-19-migration/) | Porting modules through Odoo 19's model/field renames + security rewrite |
-| Odoo Multi-Tenant SaaS | [`skills/odoo-multi-tenant-saas/`](skills/odoo-multi-tenant-saas/) | Self-hosted multi-tenant SaaS on Odoo 19 CE — isolated DB per tenant |
-| Odoo Blue/Green Zero-Downtime Deploy | [`skills/odoo-bluegreen-zero-downtime/`](skills/odoo-bluegreen-zero-downtime/) | Ship addon changes to docker-compose Odoo with zero downtime — verified live `-u`, code-isolation trap, cutover state machine |
-
-### 🎨 Design & Frontend Artifacts
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Canvas Design | [`skills/canvas-design/`](skills/canvas-design/) | Original visual art as .png/.pdf posters/designs |
-| Frontend Design | [`skills/frontend-design/`](skills/frontend-design/) | Distinctive, production-grade frontend interfaces |
-| Web Artifacts Builder | [`skills/web-artifacts-builder/`](skills/web-artifacts-builder/) | Multi-component React/Tailwind/shadcn claude.ai artifacts |
-| LLM Deeplink Widget | [`skills/llm-deeplink-widget/`](skills/llm-deeplink-widget/) | "Ask AI about us" widget deep-linking into ChatGPT/Claude/Perplexity |
-
-### 🕵️ Research, OSINT & Competitive Intelligence
-Building and verifying a company intelligence dossier from open sources — dossier architecture, source verification, and specialized extraction techniques (LinkedIn, video, images, web archives).
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Deep Research | [`skills/deep-research/`](skills/deep-research/) | Multi-source research harness — fan-out search, adversarial verification, cited synthesis |
-| Intelligence Dossier | [`skills/intelligence-dossier/`](skills/intelligence-dossier/) | Structured dossier architecture + maintenance for a private company |
-| Industry Context Research | [`skills/industry-context-research/`](skills/industry-context-research/) | Six-dimension industry context layer (Econ/History/Legal/Political/Workforce/Tech) |
-| Verification Audit | [`skills/verification-audit/`](skills/verification-audit/) | Cross-verify dossier findings against independent sources |
-| Client Discovery OSINT | [`skills/client-discovery-osint/`](skills/client-discovery-osint/) | Identify a private company's clients from open sources |
-| Competitor Identification | [`skills/competitor-identification/`](skills/competitor-identification/) | Ranked Top-10 competitor discovery and validation |
-| Supplier Verification | [`skills/supplier-verification/`](skills/supplier-verification/) | Evidence-ranked supplier map from a partner-logo wall |
-| OEM Partner Verification | [`skills/oem-partner-verification/`](skills/oem-partner-verification/) | Confirm claimed OEM partnerships against the manufacturer's own site |
-| Commercial Property Research | [`skills/commercial-property-research/`](skills/commercial-property-research/) | Facilities/warehouse/real-estate footprint from public records |
-| Domain Email Enumeration | [`skills/domain-email-enumeration/`](skills/domain-email-enumeration/) | Discover emails + mail infra for a domain via DNS + OSINT |
-| Google Dorking OSINT | [`skills/google-dorking-osint/`](skills/google-dorking-osint/) | Advanced search-operator OSINT for exposed docs/intel |
-| Ad Transparency Audit | [`skills/ad-transparency-audit/`](skills/ad-transparency-audit/) | Real ad spend vs. pixel infrastructure, via ad transparency platforms |
-| Open-Source Traffic Analysis | [`skills/open-source-traffic-analysis/`](skills/open-source-traffic-analysis/) | Free-tool website traffic/keyword estimation |
-| Website Tech Stack Analysis | [`skills/website-techstack-analysis/`](skills/website-techstack-analysis/) | Full tech stack (framework/CMS/CDN/hosting/security headers) |
-| LinkedIn Activity Intelligence | [`skills/linkedin-activity-intelligence/`](skills/linkedin-activity-intelligence/) | Structured intel from a LinkedIn feed when API/scraping is blocked |
-| Era-Validated LinkedIn Analysis | [`skills/era-validated-linkedin-analysis/`](skills/era-validated-linkedin-analysis/) | Prevent employer-era misattribution in LinkedIn analysis |
-| Video Intelligence | [`skills/video-intelligence/`](skills/video-intelligence/) | Intel extraction from YouTube/Vimeo/company video |
-| Visual Intelligence | [`skills/visual-intelligence/`](skills/visual-intelligence/) | Intel from video frames via multimodal vision |
-| Contact Sheet Image Analysis | [`skills/contact-sheet-image-analysis/`](skills/contact-sheet-image-analysis/) | Grid large image batches for efficient AI vision review |
-| Web Crawl Intelligence Extraction | [`skills/web-crawl-intelligence-extraction/`](skills/web-crawl-intelligence-extraction/) | Extract intel from saved captures/archives/transcripts/API dumps |
-| Business Model Canvas Builder | [`skills/business-model-canvas/`](skills/business-model-canvas/) | 9-block Osterwalder BMC from structured intelligence data |
-| Programmatic OSINT Sources | [`skills/programmatic-osint-sources/`](skills/programmatic-osint-sources/) | Data-rich sources pullable with low lift (keyless/free-tier APIs): identifier → breach exposure, subdomains/infra, code-repo emails, contact enrichment, officers/owners, account-existence, phone/social — each with a concrete call + caveats |
-
-### 🏢 EverJust Platform (everjust.app Odoo 19 multi-tenant SaaS)
-Operating a live everjust.app tenant end-to-end via the Odoo MCP/ORM — mail, mass mailing, domain migration, CRM, HR, projects, e-signature, telephony, and the full public-website surface. `everjust-platform` + `everjust-agent-mcp` are the foundation every other skill in this group builds on; `everjust-control-plane` covers the layer above the tenants (signup, billing, provisioning).
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| EverJust Platform | [`skills/everjust-platform/`](skills/everjust-platform/) | Operating rules for any everjust.app tenant — read first |
-| EverJust Agent MCP | [`skills/everjust-agent-mcp/`](skills/everjust-agent-mcp/) | Connecting to a tenant's MCP server and its toolset |
-| EverJust Control Plane | [`skills/everjust-control-plane/`](skills/everjust-control-plane/) | Signup, Stripe billing, tenant provisioning, suspend/resume — the layer above the tenants |
-| EverJust Mail Ops | [`skills/everjust-mail-ops/`](skills/everjust-mail-ops/) | Send/read mail as a tenant mailbox, diagnose blocked sends, domain verification |
-| EverJust Mass Mailing | [`skills/everjust-mass-mailing/`](skills/everjust-mass-mailing/) | Bulk/campaign email — lists, drafts, tests, human-gated blasts, analytics |
-| EverJust Tenant Domain Migration | [`skills/everjust-tenant-domain-migration/`](skills/everjust-tenant-domain-migration/) | Rebrand/cutover a tenant to a new public domain |
-| EverJust CRM & Sales | [`skills/everjust-crm-sales/`](skills/everjust-crm-sales/) | Leads/opportunities pipeline management |
-| EverJust Appointments | [`skills/everjust-appointments/`](skills/everjust-appointments/) | Online booking → calendar + CRM lead + confirmation |
-| EverJust Calendar & Contacts | [`skills/everjust-calendar-contacts/`](skills/everjust-calendar-contacts/) | Contact spine + calendar scheduling/sync |
-| EverJust Client Portal | [`skills/everjust-client-portal/`](skills/everjust-client-portal/) | Customer self-service `/my/*` portal access |
-| EverJust Documents | [`skills/everjust-documents/`](skills/everjust-documents/) | Folders/files, upload/download, storage |
-| EverJust Events | [`skills/everjust-events/`](skills/everjust-events/) | Event creation, registrations, CRM/reminder wiring |
-| EverJust Payroll & HR | [`skills/everjust-payroll-hr/`](skills/everjust-payroll-hr/) | Employees, contracts, attendance, payslips |
-| EverJust Projects | [`skills/everjust-projects/`](skills/everjust-projects/) | Projects/tasks, kanban, assignment |
-| EverJust QuickBooks | [`skills/everjust-quickbooks/`](skills/everjust-quickbooks/) | QBO OAuth connector, invoice/chart-of-accounts sync |
-| EverJust Sign | [`skills/everjust-sign/`](skills/everjust-sign/) | E-signature requests and signed-PDF audit trail |
-| EverJust SMS | [`skills/everjust-sms/`](skills/everjust-sms/) | SMS send, templates, mass-SMS, delivery state |
-| EverJust Telephony | [`skills/everjust-telephony/`](skills/everjust-telephony/) | Call logging, recordings/voicemail, outbound calls |
-| EverJust Website (+9 sub-skills) | [`skills/everjust-website/`](skills/everjust-website/) | Pages, blog, forms, forum, i18n, newsletter, SEO, snippets, themes, community |
-| EverJust Website Customization | [`skills/everjust-website-customization/`](skills/everjust-website-customization/) | Durable Odoo tenant edits from the shell (COW views, custom_code_head, base_automation) |
-| EverJust Website GEO Content | [`skills/everjust-website-geo-content/`](skills/everjust-website-geo-content/) | Citable content clusters + per-page schema + sitemap-freshness for AI answer-engine citation on an everjust Odoo site |
-| EverJust Odoo Shell Ops | [`skills/everjust-odoo-shell-ops/`](skills/everjust-odoo-shell-ops/) | Tenant Odoo box-shell ops: DB-only publishing, COW-fork gotcha, CI-rsync recovery, deploy-collision avoidance, ir.cron, nginx |
-
-### 🔬 AI Agent Auditing & Forensics
-Skills for auditing a *deployed* AI-agent platform from its real logs — extracting production data, grading agent behavior, and turning findings into validated, actionable fixes. Battle-tested on a multi-channel (SMS/email/voice/chat) agent product.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Production Agent Audit | [`skills/production-agent-audit/`](skills/production-agent-audit/) | End-to-end log audit: census → multi-source extraction → fan-out analysis → adversarial verification → graded report |
-| EC2 Instance Connect Data Pull | [`skills/ec2-instance-connect-data-pull/`](skills/ec2-instance-connect-data-pull/) | Read-only prod shell with no stored SSH key (AWS Instance Connect), then pull Mongo/logs home via tar+base64 |
-| Agent Quality Grading | [`skills/agent-quality-grading/`](skills/agent-quality-grading/) | Grade conversations (task/speed/tools/message-quality), generated assets, and prompts/configs — with verbatim evidence |
-| Finding → Fix Remediation | [`skills/finding-forensic-remediation/`](skills/finding-forensic-remediation/) | Turn findings into a git-grounded backlog: root cause at path:line, when-introduced, status, exact fix |
-| Temporal Finding Validation | [`skills/temporal-finding-validation/`](skills/temporal-finding-validation/) | Cross-check findings vs the commit timeline (UTC-normalized) — still-live vs already-fixed |
-| Unmerged-Work Census | [`skills/unmerged-work-census/`](skills/unmerged-work-census/) | Sweep for work that never landed: stale-description PRs, never-PR'd branches, rewrite ghosts (git cherry + spot-verify), local drift |
-
-### 🔍 Research & Due Diligence
-Skills for researching companies, vetting vendors, inventorying what you own, and surfacing legal and reputation risk using only free public sources.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Company Legal & Reputation Research | [`skills/company-legal-reputation-research/`](skills/company-legal-reputation-research/) | Court records, liens, sanctions, BBB/Glassdoor, debarment checks — no API keys |
-| GitHub Search | [`skills/github-search/`](skills/github-search/) | Repo/code/topic search with official GitHub syntax, REST API limits, find-a-framework playbook |
-| Marketing-Site Authenticity Audit | [`skills/marketing-site-authenticity-audit/`](skills/marketing-site-authenticity-audit/) | Audit own marketing site for fabricated case studies/reviews; honest remediation |
-| Product Footprint Inventory | [`skills/product-footprint-inventory/`](skills/product-footprint-inventory/) | Itemize an entire product/company — code, infra, presence, data, IP, commercial, history — for a sale, carve-out, or data room |
-| Claude Session Archaeology | [`skills/claude-session-archaeology/`](skills/claude-session-archaeology/) | Mine Claude Code transcripts to reconstruct what work was really done, incl. work that never reached git |
-
-### 🏗️ Software Architecture & System Design
-Authoritative-source maps for designing production-grade, scalable software systems.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| System Design & Architecture | [`skills/system-design-architecture/`](skills/system-design-architecture/) | Backend design end-to-end: security, the scaling ladder, capacity/thresholds, cost modeling, architecture archetypes (multi-tenant SaaS, multi-agent/LLM), product layers, cloud service maps (AWS/GCP/Azure/Cloudflare), real-system case studies, open standards, decision records (ADRs) — with review checklists + a worked example |
-
-### ✍️ Writing, Marketing & Content (19 sub-skills)
-A comprehensive collection for producing high-quality written content. See [`skills/white-paper-writing/README.md`](skills/white-paper-writing/README.md) for the full index.
-
-| Category | Skills | Purpose |
-|----------|--------|---------|
-| Writing & Prose Quality | Beautiful Prose, Humanizer, Write Concisely | Eliminate AI tics, enforce muscular prose, apply Elements of Style |
-| Doc Co-Authoring & Research | Anthropic Doc Co-Authoring, Content Research Writer, Notebook, Skill Authoring | 3-stage co-authoring, research pipelines, knowledge capture |
-| Marketing & Copywriting | 7 skills (Copywriting, Content Strategy, Copy Editing, Launch/Pricing Strategy, Psychology, AI Marketing Skills) | Full SaaS marketing stack |
-| Planning & Brainstorming | Writing Skills, Writing Plans, Brainstorming | TDD-based writing, strategic documentation, structured ideation |
-| Document Export | DOCX Export, Markdown to PDF | Final deliverable generation |
-
-### ⚙️ Frontend Engineering & Agent Orchestration
-Battle-tested methods from a real Next.js + Tailwind v4 console redesign — how to fan the work out across agents, audit it empirically, theme it, and build the component layer.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Parallel Agent Refactor | [`skills/parallel-agent-refactor/`](skills/parallel-agent-refactor/) | Large multi-file migrations via disjoint-ownership subagent fan-out + wave barriers |
-| Empirical Responsive Audit | [`skills/empirical-responsive-audit/`](skills/empirical-responsive-audit/) | Mechanical mobile/layout defect detection with a Playwright probe (ships a CI gate) |
-| Dark Mode Token Migration | [`skills/dark-mode-token-migration/`](skills/dark-mode-token-migration/) | Adding dark mode via a semantic token layer, with light kept pixel-identical |
-| shadcn + Tailwind v4 Primitives | [`skills/shadcn-tailwind-v4-primitives/`](skills/shadcn-tailwind-v4-primitives/) | Scaffolding token-based shadcn/ui + Radix primitives on Tailwind v4 |
-| UX Decision Rubrics | [`skills/ux-decision-rubrics/`](skills/ux-decision-rubrics/) | Objective form-control choice + user-story clarity scoring |
-
-### 🎯 GTM, Prospecting & Agent Orchestration
-Skills for building large sales/GTM datasets from public data and for orchestrating the concurrent subagents that produce them.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| ICP Prospect List Builder | [`skills/icp-prospect-list-builder/`](skills/icp-prospect-list-builder/) | Building a prioritized, source-cited prospect dataset (companies + size-routed contacts) from public data — ICP scoring, ranked discovery sources incl. the Product Hunt API, dedup |
-| Parallel Agent Fan-Out | [`skills/parallel-agent-fanout/`](skills/parallel-agent-fanout/) | Orchestrating dozens of concurrent subagents into one verified dataset — 3-wave pipeline, no-delegation rule, file-on-disk checks, recombine + row-integrity validation |
-
-### 🛠️ Software Engineering Practices
-Day-to-day engineering technique skills — debugging, testing, and git hygiene — distinct from Software Architecture & System Design's big-picture design work.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Diagnosing Bugs | [`skills/diagnosing-bugs/`](skills/diagnosing-bugs/) | A disciplined diagnosis loop for hard bugs/perf regressions — build a red-capable feedback loop first, then reproduce, minimize, rank hypotheses, instrument, fix with a regression test |
-| TDD | [`skills/tdd/`](skills/tdd/) | Red/green/refactor done well — tests at pre-agreed seams, testing behavior not implementation, avoiding tautological and horizontal-sliced tests |
-| Resolving Merge Conflicts | [`skills/resolving-merge-conflicts/`](skills/resolving-merge-conflicts/) | Resolving an in-progress git merge/rebase conflict by intent, not by guesswork |
-
-### 🧭 Agent Workflow & Session Continuity
-Skills for the meta-work of running a long AI-assisted effort — stress-testing plans, carrying context across sessions, and planning work too big for one sitting.
-
-| Skill | Path | Best For |
-|-------|------|----------|
-| Grilling | [`skills/grilling/`](skills/grilling/) | A relentless, one-question-at-a-time interview to stress-test a plan or decision before acting on it |
-| Handoff | [`skills/handoff/`](skills/handoff/) | Compacting a conversation into a standalone doc so a fresh session can pick up the work |
-| Wayfinder | [`skills/wayfinder/`](skills/wayfinder/) | Planning huge, multi-session work as a map of decision tickets on an issue tracker, resolved one at a time |
-
-## How to Use
-
-### For Windsurf / Cascade
-Reference skills in `.windsurf/rules/` or instruct the agent directly:
+```mermaid
+flowchart LR
+    U["You ask for<br/>a job"] --> M["AGENTS.md<br/>21 category tables"]
+    M -->|matches on<br/>frontmatter description| S["skills/&lt;name&gt;/SKILL.md<br/>method + decision tree"]
+    S -->|loaded only<br/>when needed| R["references/ · checklists/<br/>examples/ · scripts/"]
+    S --> O["The agent does<br/>the job your way"]
 ```
-Read the Remotion skill from skills/remotion/SKILL.md and create a product intro video
-```
-
-### For Claude Code
-```bash
-cat skills/remotion/SKILL.md  # Load into context
-```
-
-### For Cursor
-Reference in `.cursorrules` or load directly.
-
-### For Any Agent
-Point to the `AGENTS.md` manifest for automatic skill discovery:
-```
-Read AGENTS.md and help me create a [product video / animated presentation / data visualization]
-```
-
-## Skill File Format
-
-Each skill follows a consistent structure:
-
-```
-skills/<skill-name>/
-├── SKILL.md          # Main skill file (required)
-├── examples/         # Example projects (optional)
-├── templates/        # Scaffolding templates (optional)
-└── rules.md          # Agent behavior rules (optional)
-```
-
-### SKILL.md Structure
-```markdown
-# Skill Name
-
-## Overview
-What this tool does and when to use it.
-
-## Prerequisites
-System requirements, installation commands.
-
-## Quick Start
-Minimal steps to get a working example.
-
-## API Reference
-Key functions, components, and patterns.
-
-## Common Patterns
-Frequently used code patterns and templates.
-
-## Pitfalls
-What agents commonly get wrong and how to fix it.
-
-## Combining With Other Skills
-How this skill works with other skills in this repo.
-```
-
-## Adding a New Skill
-
-1. Create `skills/<skill-name>/SKILL.md`
-2. Follow the format above
-3. Add an entry to the table in this README
-4. Update `AGENTS.md` with the new skill
-
-### Qualifying Criteria
-Every skill must meet ALL of these:
-- **Actionable** — Agent can produce working output from the skill alone
-- **Tested** — Instructions verified to produce correct results
-- **Self-contained** — No undocumented dependencies
-- **Maintained** — Updated when the underlying tool changes
-
-## Requirements
-
-- **Node.js 18+** (for JS/TS tools)
-- **Python 3.9+** (for Python tools)
-- **FFmpeg** (`brew install ffmpeg`) — required for video rendering
-- **No API keys** — visual asset skills run entirely locally
-
-## License
-
-MIT
 
 ---
 
-*Maintained by [Custom Agents](https://customagents.io)*
+## The problem
+
+A coding agent will attempt almost anything you ask it, and it will do most of it from a
+generic prior. Ask for a research pass and you get three web searches and a summary. Ask it to
+audit a production system and it samples a few records and reports that things look fine. Ask
+it to verify a company's partner list and it reads the logo wall and believes it. The work
+looks finished. It is wrong in the tail, which is exactly where the findings live.
+
+The gap is not intelligence, it is procedure — the ordering, the rate limits, the source that
+has to be checked before the obvious one, the trap that ate two hours last time. That
+knowledge normally lives in one person's head and gets re-derived by every agent, every
+session. Writing it down once, in the format the agent already reads, is the whole idea here.
+
+---
+
+## Quickstart
+
+Clone the repo. Nothing installs, nothing builds, nothing runs.
+
+```bash
+git clone https://github.com/ever-just/agentskills.git
+cd agentskills
+```
+
+**Use one skill in Claude Code.** Personal skills live in `~/.claude/skills/`, project skills
+in `.claude/skills/` — one directory per skill, each containing a `SKILL.md`:
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R skills/production-agent-audit ~/.claude/skills/
+cp -R skills/deep-research         ~/.claude/skills/
+```
+
+**Use it with any file-reading agent.** Point the agent at the manifest and let it choose:
+
+```text
+Read AGENTS.md in this repo, pick the skill that fits, then follow it exactly.
+I need to audit what our deployed agents have been doing for the last three weeks.
+```
+
+**Read one without installing anything:**
+
+```bash
+cat skills/production-agent-audit/SKILL.md
+less skills/deep-research/AGENT_SKILL_DEEP_RESEARCH.md
+```
+
+Requirements: `git`, and an agent that can read files. Individual skills name their own tools
+(FFmpeg for video, Python 3.9+ for the Python pipelines, Node.js 18+ for the JS ones); the
+repo itself has none.
+
+---
+
+## What it does
+
+Every bullet below points at a file in this repo. The numbers are recorded runs, not estimates.
+
+- **Audit a deployed AI-agent product from its own exhaust** — census, then total extraction
+  from database + request logs + container stdout + error tracker, every record read rather
+  than sampled, every claim triangulated across ≥2 sources before it becomes a finding →
+  `skills/production-agent-audit/SKILL.md`
+- **Run a research pass that finds what search engines miss** — the seven-phase pipeline
+  (plan → local → search → Wayback → scrape → synthesise → report). Its worked example
+  recovers 26 PDFs from the Wayback CDX index that Google never returned, plus nine years of
+  conference schedules and 625 speaker records → `skills/deep-research/`
+- **Stop believing a logo wall** — verify claimed OEM partnerships against each manufacturer's
+  own directory. The run that produced the skill confirmed **2 of ~40** claimed partnerships,
+  which changed the assessment of the target entirely →
+  `skills/oem-partner-verification/SKILL.md`
+- **Find a private company's customers from public sources** — twelve cross-referenced source
+  classes and a tiered confidence framework; the validating run turned one publicly named
+  client into 6 confirmed, 6 probable, 17 event sponsors and 10 warm-network connections →
+  `skills/client-discovery-osint/SKILL.md`
+- **Review thousands of images without burning a context window** — auto-classify, then batch
+  into 6×6 contact sheets for vision review; 10–33× throughput depending on image complexity →
+  `skills/contact-sheet-image-analysis/SKILL.md`
+- **Recover work that never reached `main`** — mine agent session transcripts up to 150 MB
+  with streaming `grep`/`jq`, then sweep for unmerged branches, stashes and dangling commits →
+  `skills/claude-session-archaeology/SKILL.md`, `skills/unmerged-work-census/SKILL.md`
+- **Roll a production change back without making it worse** — culprit binding, the
+  later-commit dependency check, and an explicit list of what a revert does *not* undo →
+  `skills/production-revert-discipline/SKILL.md`
+- **Attribute a production change with no server access** — map CI/CD run logs to commit
+  ranges to targets, and separate *caused* from *merely exposed* →
+  `skills/deploy-log-forensics/SKILL.md`
+- **Operate a multi-tenant Odoo 19 platform** — 33 skills covering mail, mass mailing, CRM,
+  appointments, telephony, e-signature, payroll, the website surface and zero-downtime
+  blue/green deploys → `skills/everjust-*/`
+- **Make a site answerable by AI engines, not just indexable** — JSON-LD authored from visible
+  content, robots/llms.txt reality checks, and the MCP-server discovery chain →
+  `skills/generative-engine-optimization/`, `skills/agent-discoverability/`
+- **Render video, animation and slides locally** — Remotion, Motion Canvas, Manim, GSAP,
+  Lottie, MoviePy, D3, Slidev. No API keys; everything runs on your machine →
+  `skills/remotion/`, `skills/manim/`, `skills/gsap/`
+- **Write like a person** — co-authoring, prose repair, de-AI-ification, concision, and export
+  to DOCX or PDF → `skills/white-paper-writing/`
+
+---
+
+## What it covers
+
+Twenty-one categories, indexed in [`AGENTS.md`](./AGENTS.md). The seven largest:
+
+| Family | Skills | What it is for |
+|---|---:|---|
+| EVERJUST platform (Odoo 19 multi-tenant) | 33 | Operating one specific self-hosted SaaS platform end to end |
+| Platform operations | 29 | Deploys, DNS, error tracking, schema audits, render verification, CI/CD |
+| Research, OSINT & competitive intelligence | 22 | Dossier construction, source verification, extraction from hostile surfaces |
+| Writing, marketing & content | 41 | Long-form docs, copy, positioning, launch, export — a nested family |
+| Video, animation & presentation | 13 | Programmatic video, motion graphics, slides, data visualisation |
+| AI-agent auditing & forensics | 6 | Grading deployed agents, remediation backlogs, temporal validation |
+| Odoo platform development (generic) | 4 | Migration, Community/Enterprise parity, multi-tenant patterns, deploys |
+
+The OSINT and dossier skills are written for the public record: company filings, archived
+pages, sponsor lists, job posts, court and lien indexes. Several document their own failure
+modes — `era-validated-linkedin-analysis` exists solely because a previous run misattributed
+work across employers, and says so.
+
+---
+
+## How it's organised
+
+The repo is a flat library plus two indexes. `AGENTS.md` is the machine-first manifest: an
+agent reads it, matches a request against the `description` line of each skill, and loads only
+that skill's `SKILL.md`. `README.md` mirrors it for humans. Large skills use progressive
+disclosure — a lean `SKILL.md` that navigates, with depth in `references/`, `checklists/`,
+`examples/` and `scripts/` that load only when the agent needs them. Nothing here executes on
+load and nothing depends on anything outside its own directory, so a skill directory copied
+into another agent's skills folder still works.
+
+### Repository layout
+
+```text
+.
+├── AGENTS.md                       # discovery manifest — 21 category tables, read first by agents
+├── README.md                       # this file; the human-facing mirror of AGENTS.md
+├── CONTRIBUTING.md                 # skill anatomy, naming, registration, multi-agent lane rules
+├── LICENSE                         # MIT
+├── rules/
+│   └── visual-creation-rules.md    # cross-skill rules shared by the video/animation family
+├── templates/
+│   └── project-scaffolds.md        # scaffold commands several skills call out to
+└── skills/                         # 130 top-level directories, 168 SKILL.md files
+    ├── production-agent-audit/     # single-file skill — SKILL.md and nothing else
+    ├── deep-research/              # multi-file skill — methodology, quick reference, examples
+    ├── system-design-architecture/ # the 3-entry-point shape: SKILL.md → references/INDEX.md → README.md
+    ├── everjust-*/                 # 33 skills for one Odoo 19 multi-tenant platform
+    └── white-paper-writing/        # nested family: 18 writing skills + ai-marketing-skills/ (23 more)
+```
+
+### The pieces
+
+| Component | Path | What it is | Talks to |
+|---|---|---|---|
+| Discovery manifest | `AGENTS.md` | 21 category tables, one row per skill, plus a decision tree and a combining-patterns list | Every skill; read first by the agent |
+| Human index | `README.md` | This page — positioning, architecture, and the family index | Links to `AGENTS.md` for the per-skill rows |
+| Contributor contract | `CONTRIBUTING.md` | Anatomy, naming, registration, the pre-PR gate, the anti-patterns | Points at the authoring skill |
+| Authoring toolkit | `skills/white-paper-writing/blastum-skill-authoring/` | `new-skill.sh`, `lint-skill.sh`, `validate-skill.sh` plus the authoring method | Reads any skill directory |
+| A skill | `skills/<name>/SKILL.md` | Frontmatter + method + decision tree + pitfalls | Cross-links siblings by relative path |
+| Skill depth | `skills/<name>/references/`, `checklists/`, `examples/`, `scripts/` | On-demand material, loaded only when the method calls for it | Its own `SKILL.md` |
+| Shared rules | `rules/`, `templates/` | Cross-skill conventions and scaffolds | The families that reference them |
+
+### How a skill reaches the agent
+
+```mermaid
+flowchart TD
+    A["Request:<br/>'audit our agents'"] --> B["Agent reads AGENTS.md"]
+    B --> C{"Match on the<br/>description line"}
+    C -->|hit| D["Load skills/&lt;name&gt;/SKILL.md<br/>~228 lines average"]
+    C -->|no hit| E["Agent works from<br/>its generic prior"]
+    D --> F{"Method calls for<br/>more depth?"}
+    F -->|yes| G["Load references/ or<br/>checklists/ on demand"]
+    F -->|no| H["Execute the method"]
+    G --> H
+    H --> I["Output shaped by the<br/>skill's own gates"]
+```
+
+### Invariants
+
+- **Nothing in this repo executes.** There is no `package.json`, no lockfile, no install step
+  and no runtime dependency. A skill is text an agent reads.
+- **There is no CI and no build.** The lint and validate scripts are run by hand before a PR.
+  A skill that is not appended to `AGENTS.md` is invisible to an agent that starts from the
+  manifest, however good the skill is.
+- **One skill = one directory = one responsibility.** A skill never edits, renames or
+  "improves" another skill; a contributor's diff touches its own directory plus two manifest
+  rows.
+- **Every internal link is relative.** That is what lets a directory be copied into any agent's
+  skills folder and still resolve.
+- **Manifest rows are appended, never reordered.** Re-sorting a shared table turns a one-line
+  diff into a whole-table conflict for every agent working concurrently.
+
+Entry points: `AGENTS.md` (machine), `README.md` (human), `skills/<name>/SKILL.md` (per skill),
+`CONTRIBUTING.md` (before writing one).
+
+<!-- architecture verified against 876ff8cbd1e693b73ed6d34a061a4190974c4acc, 2026-09 -->
+
+---
+
+## Configuration
+
+There are no environment variables, because nothing here runs. The configuration surface is
+the YAML frontmatter at the top of each `SKILL.md` — this is what an agent harness matches on.
+
+| Field | Required | Default | Purpose |
+|---|---|---|---|
+| `name` | yes | — | Lowercase, hyphens, ≤64 chars, identical to the directory name |
+| `description` | yes | — | ≤1024 chars. What it does **and** when to use it, in the words a user would say. This single line decides whether the skill is ever loaded |
+| `version` | no | — | Present on 12 of 168 skills; imported skills that carry one keep it |
+| `license` | no | repo MIT | Present on 8 skills imported from other authors under their own terms |
+| `tags`, `author`, `metadata` | no | — | Carried through from imported skills; not used for matching |
+
+Where each harness looks for a skill directory:
+
+| Harness | Path | Notes |
+|---|---|---|
+| Claude Code (personal) | `~/.claude/skills/<name>/SKILL.md` | Available in every project |
+| Claude Code (project) | `.claude/skills/<name>/SKILL.md` | Committed with the repo it belongs to |
+| Windsurf / Cascade | `.windsurf/rules/`, or name the path in the prompt | Reference the file directly |
+| Cursor | `.cursorrules`, or name the path in the prompt | Reference the file directly |
+| Anything else | Any path | Point the agent at `AGENTS.md` and let it choose |
+
+No credentials belong in this repo, in a skill, or in a skill's examples. Skills that describe
+an authenticated API name the environment variable and stop there.
+
+---
+
+## Development
+
+Prerequisites: `bash` 3.2+ (macOS stock), `git` 2.30+. Nothing else, for the repo itself.
+
+```bash
+# scaffold a new skill (simple = one SKILL.md; complex = the progressive-disclosure shape)
+./skills/white-paper-writing/blastum-skill-authoring/scripts/new-skill.sh my-skill simple
+
+# check it before opening a PR
+./skills/white-paper-writing/blastum-skill-authoring/scripts/lint-skill.sh     skills/my-skill
+./skills/white-paper-writing/blastum-skill-authoring/scripts/validate-skill.sh skills/my-skill
+```
+
+`lint-skill.sh` fails on missing frontmatter, a `name` over 64 characters or not `kebab-case`,
+a `description` over 1024 characters, or a `SKILL.md` over 500 lines; it warns above 100 lines
+and on Windows-style paths. The average skill is ~228 lines.
+
+---
+
+## Testing
+
+There is no test suite — there is no code to test. The gate is
+[`CONTRIBUTING.md` §6](./CONTRIBUTING.md), run by hand before every PR:
+
+- `SKILL.md` exists, frontmatter has `name` matching the directory and a keyword-rich `description`
+- Body is focused; heavy material moved into on-demand sub-files
+- Every internal link resolves — no dangling `references/…` or `../sibling/…`
+- Registered in `AGENTS.md` under the right category, appended rather than reordered
+- No secrets, no stray files, external links verified to resolve
+- The diff touches only the new skill directory and its two manifest rows
+
+---
+
+## Deployment and operations
+
+| Class | Trigger | Effect |
+|---|---|---|
+| New or edited skill | Draft PR from a branch touching one skill directory + two manifest rows | Merged to `main` by a human; live to every consumer on their next `git pull` |
+| Convention change | Its own PR, with a stated reason | Changes how every future skill is written; never bundled with a skill |
+| Consumer install | `cp -R skills/<name> ~/.claude/skills/` | Takes effect on the agent's next session |
+
+There is no server, no pipeline and no release. Distribution is `git pull`, or a copy of one
+directory. Consumers who want reproducibility should vendor the directory they use, or pin a
+commit — there are no tags and no releases to pin instead.
+
+**Rollback:** `git revert <sha>` on `main` for a bad skill, or `git checkout <good-sha> --
+skills/<name>/` for a bad edit inside one. On the consumer side, delete the copied directory —
+removing a skill removes the behaviour, since nothing else in the agent depends on it.
+
+---
+
+## Known limitations
+
+- **45 of 168 `SKILL.md` files have no YAML frontmatter.** Harnesses that auto-discover skills
+  by frontmatter will not see them. They still work when read by path, or through `AGENTS.md`.
+- **Five skills exceed the repo's own 500-line lint ceiling.** They are the oldest large ones
+  and have not been split into the progressive-disclosure shape yet.
+- **The manifest is maintained by hand.** With no CI, a skill can be merged without ever being
+  registered in `AGENTS.md`, and nothing will flag it. `AGENTS.md` is the index to trust; this
+  README indexes families, not individual skills.
+- **33 of the skills describe one specific Odoo 19 platform.** The method inside them
+  generalises; the model names, module names and tenant behaviour do not.
+- **Receipts are single runs, not benchmarks.** "2 of 40 partnerships confirmed" and "10–33×
+  image throughput" are what happened once, on real data, recorded honestly. Treat them as
+  evidence that the method has been exercised, not as a guaranteed rate.
+- **No versioning.** No tags, no releases, no changelog. `git log` is the history.
+
+---
+
+## Contributing
+
+Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) first — it is written for agents as much as for
+people, because most of the commits here are made by one. One skill per branch, one skill per
+PR, opened as a draft, touching only your own directory and your appended manifest row.
+Do not merge your own PR.
+
+New skills qualify only if all four hold: an agent can produce working output from the skill
+alone; the instructions have been run and verified; there are no undocumented dependencies;
+and it will be updated when the underlying tool changes.
+
+## Security
+
+No credentials, tokens, internal hostnames or customer data belong in any committed file. If
+you find something that looks like one, open an issue without quoting the value.
+
+## License
+
+[MIT](./LICENSE) © EVERJUST. Skills imported from other authors carry their original licence
+in their own frontmatter; that licence governs those directories.
+
+Maintained by [EVERJUST](https://github.com/ever-just) — the same procedures that run
+[customagents.io](https://customagents.io) and the rest of the estate.
