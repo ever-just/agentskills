@@ -1,0 +1,92 @@
+# Gate for issues filed by auto-issue-bridge. Canonical source:
+# ever-just/agentskills skills/auto-issue-reporting/templates/github/auto-issue-gate.yml (v1)
+#
+# Repo variables:
+#   AUTO_ISSUE_BOT   login of the bridge GitHub App bot, for example auto-issue-reporter[bot]
+#   DEVIN_AUTOFIX    "true" to hand clean issues to Devin; anything else only scans
+name: auto-issue-gate
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: auto-issue-gate-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    if: >-
+      vars.AUTO_ISSUE_BOT != '' &&
+      github.event.issue.user.login == vars.AUTO_ISSUE_BOT &&
+      contains(github.event.issue.labels.*.name, 'auto-reported')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/auto-issue
+          persist-credentials: false
+
+      - name: Install scanners (pinned)
+        run: |
+          set -euo pipefail
+          curl -sSfL -o gl.tgz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  gl.tgz" | sha256sum -c -
+          tar xzf gl.tgz gitleaks
+          curl -sSfL -o th.tgz https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.5/trufflehog_3.97.5_linux_amd64.tar.gz
+          echo "e3d97199c565c37ca6152750197f667e08ae6a1edf5911fbdec168622b28620c  th.tgz" | sha256sum -c -
+          tar xzf th.tgz trufflehog
+
+      - name: Scan issue text
+        id: scan
+        env:
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          set +e
+          printf '%s\n\n%s\n' "$TITLE" "$BODY" > issue.txt
+          ./gitleaks stdin -c .github/auto-issue/canary.gitleaks.toml --no-banner --ignore-gitleaks-allow --redact -f json -r gitleaks.json < issue.txt
+          g=$?
+          ./trufflehog stdin --no-verification --no-update --fail --json < issue.txt > trufflehog.json 2>/dev/null
+          t=$?
+          rules=$(jq -r '[.[].RuleID] | unique | join(",")' gitleaks.json 2>/dev/null)
+          th=$(jq -rs '[.[].DetectorName] | unique | join(",")' trufflehog.json 2>/dev/null)
+          echo "gitleaks_exit=$g trufflehog_exit=$t"
+          if [ "$g" -ne 0 ] || [ "$t" -ne 0 ]; then
+            echo "leak=true" >> "$GITHUB_OUTPUT"
+            echo "rules=${rules}${th:+,}${th}" >> "$GITHUB_OUTPUT"
+          else
+            echo "leak=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Blank a leaking issue
+        if: steps.scan.outputs.leak == 'true'
+        env:
+          RULES: ${{ steps.scan.outputs.rules }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+          # Issue text only ever reaches the shell through env, never through ${{ }} interpolation.
+          marker=$(printf '%s' "$BODY" | grep -o '<!-- auto-issue:[^>]*-->' | head -1 || true)
+          printf '%s\n\nRedaction canary tripped. Rule ids: %s\n\nThe original text was removed. Fix the redaction gap in the SDK hook or the bridge, then delete this issue so its edit history is gone.\n' "$marker" "${RULES:-unknown}" > blank.md
+          gh issue edit "$NUMBER" -R "$REPO" --body-file blank.md --add-label redaction-tripped --remove-label devin:fix || gh issue edit "$NUMBER" -R "$REPO" --body-file blank.md --add-label redaction-tripped
+          exit 1
+
+      - name: Hand clean issue to Devin
+        if: steps.scan.outputs.leak == 'false' && vars.DEVIN_AUTOFIX == 'true'
+        env:
+          LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+        run: |
+          set -euo pipefail
+          blocked=$(printf '%s' "$LABELS" | jq -r 'map(select(. == "external" or . == "has-user-report" or . == "redaction-tripped" or . == "needs-human" or . == "dry-run")) | length')
+          if [ "$blocked" -gt 0 ]; then echo "Blocked label present; not sending to Devin."; exit 0; fi
+          gh issue edit "$NUMBER" -R "$REPO" --add-label devin:fix

@@ -1,0 +1,27 @@
+name: Bug
+description: A verified bug in this product. Automatic reports use the auto-reported label instead.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Never paste customer data, emails, phone numbers, tokens or message content. Use counts and ids.
+  - type: input
+    id: surface
+    attributes:
+      label: Surface and release
+      placeholder: e.g. api, release 59768c91abb6
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+      description: What happened, what you expected, and steps to reproduce.
+    validations:
+      required: true
+  - type: input
+    id: sentry
+    attributes:
+      label: Sentry issue link
+      placeholder: optional
