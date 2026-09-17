@@ -81,6 +81,10 @@ last seen, counts, user and tenant counts, short id and permalink. Every string 
 Never: request headers, body, cookies, query string, user, breadcrumbs, contexts, extra, local
 variables, tags other than `release`, `environment` and `tenant` (counted, not printed).
 
+Hostnames: customer and tenant domains are identity. Free text in an issue (message and culprit)
+also replaces hostnames with `[host]` using a public suffix style TLD list, keeping only the
+product's own API hosts when they help diagnosis.
+
 Then the bridge runs the same JSON patterns as a canary over the finished title and body. Any
 `[REDACTED_` free match of a secret rule means the issue is not filed; a content free issue
 "Redaction canary tripped for <short id>" is filed instead with `redaction-tripped`.

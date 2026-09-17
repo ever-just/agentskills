@@ -21,7 +21,7 @@ def redact_str(s, allow=()):
     if not isinstance(s, str) or not s: return s
     kept = []
     for a in allow:
-        if a in s: kept.append(a); s = s.replace(a, f"\x00{len(kept)-1}\x00")
+        if a and a in s: kept.append(a); s = s.replace(a, f"\x00{len(kept)-1}\x00")
     for name, rx, repl, luhn in _RULES:
         if luhn: s = rx.sub(lambda m: f"[REDACTED_{name}]" if _luhn(m.group(0)) else m.group(0), s)
         else: s = rx.sub(repl or f"[REDACTED_{name}]", s)

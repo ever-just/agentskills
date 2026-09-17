@@ -18,7 +18,7 @@ runtime SDK ──(redact L1)──> Sentry org everjust ──(scrub L2)──>
 |---|---|---|
 | SDK hooks | each runtime | Sentry DSN (public, not a secret) |
 | Sentry | org `everjust`, Developer plan | n/a |
-| Bridge | Cloudflare Worker `auto-issue-bridge`, repo `EVERJUST-DEV/auto-issue-bridge`, D1 database `auto_issue_bridge` | Sentry org auth token (Worker secret), GitHub App private key (Worker secret) |
+| Bridge | Cloudflare Worker `auto-issue-bridge`, repo `EVERJUST-DEV/auto-issue-bridge`, D1 database `auto_issue_bridge` | Sentry user auth token `sntryu_` with issue read and write (Worker secret; org auth tokens `sntrys_` cannot read issues), GitHub App private key (Worker secret) |
 | Gate | `.github/workflows/auto-issue-gate.yml` in each product repo | `GITHUB_TOKEN` (issues: write) |
 | Fixer | Devin Automation in org EVERJUST | Devin GitHub App, org System User |
 
@@ -99,8 +99,9 @@ including the gate and caps, behaves the same. Rollout starts here.
 
 ## Gate (in each product repo)
 
-Runs on `issues: [opened, reopened, labeled]` when the issue author is the bridge App bot and the
-issue has `auto-reported`.
+Runs on `issues: [opened, reopened]` when the issue author is the bridge App bot and the issue has
+`auto-reported`. The bridge creates issues with all labels in one call, and a regression reopen fires
+`reopened`, so `labeled` is not needed.
 
 1. Write title and body to a file. Run gitleaks with `spec/canary.gitleaks.toml`
    (`--ignore-gitleaks-allow`) and trufflehog (`--no-verification --fail`), both pinned by version.
@@ -109,7 +110,7 @@ issue has `auto-reported`.
    SDK or bridge. The edit history on GitHub still holds the original body, so also notify the owner
    to delete the issue.
 3. Clean, and none of `external`, `has-user-report`, `redaction-tripped`, `needs-human`, `dry-run`
-   (unless the repo is the sandbox) are present, and repo variable `DEVIN_AUTOFIX` is `true`:
+   are present (sandbox Devin tests use issues without `dry-run`), and repo variable `DEVIN_AUTOFIX` is `true`:
    add `devin:fix`.
 
 ## Devin

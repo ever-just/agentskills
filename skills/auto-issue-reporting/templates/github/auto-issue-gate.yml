@@ -2,7 +2,7 @@
 # ever-just/agentskills skills/auto-issue-reporting/templates/github/auto-issue-gate.yml (v1)
 #
 # Repo variables:
-#   AUTO_ISSUE_BOT   login of the bridge GitHub App bot, for example auto-issue-reporter[bot]
+#   AUTO_ISSUE_BOT   login of the bridge GitHub App bot: auto-issue-reporter-everjust[bot]
 #   DEVIN_AUTOFIX    "true" to hand clean issues to Devin; anything else only scans
 name: auto-issue-gate
 
@@ -75,7 +75,7 @@ jobs:
           BODY: ${{ github.event.issue.body }}
         run: |
           set -euo pipefail
-          # Issue text only ever reaches the shell through env, never through ${{ }} interpolation.
+          # Issue text only ever reaches the shell through env, never through workflow expression interpolation.
           marker=$(printf '%s' "$BODY" | grep -o '<!-- auto-issue:[^>]*-->' | head -1 || true)
           printf '%s\n\nRedaction canary tripped. Rule ids: %s\n\nThe original text was removed. Fix the redaction gap in the SDK hook or the bridge, then delete this issue so its edit history is gone.\n' "$marker" "${RULES:-unknown}" > blank.md
           gh issue edit "$NUMBER" -R "$REPO" --body-file blank.md --add-label redaction-tripped --remove-label devin:fix || gh issue edit "$NUMBER" -R "$REPO" --body-file blank.md --add-label redaction-tripped

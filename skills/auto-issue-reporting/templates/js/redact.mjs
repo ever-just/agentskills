@@ -41,7 +41,8 @@ function luhn(s) { const d = s.replace(/\D/g, ""); let sum = 0, alt = false;
   return d.length >= 13 && sum % 10 === 0; }
 export function redactString(s, { allow = [] } = {}) {
   if (typeof s !== "string" || !s) return s;
-  const kept = []; for (const a of allow) s = s.split(a).join(`\u0000${kept.push(a) - 1}\u0000`);
+  // Skip empty allow entries: split("") would put a placeholder between every character and defeat every rule.
+  const kept = []; for (const a of allow) if (a && s.includes(a)) s = s.split(a).join(`\u0000${kept.push(a) - 1}\u0000`);
   for (const [name, re, rep] of [...SECRET_RULES, ...PII_RULES]) {
     re.lastIndex = 0; s = s.replace(re, rep ?? `[REDACTED_${name}]`);
   }
