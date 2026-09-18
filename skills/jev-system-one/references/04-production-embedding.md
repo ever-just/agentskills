@@ -1,4 +1,4 @@
-# Production embedding — flags, fail-open, redaction, telemetry
+# Production embedding: flags, fail-open, redaction, telemetry
 
 How to wire Jev into a real product safely. Distilled from the deepest public
 integrations: ever-just/app.customagents.io (the judgment-plane reference),
@@ -42,7 +42,7 @@ Decide per call site, not globally:
 | **Fail-closed** | on timeout/error, hold/block | guardrail screen → queue for review; payment gate → hold |
 | **Fail-abstain** | return `abstain`/`none` as a first-class result | Composio tool pick; firstmate escalation |
 
-Timeouts: 800ms–2s for inline paths (SMS turn ~800ms), 45s for offline/CI.
+Timeouts: 800ms-2s for inline paths (SMS turn ~800ms), 45s for offline/CI.
 `maxRetries: 0` inline (retry belongs to the caller's budget); backoff retry on
 429/529 for batch.
 
@@ -59,7 +59,7 @@ def redact(state):
 - Redact secrets always; redact PII per your DPA with the provider.
 - Keep a placeholder shape (`<EMAIL>`, `<PHONE>`) so semantic questions still fire.
 - Reference: `redactForTypeSafe` in app.customagents.io `services/agent/Guardrails.ts`.
-- Only ever-just and elizaOS visibly do this in the field — it is a differentiator,
+- Only ever-just and elizaOS visibly do this in the field: it is a differentiator,
   and your DPA review will ask. Also: never log raw state post-redaction; the log
   IS the exfiltration path otherwise (log the redacted version or just the judgment).
 
@@ -79,7 +79,7 @@ For judgments over mutable objects (PR head SHAs, tickets that update):
 - Validate inputs BEFORE the call (shape, freshness, policy gates).
 - Re-validate AFTER the call before acting: "stale head or base after
   evaluation; signals withheld."
-- If the object moved, discard the judgment silently — never act on stale answers.
+- If the object moved, discard the judgment silently: never act on stale answers.
 
 ## Telemetry: stamp every judgment
 
@@ -92,8 +92,8 @@ Log per-call, at minimum:
  "latency_ms": 240, "fallback": false, "state_hash": "..."}
 ```
 
-- Store the resolved `model` — the alias moves under you.
-- Store `probabilities` not just winners — re-thresholding and calibration later
+- Store the resolved `model`: the alias moves under you.
+- Store `probabilities` not just winners: re-thresholding and calibration later
   must not re-run inference.
 - Per-turn stamping (app.customagents.io `AgentTurn.judgment`) is what makes the
   nightly auto-improve loop possible: count telemetry → propose config change →
@@ -101,7 +101,7 @@ Log per-call, at minimum:
 
 ## Cost control
 
-- $0.042/M input tokens, output free — Jev costs are dominated by STATE size.
+- $0.042/M input tokens, output free: Jev costs are dominated by STATE size.
 - Trim state to the judged fields; a 500-token triage call is ~$0.00002.
 - Fan-out questions over shared state are ~free on latency, linear on tokens.
 - Batch/offline: 4,000 records × ~600 tokens ≈ $0.17 total. Cheap enough to
@@ -129,7 +129,7 @@ incumbent decides + acts ──────────────► productio
 ## Rollback discipline
 
 - One env unset restores pre-Jev behavior byte-identical. Test the unset path.
-- Keep the incumbent code alive after flag-on — delete it after a bake period,
+- Keep the incumbent code alive after flag-on: delete it after a bake period,
   not at merge.
 - If Jev errors degrade UX, alert on `fallback: true` telemetry rate, not on
   the provider's status page.
@@ -139,7 +139,7 @@ incumbent decides + acts ──────────────► productio
 - `TYPESAFE_API_KEY` server-side only; never in client bundles, never in state,
   never in logs, never committed. Dedicated gateway key per surface when using
   AI Gateway (openwork's `JEV_AI_GATEWAY_API_KEY` is dedicated to CI only).
-- A Jev call that needs a key in state is a design bug — keys never belong in prompts.
+- A Jev call that needs a key in state is a design bug: keys never belong in prompts.
 
 ## Reference architecture (worked example)
 

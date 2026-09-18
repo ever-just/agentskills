@@ -2,7 +2,7 @@
 
 Embed TypeSafe's **Jev** (System One decision model) into any workflow or product.
 Jev is a non-generative judgment model: `state` + typed `questions` in, calibrated
-`noul`/`choice`/`score` probabilities out, ~70–500ms, $0.042/M input tokens.
+`noul`/`choice`/`score` probabilities out, ~70 to 500ms, $0.042/M input tokens.
 Code owns control flow; Jev owns judgment.
 
 ## What's inside

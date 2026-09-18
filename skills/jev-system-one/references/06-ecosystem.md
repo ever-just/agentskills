@@ -1,4 +1,4 @@
-# Ecosystem — integrations, ports, reimplementations
+# Ecosystem: integrations, ports, reimplementations
 
 The public landscape 3 days post-launch (research sweep 2026-09-18, ~190 usages
 across ~150 repos). Use it to pick a stack, find a reference implementation, or
@@ -8,8 +8,8 @@ avoid rebuilding what exists. Stars are a freshness signal, not a quality verdic
 
 | Repo | What |
 |---|---|
-| `typesafe-ai/typesafe-sdk-python` (61★) | Python SDK — sync+async, retry built in |
-| `typesafe-ai/typesafe-sdk-js` (94★) | `@typesafe-ai/sdk` — TS/JS |
+| `typesafe-ai/typesafe-sdk-python` (61★) | Python SDK: sync+async, retry built in |
+| `typesafe-ai/typesafe-sdk-js` (94★) | `@typesafe-ai/sdk`: TS/JS |
 | `typesafe-ai/system-one-adapter-python` (92★) | LLM-backed drop-in TypeSafeClient (offline dev, LLM-fallback comparison) |
 | `typesafe-ai/skills` (135★) | official agent skill (conceptual model) |
 | `evals.typesafe.ai` | 4 published workflows: security incident triage, agent trace observability, invoice 3-way match, customer-service next-action |
@@ -20,13 +20,13 @@ avoid rebuilding what exists. Stars are a freshness signal, not a quality verdic
 
 | Where | Integration |
 |---|---|
-| `vercel/ai` | `@ai-sdk/typesafe-ai` — `experimental_evaluate` provider |
+| `vercel/ai` | `@ai-sdk/typesafe-ai`: `experimental_evaluate` provider |
 | `vercel/eve` (5.2K★) | `auto` model router (Jev picks the LLM) + standalone `evaluate` |
 | `vercel-labs/ai-cli` (775★) | terminal agent evaluation |
 | `langchain-ai/langchain` + `langchainjs` | official `TypeSafeClassifier` Runnable (py+js) |
 | `pydantic/pydantic-ai` | `pydantic_ai/providers/typesafe.py` |
 | `laravel/ai` | `TypeSafeGateway.php` |
-| `ComposioHQ/composio` | `@composio/typesafe` — tool selection with call/partial/abstain |
+| `ComposioHQ/composio` | `@composio/typesafe`: tool selection with call/partial/abstain |
 | `ax-llm/ax` | provider + `ax-typesafe` skill; multi-language conformance suite |
 | `elizaOS/eliza` | `TypeSafeDecisionClient` service adapter |
 | `BerriAI/litellm` | `complexity_router` strategy + `/v1/systemone` passthrough |

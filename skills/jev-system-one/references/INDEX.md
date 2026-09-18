@@ -1,11 +1,11 @@
-# Jev System One — reference index
+# Jev System One: reference index
 
 Load the file for your problem. Do not read all of them.
 
 | If you are… | Read |
 |---|---|
 | Choosing whether Jev fits at all | `SKILL.md` (mental model, when-not-to-use) |
-| Looking for the right recipe for a concrete use case | `02-use-case-catalog.md` — 14 families with state/question/policy recipes and field examples |
+| Looking for the right recipe for a concrete use case | `02-use-case-catalog.md`: 14 families with state/question/policy recipes and field examples |
 | Writing or debugging questions, criteria, state | `03-question-design.md` |
 | Coding the API call or picking SDK vs AI SDK vs gateway vs MCP | `01-api-reference.md`, then `06-ecosystem.md` for the stack landscape |
 | Shipping a Jev feature to production | `04-production-embedding.md`, then `checklists/shipping-checklist.md` |
@@ -32,8 +32,8 @@ from ~190 real implementations.
 
 ## External sources
 
-- Live docs (source of truth): `https://docs.typesafe.ai/llms.txt` — append `.md` to page paths.
+- Live docs (source of truth): `https://docs.typesafe.ai/llms.txt`: append `.md` to page paths.
 - Cookbooks: `https://docs.typesafe.ai/llms.txt` lists ~18 recipes; §02 maps them to families.
-- Workflow evals: `https://evals.typesafe.ai/` — 4 published reference workflows.
+- Workflow evals: `https://evals.typesafe.ai/`: 4 published reference workflows.
 - Deep question-craft skill worth pairing: `github.com/dbreunig/building-with-jev-skill`.
 - Official agent skill (conceptual model): `github.com/typesafe-ai/skills`.

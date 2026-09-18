@@ -1,4 +1,4 @@
-# Frozen API reference — TypeSafe Jev / System One
+# Frozen API reference: TypeSafe Jev / System One
 
 Snapshot verified 2026-09-18 against the live API (`jev-1.13.0`). Live docs at
 `https://docs.typesafe.ai/llms.txt` supersede this file when they disagree.
@@ -14,7 +14,7 @@ Content-Type: application/json
 `GET https://api.typesafe.ai/v1/models` lists available models. Live aliases
 (observed): `jev-latest` (stable) and `jev-preview` (newer, "should be better in
 most ways"), both currently resolving to `jev-1.13.0`. The response echoes the
-resolved version in `model` — log that, not the alias, for reproducibility.
+resolved version in `model`: log that, not the alias, for reproducibility.
 
 ## Request
 
@@ -34,7 +34,7 @@ resolved version in `model` — log that, not the alias, for reproducibility.
 - `questions`: map of id → question. IDs are for your code only; the model never
   sees them. Put the full meaning inside the question.
 - All questions evaluate independently and in parallel over the same state.
-  They never see each other's answers — make a second request only when an
+  They never see each other's answers: make a second request only when an
   answer is needed to fetch data or build the next state.
 
 ### Question shape
@@ -54,7 +54,7 @@ resolved version in `model` — log that, not the alias, for reproducibility.
   contrast near neighbors (`what` / `not_for` / `examples` object form works well).
   Max ~255 options.
 - `criteria` for **Score**: ordered list of 2 to 10 level descriptions, low→high.
-  Each level must describe a concrete situation and stand alone — the model sees
+  Each level must describe a concrete situation and stand alone: the model sees
   no level numbers and no neighbors.
 - `criteria` for **Noul**: optional `{true: ..., false: ...}` boundary hints.
 
@@ -76,8 +76,7 @@ resolved version in `model` — log that, not the alias, for reproducibility.
 }
 ```
 
-- **noul answer**: `noul` = P(statement true), 0 to 1. No separate confidence —
-  a value near 0.5 IS the uncertainty signal.
+- **noul answer**: `noul` = P(statement true), 0 to 1. No separate confidence: a value near 0.5 IS the uncertainty signal.
 - **choice answer**: winning `choice`, full `probabilities` distribution,
   `confidence` = distribution concentration (not correctness).
 - **score answer**: probability-weighted `score` position, per-level
@@ -93,8 +92,8 @@ resolved version in `model` — log that, not the alias, for reproducibility.
 | state + longest single question | 32k tokens |
 | Choice options | 255 |
 | Score levels | 2 to 10 |
-| Latency | ~70–500ms typical; ~570ms for a 32-question call over 9.6k tokens (measured) |
-| Retryable errors | `429` (rate), `529` (overloaded) — exponential backoff |
+| Latency | ~70 to 500ms typical; ~570ms for a 32-question call over 9.6k tokens (measured) |
+| Retryable errors | `429` (rate), `529` (overloaded): exponential backoff |
 
 Non-2xx responses return a JSON error body. Retry only on 429/529; treat other
 errors as input/shape bugs.
@@ -104,7 +103,7 @@ errors as input/shape bugs.
 | Path | Shape | When |
 |---|---|---|
 | Raw HTTP | shown above | minimal deps; any language |
-| `typesafe` PyPI (`typesafe-sdk-python`) | `TypeSafeClient(api_key=...).evaluate(model=..., state=..., questions=...)` — sync+async, auto-retry | Python services |
+| `typesafe` PyPI (`typesafe-sdk-python`) | `TypeSafeClient(api_key=...).evaluate(model=..., state=..., questions=...)`: sync+async, auto-retry | Python services |
 | `@typesafe-ai/sdk` npm (`typesafe-sdk-js`) | `new TypeSafe({apiKey}).evaluate({model, state, questions})` | TS/JS services |
 | Vercel AI SDK | `experimental_evaluate({model: gateway.evaluation('typesafe-ai/jev'), state, questions})` (ai ≥7.0.105); noul exposed as `boolean` question type | apps already on AI SDK / AI Gateway |
 | LiteLLM | `systemone` passthrough + `complexity_router` strategy | existing LiteLLM deployments |
@@ -112,9 +111,9 @@ errors as input/shape bugs.
 | `system-one-adapter-python` (official) | Drop-in TypeSafeClient backed by an ordinary LLM | offline dev/testing without a key, or LLM-fallback comparisons |
 
 Community ports exist for Go, Rust, PHP/Laravel, Ruby/Rails, .NET, Scala (ZIO),
-Elixir — see `06-ecosystem.md`.
+Elixir: see `06-ecosystem.md`.
 
-## State design rules (summary — deep version in 03)
+## State design rules (summary: deep version in 03)
 
 - Smallest state that answers every question. Unrelated detail lowers accuracy.
 - Compute in code first: dates, durations, counts, sums, orderings, buckets.
@@ -122,7 +121,7 @@ Elixir — see `06-ecosystem.md`.
 - Convert encodings to words (color name not hex, named bucket not raw figure).
 - Retrieve/filter in code before sending; a relevance noul per candidate is the
   fallback when code cannot filter.
-- Text in state can steer answers — Jev does not treat it as hostile. Mark
+- Text in state can steer answers: Jev does not treat it as hostile. Mark
   untrusted content explicitly in instructions.
 
 ## Pricing & budgeting

@@ -20,7 +20,7 @@ on your data instead of copying cookbook numbers.
 {"id": "case-017", "state": {...}, "expect": {"decision": "respond", "rider": true}}
 ```
 
-- Freeze it the day you write the questions — version it with them. Question
+- Freeze it the day you write the questions: version it with them. Question
   definitions, state schema, thresholds, and the eval set are ONE unit of change.
 - `scripts/jev_eval.py` runs a case set and reports per-question accuracy,
   confidence stats, and every disagreement with expected labels.
@@ -28,7 +28,7 @@ on your data instead of copying cookbook numbers.
 ## 2. Shadow mode (record, don't act)
 
 - Jev judges and logs alongside the incumbent path; incumbent still decides.
-- The shadow eval must FAIL if Jev never ran — otherwise a dead key or flag
+- The shadow eval must FAIL if Jev never ran: otherwise a dead key or flag
   silently "passes" the incumbent (the jev-shadow-eval `--live` check).
 - Minimum useful shadow window: enough traffic to cover the question's real
   distribution, including the boring majority case.
@@ -36,26 +36,26 @@ on your data instead of copying cookbook numbers.
 ## 3. Threshold fitting
 
 Calibrated probabilities mean a noul of 0.7 is ~right 70% of the time across
-similar cases — which makes threshold fitting a data problem, not a vibes one.
+similar cases: which makes threshold fitting a data problem, not a vibes one.
 
 1. Run the eval set (or shadow logs) and collect `probabilities`/`confidence`.
 2. For each action, pick the threshold that maximizes YOUR metric (precision at
    the risky branch usually; recall at the cheap branch).
 3. Per-action thresholds, never one global number. Money/legal ≠ chitchat gate.
-4. Reserve a holdout slice for the final check — thresholds fitted and verified
+4. Reserve a holdout slice for the final check: thresholds fitted and verified
    on the same data are optimistic.
 
 | Action risk | Starting band to evaluate |
 |---|---|
 | Harmless preference pick | act ≥0.5, ignore confidence |
-| Normal routing/dispatch | act ≥0.6, review 0.3–0.6 (firstmate ships 0.6) |
+| Normal routing/dispatch | act ≥0.6, review 0.3 to 0.6 (firstmate ships 0.6) |
 | Output-blocking guardrail | block ≥0.8 OR escalate; review below |
 | Irreversible side effect | two independent checks, or Jev + human sign-off |
 
 ## 4. Verification doc (publish it)
 
 firstmate's dispatch work shipped the field's best example: live Jev run vs
-hand labels — 20/25 matched, every disagreement explained, confidence floors
+hand labels: 20/25 matched, every disagreement explained, confidence floors
 documented. Reproduce that shape:
 
 ```
@@ -72,10 +72,9 @@ documented. Reproduce that shape:
 
 - Noul ≈0.5 = "unsure between yes/no", NOT "medium". Band it, don't binarize.
 - Choice/Score `confidence` = distribution concentration, not correctness.
-- Calibrated describes GROUPS of predictions. One judgment can still be wrong —
-  that's what the review band and the eval set are for.
+- Calibrated describes GROUPS of predictions. One judgment can still be wrong: that's what the review band and the eval set are for.
 - Recheck calibration after model upgrades (`jev-preview` vs `jev-latest`) and
-  after changing state shape — the same question on different evidence is a
+  after changing state shape: the same question on different evidence is a
   different question.
 
 ## 6. Failure-mode triage on misses
@@ -90,7 +89,7 @@ documented. Reproduce that shape:
 
 ## 7. The human-review queue is a deliverable
 
-Uncertain cases aren't failures to hide — they're the routing product. Emit a
+Uncertain cases aren't failures to hide: they're the routing product. Emit a
 review queue (probability band + low-confidence filter) as a first-class output;
 the self-consistency cookbooks route uncertain nouls to humans WITH the raw
 probabilities attached so the human sees the model's actual uncertainty.
