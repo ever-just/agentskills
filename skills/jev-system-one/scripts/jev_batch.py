@@ -18,22 +18,28 @@ from concurrent.futures import ThreadPoolExecutor
 
 API = "https://api.typesafe.ai/v1/systemone"
 KEY = os.environ.get("TYPESAFE_API_KEY", "")
+TIMEOUT_S = 60          # batch calls are offline; a stuck call must not hang the pool
+RETRYABLE_HTTP = {429, 529}
+MAX_TRIES = 5
+BACKOFF_BASE_S = 0.5    # exponential: base * 2^attempt + jitter, capped
+BACKOFF_CAP_S = 20
+DEFAULT_WORKERS = 16
 
-def call(state, questions, model, tries=5):
+def call(state, questions, model, tries=MAX_TRIES):
     body = json.dumps({"model": model, "state": state, "questions": questions}).encode()
     for i in range(tries):
         req = urllib.request.Request(API, data=body, method="POST",
             headers={"Authorization": f"Bearer {KEY}", "Content-Type": "application/json"})
         try:
-            with urllib.request.urlopen(req, timeout=60) as r:
+            with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:
                 return json.loads(r.read()), None
         except urllib.error.HTTPError as e:
-            if e.code in (429, 529) and i < tries - 1:
-                time.sleep(min(2 ** i * 0.5 + 0.2, 20)); continue
+            if e.code in RETRYABLE_HTTP and i < tries - 1:
+                time.sleep(min(BACKOFF_BASE_S * 2 ** i + 0.2, BACKOFF_CAP_S)); continue
             return None, f"HTTP {e.code}: {e.read()[:200]!r}"
         except Exception as e:
             if i < tries - 1:
-                time.sleep(min(2 ** i * 0.5 + 0.2, 20)); continue
+                time.sleep(min(BACKOFF_BASE_S * 2 ** i + 0.2, BACKOFF_CAP_S)); continue
             return None, f"{type(e).__name__}: {e}"
     return None, "exhausted"
 
@@ -42,7 +48,7 @@ def main():
         sys.exit(__doc__)
     recs_path, q_path, out_path = sys.argv[1:4]
     args = sys.argv[4:]
-    workers = int(args[args.index("--workers") + 1]) if "--workers" in args else 16
+    workers = int(args[args.index("--workers") + 1]) if "--workers" in args else DEFAULT_WORKERS
     model = args[args.index("--model") + 1] if "--model" in args else os.environ.get("JEV_MODEL", "jev-latest")
     if not KEY:
         sys.exit("TYPESAFE_API_KEY not set")

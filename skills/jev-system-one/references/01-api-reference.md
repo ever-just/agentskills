@@ -1,7 +1,13 @@
 # Frozen API reference: TypeSafe Jev / System One
 
 Snapshot verified 2026-09-18 against the live API (`jev-1.13.0`). Live docs at
-`https://docs.typesafe.ai/llms.txt` supersede this file when they disagree.
+`https://docs.typesafe.ai/llms.txt` (append `.md` to page paths) supersede this
+file when they disagree.
+
+External sources: cookbooks listed at `docs.typesafe.ai/llms.txt` (~18 recipes,
+mapped to families in `02`); workflow evals at `evals.typesafe.ai` (4 reference
+workflows); deep question-craft skill `github.com/dbreunig/building-with-jev-skill`;
+official agent skill `github.com/typesafe-ai/skills`.
 
 ## Endpoint
 

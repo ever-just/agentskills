@@ -20,6 +20,8 @@ import json, os, sys, statistics
 from jev_batch import call  # reuses the same request/retry
 
 MODEL = os.environ.get("JEV_MODEL", "jev-latest")
+WORKERS = 16            # eval cases are independent; parallel calls are safe
+RESULTS_PATH = "eval_results.jsonl"
 
 def verdict(ans, expect):
     if ans is None:
@@ -55,16 +57,16 @@ def main():
         def run(c):
             res, err = call(c["state"], questions, MODEL)
             return {"id": c["id"], "answers":(res or {}).get("answers"), "error": err}
-        with ThreadPoolExecutor(max_workers=16) as ex:
+        with ThreadPoolExecutor(max_workers=WORKERS) as ex:
             rows = list(ex.map(run, cases))
-        with open("eval_results.jsonl", "w") as f:
+        with open(RESULTS_PATH, "w") as f:
             for r in rows:
                 f.write(json.dumps(r) + "\n")
         ran = sum(1 for r in rows if r.get("answers"))
         if ran == 0:
             sys.exit("Jev never ran: eval is invalid (shadow-eval guard)")
     else:
-        rows = [json.loads(l) for l in open("eval_results.jsonl")]
+        rows = [json.loads(l) for l in open(RESULTS_PATH)]
         print(f"dry run over {len(rows)} cached results")
 
     exp_map = {c["id"]: c for c in cases}

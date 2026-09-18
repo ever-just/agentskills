@@ -11,11 +11,11 @@ Code owns control flow; Jev owns judgment.
 SKILL.md                       Agent entrypoint: mental model, 7-step method,
                                pattern map, anti-patterns, navigation
 references/
-  INDEX.md                     Load-the-file-for-problem-X map + reading orders
   01-api-reference.md          Frozen API surface: request/response, limits,
                                errors, SDKs, pricing (verified vs live 2026-09-18)
   02-use-case-catalog.md       14 use-case families → state/question/policy
-                               recipes, from ~190 real implementations
+                               recipes + worked example, field-data lines,
+                               from ~190 real implementations
   03-question-design.md        Question craft, confidence semantics, debugging loop
   04-production-embedding.md   Flags, fail-open vs fail-closed vs abstain,
                                redaction, untrusted-content, TOCTOU, telemetry,
@@ -24,6 +24,9 @@ references/
                                verification doc, calibration reading
   06-ecosystem.md              Integrations, language ports, MCP servers,
                                open-source reimplementations
+  07-field-data.md             Jev-mined stats from 91 repos: primitive mix,
+                               state shapes, composition, technique
+                               fingerprints, failure-handling gap
 checklists/
   shipping-checklist.md        Pre-prod gate (design/safety/evidence/ops)
 scripts/
