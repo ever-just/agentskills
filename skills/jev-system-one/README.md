@@ -41,10 +41,15 @@ references/
 assets/
   design-questions.json        System-grain META: problem -> family, topology,
                                seq/map/loop, granularity, risk, needs_decompose
-  agent-research-questions.json T1 fanout over ONE agent turn: wait, tool
-                               wrong/missed, empty promise, money/legal,
-                               human, injection, context bloat, ungrounded,
-                               model overkill, wasted turn, dominant miss
+  agent-research-questions.json T1 fanout over ONE agent turn: wait both
+                               directions, tool wrong/missed, empty promise,
+                               money/legal, human, injection, context bloat,
+                               ungrounded, model overkill, wasted turn,
+                               dominant miss. `_meta` carries the turn state
+                               schema (scripts skip _-prefixed keys)
+  agent-smoke-cases.jsonl      5 frozen agent-turn cases for jev_eval --live
+                               (stall, empty promise, missed tool, injection,
+                               clean turn)
   compile-questions.json       Flow-grain META (after decompose): flow ->
                                topology, primitives, exit option, verify leg,
                                collapse-chain-to-fanout
@@ -70,9 +75,10 @@ scripts/
 ## Built from
 
 A 2026-09-18 research sweep: ever-just's own 14-use production judgment plane
-(PR #130) + a 4,460-judgment production audit, ~190 public usages across ~150
-repos, the official docs/cookbooks/evals, and Jev itself used to synthesize the
-inventory (271 repos classified, verified, and ranked in 8 seconds).
+(PR #130) + a 4,460-record production audit (each record judged with a
+multi-question bank), ~190 public usages across ~150 repos, the official
+docs/cookbooks/evals, and Jev itself used to synthesize the inventory
+(271 repos classified, verified, and ranked in 8 seconds).
 
 ## Live docs
 

@@ -28,6 +28,8 @@ Run before any Jev feature goes live. Each item maps to a reference section.
 ## Evidence it works
 
 - [ ] Frozen eval set exists (real + edge + adversarial cases) and is versioned with the questions (05)
+- [ ] Labels come from outcomes/human review, not the same model's own answers (05, 10 AUDIT)
+- [ ] Falsification battery ran on load-bearing questions: inverted framing, blinded state, paraphrase stability, dead-question sweep (05 §5b)
 - [ ] Shadow mode ran; eval fails if Jev never ran (04, 05)
 - [ ] Thresholds fitted on YOUR distribution, per action, holdout verified (05)
 - [ ] Verification doc written: agreement rate, per-disagreement analysis, thresholds, gaps (05)
