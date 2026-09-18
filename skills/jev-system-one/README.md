@@ -34,9 +34,17 @@ references/
                                structure pointers
   09-living-log.md             Append-only new use cases. Compiler and the
                                14 families stay frozen; this file grows.
+  10-agentic-systems.md        Research->audit->embed loop + the 5-flow agent
+                               spine (wait, pick, guard, memory, stamp) for
+                               SaaS agents. Sibling cross-refs to
+                               production-agent-audit / agent-quality-grading.
 assets/
   design-questions.json        System-grain META: problem -> family, topology,
                                seq/map/loop, granularity, risk, needs_decompose
+  agent-research-questions.json T1 fanout over ONE agent turn: wait, tool
+                               wrong/missed, empty promise, money/legal,
+                               human, injection, context bloat, ungrounded,
+                               model overkill, wasted turn, dominant miss
   compile-questions.json       Flow-grain META (after decompose): flow ->
                                topology, primitives, exit option, verify leg,
                                collapse-chain-to-fanout

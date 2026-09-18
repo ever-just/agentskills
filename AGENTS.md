@@ -198,7 +198,7 @@
 | Skill | Path | Use When |
 |-------|------|----------|
 | **System Design & Architecture** | `skills/system-design-architecture/SKILL.md` | Designing/reviewing backend systems end-to-end. Lean SKILL.md (design method + heuristics) over an 11-file reference library: security/secure-by-design, the scaling ladder (low→high volume), capacity limits/thresholds, cost modeling, architecture archetypes (incl. multi-tenant SaaS + multi-agent/LLM), product layers, cloud provider service maps (AWS/GCP/Azure/Cloudflare), real-system case studies, open standards, decision records (ADRs + option-selection) — plus design/production-readiness/security checklists and a worked example. Navigate via `references/INDEX.md`. |
-| **Jev System One** | `skills/jev-system-one/SKILL.md` | Embedding TypeSafe's Jev (System One decision model) into any workflow or product. Compiler: named consumers, topologies T0 to T7 (fanout/chain/loop/map), sequential/parallel. Complements the official TypeSafe skill. Frozen API, production hardening, eval scripts, living log for new use cases. |
+| **Jev System One** | `skills/jev-system-one/SKILL.md` | Embed TypeSafe's Jev into a workflow, SaaS, or agentic system. Compiler: named consumers, T0 to T7 topologies. For agents: research->audit->embed loop (`references/10-agentic-systems.md`) plus `assets/agent-research-questions.json`. Complements the official TypeSafe skill; sibling to `production-agent-audit` and `agent-quality-grading`. |
 
 ### MARKETING & COPYWRITING
 
