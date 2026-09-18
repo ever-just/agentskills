@@ -114,8 +114,9 @@ Before writing any question, name its consumer:
 3. **Noul bands carry the meaning.** Design the question so `>0.7 act`,
    `0.3 to 0.7 review`, `<0.3 drop` reads as policy, not just a bit.
 4. **Score levels need semantic anchors** in the rubric (situations, not
-   intensities). The returned `score` is the 0-based position in `criteria`
-   (first level = 0). Never write "1=worst" in instructions.
+   intensities). The returned `score` is a probability-weighted position that
+   can land BETWEEN levels. Threshold it; do not treat it as an int enum and
+   do not interpolate it into a physical quantity. Never write "1=worst".
 5. **Question IDs are API surface.** Name them `verb_noun`, keep them stable;
    telemetry and evals join on them.
 
@@ -283,6 +284,17 @@ decompose it into flows and re-run per flow.
 `auto` model routing, app.customagents.io's skill-choice shadow. The routing
 call is a normal T0/T1 with the flow names as Choice options; the routed
 flow is whatever structure its problem needs.
+
+Official cookbooks that are STRUCTURE variants, not new families (read live):
+
+| Cookbook | Structure to steal |
+|---|---|
+| function_calling | Choice over handler names + closed-set arg questions (T1 speculative) |
+| entity_alignment | Score levels ARE the actions (merge / leave / curator). No threshold to fit |
+| semantic_find | Choice over line/span ids already in state |
+| classification_using_confidence | report leaf vs parent division by Choice confidence |
+| date_extraction | Choice per date part + `none`; arithmetic in code |
+| sde_cascade | T2: cheap extract then verify |
 
 ## Cost and latency model
 

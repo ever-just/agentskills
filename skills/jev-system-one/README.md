@@ -30,7 +30,10 @@ references/
                                fingerprints, failure-handling gap
   08-system-design.md          Compiler reference: algorithm, sequential/loop/
                                parallel, T0 to T7 skeletons, output contracts,
-                               three worked traces, cost model
+                               three worked traces, cost model, cookbook
+                               structure pointers
+  09-living-log.md             Append-only new use cases. Compiler and the
+                               14 families stay frozen; this file grows.
 assets/
   design-questions.json        System-grain META: problem -> family, topology,
                                seq/map/loop, granularity, risk, needs_decompose

@@ -17,10 +17,12 @@ Authorization: Bearer $TYPESAFE_API_KEY
 Content-Type: application/json
 ```
 
-`GET https://api.typesafe.ai/v1/models` lists available models. Live aliases
-(observed): `jev-latest` (stable) and `jev-preview` (newer, "should be better in
-most ways"), both currently resolving to `jev-1.13.0`. The response echoes the
-resolved version in `model`: log that, not the alias, for reproducibility.
+`GET https://api.typesafe.ai/v1/models` lists aliases the account can send.
+Live aliases (docs 2026-09-18): `jev-latest` (stable, SDK default) and
+`jev-preview` (currently the same build; no preview ahead right now). Both
+resolve to `jev-1.13.0`. The response's `model` field is the versioned ID:
+log that, not the alias. Pin `jev-1.13.0` (not the alias) once thresholds
+are fitted; aliases move when a release ships.
 
 ## Request
 
@@ -67,10 +69,13 @@ options + `confidence` (distribution concentration); `score` = rubric level +
   Max ~255 options.
 - `criteria` for **Score**: ordered list of 2 to 10 level descriptions, low→high.
   Each level must describe a concrete situation and stand alone: the model sees
-  no level numbers and no neighbors. The returned `score` is the **0-based
-  position** in the list (first level = 0, not 1): a 4-level rubric answers in
-  `[0, 3]`. Never write "1=worst...5=best" in instructions; it misleads code
-  AND the rubric reads better without numbers.
+  no level numbers and no neighbors. The returned `score` is a
+  **probability-weighted position that can land BETWEEN levels** (docs example:
+  `1.035` on a 0/1/2 rubric). `legend` is a map of string keys `"0"`, `"1"`,
+  `"2"` to the level text, not an array. Never write "1=worst...5=best" in
+  instructions. Compare `score` to a threshold (`if score >= 1.5`); do not
+  treat it as an int enum and do not interpolate it back into a physical
+  quantity (jev-1.13 numerical calibration between levels is weak).
 - `criteria` for **Noul**: optional `{true: ..., false: ...}` boundary hints.
 
 ## Response
@@ -83,9 +88,10 @@ options + `confidence` (distribution concentration); `score` = rubric level +
     "route": {"type": "choice", "choice": "billing",
               "probabilities": {"billing": 0.91, "support": 0.08, "sales": 0.01},
               "confidence": 0.87},
-    "severity": {"type": "score", "score": 2.4,
-                 "probabilities": {...}, "confidence": 0.71,
-                 "legend": [...]}
+    "severity": {"type": "score", "score": 1.6,
+                 "probabilities": {"0": 0.05, "1": 0.3, "2": 0.65},
+                 "confidence": 0.78,
+                 "legend": {"0": "Calm", "1": "Frustrated", "2": "Very angry"}}
   },
   "usage": {"input_tokens": 9598, "output_tokens": 3381}
 }
@@ -94,8 +100,9 @@ options + `confidence` (distribution concentration); `score` = rubric level +
 - **noul answer**: `noul` = P(statement true), 0 to 1. No separate confidence: a value near 0.5 IS the uncertainty signal.
 - **choice answer**: winning `choice`, full `probabilities` distribution,
   `confidence` = distribution concentration (not correctness).
-- **score answer**: probability-weighted `score` position, per-level
-  `probabilities`, `confidence`, and the `legend` echo.
+- **score answer**: probability-weighted `score` (may fall between levels),
+  per-level `probabilities` (string keys), `confidence`, and `legend` as a
+  string-key map. Threshold it; do not interpolate.
 - `usage`: input tokens billed ($0.042/M); output tokens free. A 32-question
   call over ~9.6k input tokens cost ~$0.0004 (measured).
 
@@ -107,8 +114,12 @@ options + `confidence` (distribution concentration); `score` = rubric level +
 | state + longest single question | 32k tokens |
 | Choice options | 255 |
 | Score levels | 2 to 10 |
-| Latency | ~70 to 500ms typical; ~570ms for a 32-question call over 9.6k tokens (measured) |
+| Latency | ~70 to 500ms typical; ~570ms for a 32-question call over 9.6k tokens (measured); docs also cite ~100ms for common queries |
+| Rate limits (dynamic; 2026-09-18) | 1,200 req/min and 250,000 tokens/s; 429 when either trips; honor `retry-after` |
 | Retryable errors | `429` (rate), `529` (overloaded): exponential backoff |
+| Language | English is the primary training language. Other languages, including CJK, are accepted with lower accuracy: test on the actual corpus and lean harder on confidence. |
+| Input | text only: string, JSON object, or array of text. No image, audio, video. |
+| Customization | no customer fine-tune/LoRA; shape answers via state + instructions + criteria |
 
 Non-2xx responses return a JSON error body. Retry only on 429/529; treat other
 errors as input/shape bugs.
@@ -118,8 +129,8 @@ errors as input/shape bugs.
 | Path | Shape | When |
 |---|---|---|
 | Raw HTTP | shown above | minimal deps; any language |
-| `typesafe` PyPI (`typesafe-sdk-python`) | `TypeSafeClient(api_key=...).evaluate(model=..., state=..., questions=...)`: sync+async, auto-retry | Python services |
-| `@typesafe-ai/sdk` npm (`typesafe-sdk-js`) | `new TypeSafe({apiKey}).evaluate({model, state, questions})` | TS/JS services |
+| PyPI `typesafe-sdk` (import `typesafe_sdk`) | `TypeSafeClient(); client.system_one(state=..., questions={...Choice/Noul/Score})`. Reads `TYPESAFE_API_KEY`. Python >=3.10. Default model `jev-latest`. Sync+async, retries honor `retry-after`. | Python services |
+| npm `@typesafe-ai/sdk` | `import { TypeSafeClient, choice, noul, score } from "@typesafe-ai/sdk"` then `client.systemOne(...)`. | TS/JS services |
 | Vercel AI SDK | `experimental_evaluate({model: gateway.evaluation('typesafe-ai/jev'), state, questions})` (ai ≥7.0.105); noul exposed as `boolean` question type | apps already on AI SDK / AI Gateway |
 | LiteLLM | `systemone` passthrough + `complexity_router` strategy | existing LiteLLM deployments |
 | MCP | `itsmostafa/typesafe-mcp`, `jkudish/jev-mcp`, `Brainwires/jevwire` | give a coding agent direct Jev access |

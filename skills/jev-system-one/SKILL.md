@@ -31,7 +31,7 @@ POST https://api.typesafe.ai/v1/systemone
 |---|---|---|
 | **Noul** | `noul` (0 to 1 probability the statement is true) | an `if` on a threshold |
 | **Choice** | `choice` + `probabilities` + `confidence` (one of ≤255 options) | a branch per option |
-| **Score** | `score` + `probabilities` + `confidence` + `legend` (position on a 2 to 10 level rubric) | a threshold, rank, or weight |
+| **Score** | `score` + `probabilities` + `confidence` + `legend` (weighted position on a 2 to 10 level rubric; can land BETWEEN levels) | a threshold, rank, or weight |
 
 Facts: ~70 to 500ms end-to-end; all questions in one call run in parallel over the
 shared state; $0.042/M input tokens, output free; state + questions ≤64k tokens.
@@ -75,7 +75,7 @@ This is the algorithm. Run it; do not skip to a recipe.
               (08). Write the structure spec BEFORE any question.
 5. CONTRACT   Every proposed question names its consumer. No consumer -> delete.
               Incomplete option set -> add none/other/review. Noul without
-              bands is not a policy. Score answers are 0-based positions.
+              bands is not a policy. Score can land between levels; threshold it.
 6. STATE      Smallest evidence that answers every question. Code computes
               dates, counts, orderings, buckets.
 7. WRITE      Question bank matching the topology (T1 = one call; T2 = call_1
@@ -93,7 +93,33 @@ This is the algorithm. Run it; do not skip to a recipe.
 
 `references/08-system-design.md` is the compiler's reference (topologies,
 contracts, traces). The 14-family catalog is a lookup AFTER the compiler
-picks a family.
+picks a family. New cases discovered in a session append to
+`references/09-living-log.md`; they do not rewrite the compiler.
+
+## Coding-agent session (this skill's actual user)
+
+This skill complements the official TypeSafe skill (`typesafe-ai/skills`):
+theirs owns live API/SDK/cookbook reads; this one owns compiling a Jev
+**system**, production embedding, field data, and eval. Load both. Do not
+duplicate their live-docs crawl.
+
+Session loop:
+
+1. Detect the repo stack (language, existing HTTP client, already on
+   Vercel AI SDK / LiteLLM / `@typesafe-ai/sdk` / `typesafe-sdk`?). Prefer
+   the path that already exists. Raw HTTP only if nothing else fits.
+2. Run COMPILER(problem). Name consumers first.
+3. Land **one wrapper file** (`jev.py` / `jev.ts`) plus **one constants
+   file** for the question bank and thresholds. Official vibe-coding rule:
+   questions and thresholds live in one place so humans can review them.
+   Do not scatter them through handlers.
+4. Compose policy in code next to the wrapper. Flags, redaction, fail-open
+   vs fail-closed, recorded fixtures for unit tests (`04`).
+5. Smoke with `assets/triage-questions.json` + `assets/smoke-cases.jsonl`
+   if the flow is triage-shaped; otherwise freeze 5 to 20 cases and run
+   `scripts/jev_eval.py --live`.
+6. Done when the shipping checklist items that apply are checked. If a new
+   use case appeared, append one entry to `references/09-living-log.md`.
 
 ## Pattern map (lookup AFTER the compiler picks a family)
 
@@ -171,6 +197,14 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
    labeled data from the actual workload; recheck after model or policy changes.
 8. **Recipe before structure.** Opening the catalog first produces a copied
    question bank with no consumer. Run the compiler; look up a recipe after.
+9. **Score as an int enum.** `score` can be `1.035`. Threshold it
+   (`if score >= 1.5`); never `if score == 2`, and never interpolate it into
+   a count, date, or dollar amount.
+10. **Invented SDK fields.** Live TypeSafe clients are
+    `typesafe_sdk.TypeSafeClient().system_one(...)` and
+    `@typesafe-ai/sdk` `client.systemOne(...)`. Vercel AI SDK's
+    `experimental_evaluate` is a different package. Re-read `01` before
+    writing a client.
 
 ## Navigate this skill
 
@@ -186,6 +220,7 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
 | Frozen evals, shadow mode, thresholds, verification | `references/05-evaluation-calibration.md` |
 | Picking a stack: ports, providers, MCP, reimplementations | `references/06-ecosystem.md` |
 | Field-measured stats: what real impls actually do | `references/07-field-data.md` |
+| Append a newly found use case (do not rewrite 02/08) | `references/09-living-log.md` |
 | Pre-prod gate | `checklists/shipping-checklist.md` |
 | Batch judgment over a corpus | `scripts/jev_batch.py` |
 | Frozen-case eval harness | `scripts/jev_eval.py` |

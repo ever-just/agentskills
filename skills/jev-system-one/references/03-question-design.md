@@ -53,8 +53,10 @@ direction.
 - **Score:** 2 to 10 levels, only as many as you can describe distinctly.
   Describe SITUATIONS not intensities ("broken feature, workaround exists" not
   "moderately severe"). Each level stands alone: the model sees no numbers,
-  no neighbors, and the answer is the 0-based position in the criteria list
-  (level 0 is first). Give a rare extreme its own level when code treats it
+  no neighbors. The returned `score` is a probability-weighted position that
+  can land BETWEEN levels (legend keys `"0"`, `"1"`, ...). Threshold it in
+  code; do not treat it as an int enum and do not interpolate it into a
+  physical quantity. Give a rare extreme its own level when code treats it
   differently.
 - **Noul:** optional `{true, false}` sides for subtle boundaries; put the
   neighboring case in the description of the side it belongs to.
@@ -126,6 +128,26 @@ first-class outcome with its own code path (clarify / fallback / human).
      redesign around a single miss.
    - **Service/code error**: wrong field, truncation, stale state (check `usage`, not the answers).
 4. Revise ONE or TWO things, retest the case plus neighbors, don't churn the whole bank.
+
+## jev-1.13 jaggedness (official, reviewed 2026-09-17)
+
+Do not ask Jev to do these. Source: `docs.typesafe.ai/model-jaggedness/jev-1.13`.
+
+| Failure | Do this instead |
+|---|---|
+| Literal reading (answers the words, not the intent) | Write the exact condition; boundary cases in criteria |
+| Math, counting, numeric proximity (hex, RGB, tallies) | Count/compare in code; send named buckets |
+| Date/time order, duration, windows | Extract parts with Choice (`none` if missing); arithmetic in code |
+| Indirection, double negatives, property-of-a-property | Point at the named state field; split hops |
+| Large state full of unrelated detail | Filter in code; accuracy falls with distractors |
+| Adversarial / injected instructions in state | Explicit untrusted-content line; test edges |
+| Instructions vs criteria that disagree (true=no) | Align both; high noul must mean yes |
+| Structural invariants (`P` + `P(not)` = 1, noul = Choice yes) | Ask one way; enforce identities in code |
+| Generation of any kind | Pair with an LLM |
+| Interpolating Score between levels into a physical quantity | Threshold only; numerical calibration between levels is weak |
+
+Also: English is the primary training language. Non-English, including CJK,
+needs its own eval before production.
 
 ## Field-proven additions beyond the docs
 

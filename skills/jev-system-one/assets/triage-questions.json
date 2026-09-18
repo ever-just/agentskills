@@ -17,7 +17,7 @@
  },
  "urgency": {
   "type": "score",
-  "instructions": "How time-sensitive is `message` for the sender? Pick the level whose situation matches; the answer is the 0-based position.",
+  "instructions": "How time-sensitive is `message` for the sender? Pick the level whose situation matches.",
   "criteria": ["whenever", "this week", "today", "right now or blocking"]
  },
  "money_legal": {
