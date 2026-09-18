@@ -7,10 +7,12 @@ description: >
   probabilistic judgment; or when designing routing, triage, guardrails, tool or
   model selection, reranking, extraction, verification, UI automation, memory
   compaction, batch corpus analysis, or evaluation of other AI. Covers the full
-  method: use-case to architecture mapping, question design, composition in code,
+  method: compile a problem into a Jev system (named outputs, topology,
+  chained/looped/mapped calls), question design, composition in code,
   production embedding (flags, fail-open, redaction, telemetry), batch judgment
-  runners, and calibration. Read live docs for API changes; the reference files
-  here carry the frozen surface, the use-case catalog, and runnable scripts.
+  runners, and calibration. The skill uses Jev to pick structure. Read live
+  docs for API changes; the reference files carry the frozen surface, the
+  compiler, the use-case catalog, and runnable scripts.
 ---
 
 # Jev System One: typed judgments as programming primitives
@@ -53,30 +55,50 @@ It cannot emit prose, malformed output, or an unlisted option, by construction.
 5. **Never ask it to write.** Jev decides; an LLM generates. Pair them: Jev
    routes, retrieves, verifies, or guards; the LLM writes inside code-set boundaries.
 
-## The method: use case to shipped feature
+## The method: COMPILER(problem)
+
+This is the algorithm. Run it; do not skip to a recipe.
 
 ```
-1. FRAME      Write the decision the code must make as a branch, threshold, or ranking.
-2. STRUCTURE  Shape the flow first: System > Flow > Call > Question; pick a
-              topology (T0 to T7) and write the structure spec.
-              references/08-system-design.md. For a Jev-picked prior, run
-              assets/design-questions.json over the problem statement.
-3. PATTERN    Find the closest recipe in references/02-use-case-catalog.md.
-4. STATE      Build the smallest state that answers every question. Compute in
-              code whatever code can compute (dates, counts, orderings, buckets).
-5. QUESTIONS  One narrow judgment per question; pick the primitive the code
-              consumes directly. See references/03-question-design.md.
-6. COMPOSE    Fan out all questions sharing the state in one call (speculative
-              fan-out); combine answers with weights, branches, confidence gates.
-7. HARDEN     Flags, fail-open vs fail-closed, redaction, untrusted-content
-              instructions, telemetry, rollback. references/04-production-embedding.md.
-8. EVALUATE   Freeze cases, run shadow mode, fit thresholds on YOUR data, write
-              the verification doc. references/05-evaluation-calibration.md.
+1. NAME       Name the typed value code will consume (a branch, a threshold,
+              a sort key, a weight, a gate). Cannot name it? Not a Jev problem.
+2. META       Run assets/design-questions.json over the problem. Family,
+              topology, seq/map/loop, granularity, risk, needs_decompose
+              are PRIORS, not verdicts.
+3. DECOMPOSE  Count named consumers. More than one independently consumed
+              typed output (different time or different object) -> split into
+              named flows and recurse COMPILER(flow). A single pipeline that
+              asks several questions is NOT decompose. `needs_decompose` on
+              the META call is the prior; granularity is only a hint.
+              Per-flow priors: assets/compile-questions.json.
+4. TOPOLOGY   Per flow, pick T0 to T7 from dependency / cardinality / depth
+              (08). Write the structure spec BEFORE any question.
+5. CONTRACT   Every proposed question names its consumer. No consumer -> delete.
+              Incomplete option set -> add none/other/review. Noul without
+              bands is not a policy. Score answers are 0-based positions.
+6. STATE      Smallest evidence that answers every question. Code computes
+              dates, counts, orderings, buckets.
+7. WRITE      Question bank matching the topology (T1 = one call; T2 = call_1
+              + per-branch banks; T3 = tick bank; T4 = per-item bank).
+              03-question-design.md. Catalog 02 is LOOKUP after the family
+              is picked, not the entrypoint.
+8. COMPOSE    Fan-out independent questions in one call; chain only when
+              call_2 needs call_1's typed answer; map independent items in
+              parallel; loop with fresh state per tick. Code owns weights,
+              branches, confidence gates, on_failure.
+9. HARDEN     Flags, fail-open vs fail-closed, redaction, untrusted-content,
+              telemetry, rollback. 04-production-embedding.md.
+10. EVALUATE  Freeze cases, shadow, fit thresholds on THIS workload. 05.
 ```
 
-## Pattern map
+`references/08-system-design.md` is the compiler's reference (topologies,
+contracts, traces). The 14-family catalog is a lookup AFTER the compiler
+picks a family.
 
-Match the task to a recipe section of `references/02-use-case-catalog.md`.
+## Pattern map (lookup AFTER the compiler picks a family)
+
+Do not start here. Run COMPILER(problem) first. Then open the matching
+section of `references/02-use-case-catalog.md` for a recipe to steal.
 
 | Task for Jev | Recipe | Example from the field |
 |---|---|---|
@@ -147,14 +169,17 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
    no text channel. If words are needed, call an LLM after Jev picks the branch.
 7. **Thresholds copied from docs.** Cookbook thresholds are examples. Fit on
    labeled data from the actual workload; recheck after model or policy changes.
+8. **Recipe before structure.** Opening the catalog first produces a copied
+   question bank with no consumer. Run the compiler; look up a recipe after.
 
 ## Navigate this skill
 
 | Need | File |
 |---|---|
-| How to structure a Jev system (topologies, chains, loops, parallel, output contracts) | `references/08-system-design.md` |
-| Jev-picked structure prior for a problem | `assets/design-questions.json` via `scripts/jev_batch.py` |
-| Which recipe fits a use case | `references/02-use-case-catalog.md` |
+| Compiler: topologies, contracts, sequential/loop/map, traces | `references/08-system-design.md` |
+| System-level prior (family, topology, granularity) | `assets/design-questions.json` via `scripts/jev_batch.py` |
+| Flow-level prior (after decompose) | `assets/compile-questions.json` via `scripts/jev_batch.py` |
+| Recipe lookup AFTER the compiler picks a family | `references/02-use-case-catalog.md` |
 | Exact API/SDK shapes, limits, errors | `references/01-api-reference.md` |
 | Writing/ fixing questions, criteria, state | `references/03-question-design.md` |
 | Flags, fail-open, redaction, telemetry, SDK vs gateway vs MCP | `references/04-production-embedding.md` |
@@ -165,9 +190,10 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
 | Batch judgment over a corpus | `scripts/jev_batch.py` |
 | Frozen-case eval harness | `scripts/jev_eval.py` |
 
-Reading orders: embed into a product = `02` (own section) → `03` → `04` → `05` →
-checklist; one-off corpus run = `01` (limits) → `02` §9 → `jev_batch.py`; debug a
-wrong answer = `03` → `05` (read probabilities on the misses).
+Reading orders: compile a system = run the method (META via `design-questions.json`,
+DECOMPOSE, per-flow `compile-questions.json`) → `08` → `02` (lookup) → `03` → `04`
+→ `05` → checklist; one-off corpus run = `01` (limits) → `02` §9 → `jev_batch.py`;
+debug a wrong answer = `03` → `05` (read probabilities on the misses).
 
 Live docs are the source of truth for API changes: `https://docs.typesafe.ai/llms.txt`
 (append `.md` to page paths). If live access is unavailable, `01-api-reference.md`

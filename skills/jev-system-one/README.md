@@ -8,8 +8,9 @@ Code owns control flow; Jev owns judgment.
 ## What's inside
 
 ```
-SKILL.md                       Agent entrypoint: mental model, 7-step method,
-                               pattern map, anti-patterns, navigation
+SKILL.md                       Agent entrypoint: calculator mental model,
+                               COMPILER(problem) algorithm, pattern-map lookup,
+                               anti-patterns, navigation
 references/
   01-api-reference.md          Frozen API surface: request/response, limits,
                                errors, SDKs, pricing (verified vs live 2026-09-18)
@@ -27,14 +28,15 @@ references/
   07-field-data.md             Jev-mined stats from 91 repos: primitive mix,
                                state shapes, composition, technique
                                fingerprints, failure-handling gap
-  08-system-design.md          Jev as a computational operator: topologies
-                               T0 to T7 (fanout, chain, loop, map, beam,
-                               tournament, diamond), output contracts,
-                               structure-selection, the meta-layer
+  08-system-design.md          Compiler reference: algorithm, sequential/loop/
+                               parallel, T0 to T7 skeletons, output contracts,
+                               three worked traces, cost model
 assets/
-  design-questions.json        Meta question bank: feed a problem statement,
-                               get a Jev-picked family + topology + primitives
-                               (the skill using the skill)
+  design-questions.json        System-grain META: problem -> family, topology,
+                               seq/map/loop, granularity, risk, needs_decompose
+  compile-questions.json       Flow-grain META (after decompose): flow ->
+                               topology, primitives, exit option, verify leg,
+                               collapse-chain-to-fanout
   triage-questions.json        The §0 worked-example bank as a runnable file:
                                jev_batch.py <records> assets/triage-questions.json
   smoke-cases.jsonl            6 frozen eval cases for jev_eval.py --live

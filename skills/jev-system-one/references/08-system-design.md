@@ -1,8 +1,76 @@
 # System design: Jev as a computational operator
 
-Read this before writing questions. It covers the layer the rest of the skill
-assumes but never spells out: how to shape a problem into a structure of calls
-whose outputs code can use directly.
+This file is the compiler's reference. SKILL.md is the algorithm; this file
+is the operators, the topologies, the contract, and three worked traces.
+
+## The compiler (run this; do not skip to a recipe)
+
+```
+COMPILER(problem):
+  1. Name the typed value code will consume. Cannot name it? Stop.
+  2. META: jev(problem, assets/design-questions.json)
+     -> family, topology, seq/map/loop, granularity, risk  (PRIORS)
+  3. Count named consumers. If needs_decompose prior is high
+     OR there is more than one independently consumed typed output
+     (different time or different object):
+       split into named flows
+       for each flow: COMPILER(flow)   # skill looping on itself
+       join the flow specs into a system spec
+       return
+     A single pipeline that asks several questions is NOT decompose.
+  4. FLOW META: jev(flow, assets/compile-questions.json)
+  5. Pick topology from dependency / cardinality / depth (below),
+     using the priors as hints. Write the structure spec.
+  6. CONTRACT GATE: every question names its consumer or is deleted.
+  7. Write the bank matching the topology. Compose in code.
+```
+
+Stop condition: every remaining unit is one decision pipeline (one flow).
+A narrow problem that stays narrow is correct, not a failure.
+
+Three parallelisms, do not mix them up:
+
+| Kind | What | Cost |
+|---|---|---|
+| Intra-call (T1) | Many questions, one `jev()`, shared state | ~free latency |
+| Inter-call (T4) | Many independent `jev()` invocations | parallelizable ~70 to 500ms each |
+| Sequential (T2) | call_2 needs call_1's typed answer | serial; latency adds |
+
+Loop (T3) is the same call with fresh state per tick, not "retry until good"
+unless a noul named `converged` is the stop and code caps iterations.
+
+If a T2 chain blows an interactive budget, collapse it: ask call_1 plus every
+branch's questions in one T1 call and read the relevant leg (speculative
+fan-out replaces a 2-hop chain).
+
+## Worked compiler traces
+
+**Narrow: smart survey router.** Live META: T2_chain conf 0.92, seq 0.90,
+map 0.14, `needs_decompose` 0.46. Stay one flow. Two consumers in ONE
+pipeline (`next_question` -> `form.show`; `done` -> `form.finish`) is not
+decompose. Chain: call_1 classifies the answer; call_2's bank is the
+per-segment picker; state carries `{answer, segment, remaining_ids}`.
+Lookup: catalog §1 / §2.
+
+**Mapped composite: grading N submissions.** Live META: composite_scoring
+conf 1.00, map 0.96, T7_diamond conf 0.51, `needs_decompose` 0.56. Stay one
+flow: outer T4 map, inner T7 diamond (correctness / style / plagiarism),
+code owns weights, letter grade is a threshold on the composite. Contract:
+each score's consumer is a weight; composite's consumer is
+`transcript.write`. Lookup: catalog §12 + §9.
+
+**Wide: game generation from a prompt.** Live META: T3_loop conf 0.92,
+loop 0.93, gran 4.0, `needs_decompose` 0.69 (review band). Consumer count
+is 4 (screen, genre, tick, ship) at different times -> recurse:
+
+| Flow | Live compile prior | Consumer |
+|---|---|---|
+| screen prompt | T0/T1, verify 0.65 | `if jailbreak>0.7: reject` |
+| pick genre/mechanics | T1_fanout | `generator.set(genre, mechanics)` |
+| playtest tick | loop 0.74 (T3 body, not a nested loop) | `sim.apply(move)` |
+| ship-or-keep-playing | T0, verify 0.68 | `if fun_enough>0.8: publish` |
+
+Four flows, not one call. Recurse until each row is one pipeline.
 
 ## Jev is a calculator, not an AI feature
 
@@ -45,8 +113,9 @@ Before writing any question, name its consumer:
    options is a bug, not a judgment.
 3. **Noul bands carry the meaning.** Design the question so `>0.7 act`,
    `0.3 to 0.7 review`, `<0.3 drop` reads as policy, not just a bit.
-4. **Score levels need semantic anchors** in the rubric (what 1 means, what 5
-   means) so numbers compare across calls and across time.
+4. **Score levels need semantic anchors** in the rubric (situations, not
+   intensities). The returned `score` is the 0-based position in `criteria`
+   (first level = 0). Never write "1=worst" in instructions.
 5. **Question IDs are API surface.** Name them `verb_noun`, keep them stable;
    telemetry and evals join on them.
 
@@ -187,10 +256,17 @@ per flow:  topology | calls-per-decision | state-flow (what each call sees)
 
 Two forms, both field-proven:
 
-**Design-time (ship this)**: `assets/design-questions.json` is a question bank
-that takes a problem description as state and returns a structure spec:
-family, topology, which primitives, whether the problem needs chaining, a map,
-or a loop, plus risk and granularity. Run it:
+**Design-time (the compiler's META steps)**: two banks, two grains.
+
+- `assets/design-questions.json`: system grain. State = `{problem}`. Returns
+  family, topology, seq/map/loop, risk, granularity, `needs_decompose`.
+  Decompose on named-consumer count (and the noul as a prior), not on
+  granularity alone.
+- `assets/compile-questions.json`: flow grain. State = `{flow}`. Returns
+  topology, seq/map/loop, primitives, `needs_exit_option`, `needs_verify_leg`,
+  `collapse_chain_to_fanout`.
+
+System grain:
 
 ```bash
 printf '{"id":1,"state":{"problem":"<describe the task>"}}\n' > problem.jsonl

@@ -67,5 +67,9 @@
   "type": "score",
   "instructions": "How wide is the problem? Pick the level whose situation matches (lowest=one narrow decision, highest=wide system needing decomposition).",
   "criteria": ["single narrow decision", "one flow with a couple of questions", "a feature: a few related flows", "a subsystem: several flows", "wide system needing decomposition"]
+ },
+ "needs_decompose": {
+  "type": "noul",
+  "instructions": "The problem has more than one independently consumed typed output (code acts on them at different times or on different objects), so it should be split into named flows. A single pipeline that happens to ask several questions in one call is NOT decompose."
  }
 }
