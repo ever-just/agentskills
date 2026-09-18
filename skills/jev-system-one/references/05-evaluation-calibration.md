@@ -80,6 +80,38 @@ documented. Reproduce that shape:
   after changing state shape: the same question on different evidence is a
   different question.
 
+## 5b. The falsification battery: verify the judge itself
+
+Frozen cases prove the bank agrees with labels. They do NOT prove the bank is
+asking what you think it asks. Run these four probes on every load-bearing
+question before trusting its numbers; each has caught a real bug the eval
+report hid.
+
+1. **Inverted-question falsification.** Ask the load-bearing noul in the
+   opposite direction on the same corpus ("was silence wrong here?" vs "did
+   this need a response?"). Symmetric questions should land near-complementary;
+   a large asymmetry (one direction firing 94 vs 41 in a real run) means the
+   wording carries a framing bias the accuracy number hides. Fix the wording
+   until the inverted forms roughly mirror, or pick one canonical direction and
+   document why.
+2. **Blinded-state attribution.** Re-run the bank with one state field
+   removed (the prompt, the retrieved docs, the draft). If a question's answer
+   barely changes, it was not reading that evidence; it was pattern-matching
+   something else. Conversely, if removing a field FLIPS a question you
+   expected to ignore it, the question is reading the wrong field.
+3. **Dead-question sweep.** A noul whose probability is near-constant across
+   the whole corpus (fired ~99% on everything in a real run) is broken, not
+   informative: usually a wording so broad it matches anything, or the field
+   it inspects is empty everywhere. Check per-question probability variance on
+   a batch before reading accuracy.
+4. **Paraphrase stability.** Re-phrase the instruction (same condition,
+   different words) and re-run. ~80%+ agreement between paraphrases is the
+   observed acceptable bar; much lower means the question is riding its exact
+   wording, not the underlying condition, and will drift under edits.
+
+Rule of thumb: the eval measures agreement with labels; the battery measures
+whether the labels could have meant something else. Both must pass.
+
 ## 6. Failure-mode triage on misses
 
 | Symptom on eval misses | Cause | Fix |
