@@ -49,6 +49,8 @@ assets/
                                horizontal (intended-use) scores, gap nouls
   file-review-questions.json   Per-file map grader: actionability, depth,
                                signal density, gap/error/redundancy nouls
+  wrappers/jev.py              Copy-into-repo Python wrapper (typesafe-sdk)
+  wrappers/jev.ts              Copy-into-repo TypeScript wrapper (@typesafe-ai/sdk)
 checklists/
   shipping-checklist.md        Pre-prod gate (design/safety/evidence/ops)
 scripts/

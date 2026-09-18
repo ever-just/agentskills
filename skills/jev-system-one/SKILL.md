@@ -105,14 +105,16 @@ duplicate their live-docs crawl.
 
 Session loop:
 
-1. Detect the repo stack (language, existing HTTP client, already on
-   Vercel AI SDK / LiteLLM / `@typesafe-ai/sdk` / `typesafe-sdk`?). Prefer
-   the path that already exists. Raw HTTP only if nothing else fits.
+1. Search the repo for existing Jev (`api.typesafe.ai`, `typesafe_sdk`,
+   `@typesafe-ai/sdk`, `systemone`, `experimental_evaluate`). Extend that
+   wrapper; do not add a second client. If none: detect language and
+   prefer `typesafe-sdk` (Python) or `@typesafe-ai/sdk` (TS). Raw HTTP
+   only if nothing else fits. Copy `assets/wrappers/jev.py` or `jev.ts`.
 2. Run COMPILER(problem). Name consumers first.
-3. Land **one wrapper file** (`jev.py` / `jev.ts`) plus **one constants
-   file** for the question bank and thresholds. Official vibe-coding rule:
-   questions and thresholds live in one place so humans can review them.
-   Do not scatter them through handlers.
+3. Land **one wrapper file** plus **one constants file** for the question
+   bank and thresholds. Official vibe-coding rule: questions and
+   thresholds live in one place so humans can review them. Do not scatter
+   them through handlers.
 4. Compose policy in code next to the wrapper. Flags, redaction, fail-open
    vs fail-closed, recorded fixtures for unit tests (`04`).
 5. Smoke with `assets/triage-questions.json` + `assets/smoke-cases.jsonl`
@@ -147,36 +149,37 @@ section of `references/02-use-case-catalog.md` for a recipe to steal.
 
 ## The smallest working call
 
+Prefer the SDK already in the stack. Copy `assets/wrappers/jev.py` or
+`assets/wrappers/jev.ts`. Raw HTTP only when no SDK fits (`01`).
+
 ```python
-import json, urllib.request
-req = urllib.request.Request(
-    "https://api.typesafe.ai/v1/systemone",
-    data=json.dumps({
-        "model": "jev-latest",
-        "state": {"message": "can i get a refund for last month's charge?"},
-        "questions": {
-            "wants_refund": {"type": "noul",
-                "instructions": "The `message` asks for money back, credit, or a refund."},
-            "route": {"type": "choice",
-                "instructions": "Best team for `message`.",
-                "criteria": {"billing": "Charges, invoices, refunds, subscriptions",
-                             "support": "Bugs, usage help, how-to",
-                             "sales": "Pricing, upgrades, new purchases"}},
-        },
-    }).encode(),
-    method="POST",
-    headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"})
-answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
-# answers["wants_refund"]["noul"] -> 0.97  answers["route"]["choice"] -> "billing"
+# pip install typesafe-sdk
+from typesafe_sdk import Choice, Noul, TypeSafeClient
+client = TypeSafeClient()  # reads TYPESAFE_API_KEY; default jev-latest
+answers = client.system_one(
+    state={"message": "can i get a refund for last month's charge?"},
+    questions={
+        "wants_refund": Noul(
+            instructions="The `message` asks for money back, credit, or a refund."),
+        "route": Choice(
+            instructions="Best team for `message`.",
+            criteria={"billing": "Charges, invoices, refunds, subscriptions",
+                      "support": "Bugs, usage help, how-to",
+                      "sales": "Pricing, upgrades, new purchases"}),
+    },
+).answers
+# answers["wants_refund"].noul  answers["route"].choice
 ```
 
 ## When NOT to use Jev
 
 - **Generation of any kind** (prose, code, summaries, explanations). Pair with an LLM instead.
-- **Deterministic facts** code can compute: date order, counts, arithmetic, exact lookups, regex-able structure.
+- **Deterministic facts** code can compute: date order, counts, arithmetic, exact lookups, regex-able structure. Official jaggedness: Jev does not count, compare dates, or do hex/RGB math. Extract in Jev; compute in code (`03`).
 - **Authorization, schema validation, or hard policy enforcement**: Jev advises, code enforces.
 - **Single high-stakes judgment with no calibration data**: probabilities describe groups; fit thresholds on representative labeled cases first.
 - **Images, audio, video input**: text/JSON state only (describe visual content in words first, as the computer-use projects do).
+- **Non-English as the primary workload without an eval**: English is the training language; CJK and others need their own labeled cases.
+- **Interpolating a Score into a physical quantity**: `score` can land between levels; threshold it. Do not reconstruct a count, date, or dollar amount from it.
 
 ## Anti-patterns (each cost someone a debugging session)
 
@@ -224,6 +227,7 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
 | Pre-prod gate | `checklists/shipping-checklist.md` |
 | Batch judgment over a corpus | `scripts/jev_batch.py` |
 | Frozen-case eval harness | `scripts/jev_eval.py` |
+| Copy-into-repo SDK wrappers | `assets/wrappers/jev.py`, `assets/wrappers/jev.ts` |
 
 Reading orders: compile a system = run the method (META via `design-questions.json`,
 DECOMPOSE, per-flow `compile-questions.json`) → `08` → `02` (lookup) → `03` → `04`

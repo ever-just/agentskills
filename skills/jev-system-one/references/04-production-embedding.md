@@ -10,7 +10,7 @@ Composio (abstain-aware tool pick), plus the ecosystem's integration paths.
 | Path | Use when |
 |---|---|
 | Direct HTTPS POST | smallest dep; any language; you own retry |
-| Official SDK (`typesafe` PyPI / `@typesafe-ai/sdk` npm) | production services; built-in 429/529 retry |
+| Official SDK (`typesafe-sdk` PyPI / `@typesafe-ai/sdk` npm) | production services; built-in 429/529 retry. Copy `assets/wrappers/jev.py` or `jev.ts`. |
 | Vercel AI SDK `experimental_evaluate` + `gateway.evaluation('typesafe-ai/jev')` | already on AI SDK; wants a dedicated gateway key; noul arrives as `boolean` type |
 | LiteLLM passthrough `/v1/systemone` or `complexity_router` | existing LiteLLM fleet |
 | Community ports (Go, Rust, PHP, Ruby, .NET, Scala, Elixir) | language-native; see 06-ecosystem.md |

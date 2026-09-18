@@ -4,7 +4,8 @@ Run before any Jev feature goes live. Each item maps to a reference section.
 
 ## Design
 
-- [ ] The decision is written as a branch/threshold/ranking in code: not "Jev decides what to do" (SKILL.md §method)
+- [ ] The decision is written as a branch/threshold/ranking in code: not "Jev decides what to do" (SKILL.md COMPILER)
+- [ ] One wrapper file + one constants file for banks/thresholds; no second TypeSafe client in the repo (SKILL.md coding-agent loop, `assets/wrappers/`)
 - [ ] One narrow judgment per question; no question weighs two properties (03)
 - [ ] Primitive matches what code consumes: noul for yes/no signal, choice for a set, score for a degree (03)
 - [ ] Every Choice that may have an incomplete option set includes `none`/`other` (02 §2)

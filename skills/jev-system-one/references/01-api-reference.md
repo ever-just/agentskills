@@ -37,8 +37,9 @@ are fitted; aliases move when a release ships.
 }
 ```
 
-- `state`: the shared context every question sees. Prefer named JSON fields so
+- `state`: string, JSON object, or array of text. Prefer named JSON fields so
   questions can point into it with backticked paths like `` `ticket.messages[0].text` ``.
+  A string is enough for one piece of text; an array is a sequence of records.
 - `questions`: map of id → question. IDs are for your code only; the model never
   sees them. Put the full meaning inside the question.
 - All questions evaluate independently and in parallel over the same state.
@@ -57,16 +58,16 @@ options + `confidence` (distribution concentration); `score` = rubric level +
 {
   "type": "noul" | "choice" | "score",
   "instructions": <string | object | array>,
-  "criteria": <string | object>   // required for choice; required for score (levels)
+  "criteria": <string | object | array | null>   // required for choice (map; value may be null) and score (levels array)
 }
 ```
 
 - `instructions`: the judgment, in full. Object/array forms allow labeled parts:
   useful keys are `question`, `focus`, `inspect`, `note`, `compare` (list of
   state paths), `field` (a `name/type/unit/description` record shared across questions).
-- `criteria` for **Choice**: map of option → description. Descriptions should
-  contrast near neighbors (`what` / `not_for` / `examples` object form works well).
-  Max ~255 options.
+- `criteria` for **Choice**: map of option → description (or `null` when the
+  key is self-explanatory). Descriptions should contrast near neighbors
+  (`what` / `not_for` / `examples` object form works well). Max ~255 options.
 - `criteria` for **Score**: ordered list of 2 to 10 level descriptions, low→high.
   Each level must describe a concrete situation and stand alone: the model sees
   no level numbers and no neighbors. The returned `score` is a
