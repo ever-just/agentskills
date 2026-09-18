@@ -37,6 +37,9 @@ It cannot emit prose, malformed output, or an unlisted option, by construction.
 
 ## The mental model (read before anything else)
 
+0. **Jev is a calculator, not an AI feature.** `jev(state, questions)` is a
+   pure operator: typed inputs, typed outputs, no prose to parse. Compose it
+   like `min()`/`argmax()`. See `references/08-system-design.md`.
 1. **Code owns control flow; Jev owns judgment.** Thresholds, side effects,
    retries, fallbacks, and policy live in code. Jev supplies probability only.
 2. **Decompose the policy into atomic questions.** A good question is one a
@@ -54,16 +57,20 @@ It cannot emit prose, malformed output, or an unlisted option, by construction.
 
 ```
 1. FRAME      Write the decision the code must make as a branch, threshold, or ranking.
-2. PATTERN    Find the closest recipe in references/02-use-case-catalog.md.
-3. STATE      Build the smallest state that answers every question. Compute in
+2. STRUCTURE  Shape the flow first: System > Flow > Call > Question; pick a
+              topology (T0 to T7) and write the structure spec.
+              references/08-system-design.md. For a Jev-picked prior, run
+              assets/design-questions.json over the problem statement.
+3. PATTERN    Find the closest recipe in references/02-use-case-catalog.md.
+4. STATE      Build the smallest state that answers every question. Compute in
               code whatever code can compute (dates, counts, orderings, buckets).
-4. QUESTIONS  One narrow judgment per question; pick the primitive the code
+5. QUESTIONS  One narrow judgment per question; pick the primitive the code
               consumes directly. See references/03-question-design.md.
-5. COMPOSE    Fan out all questions sharing the state in one call (speculative
+6. COMPOSE    Fan out all questions sharing the state in one call (speculative
               fan-out); combine answers with weights, branches, confidence gates.
-6. HARDEN     Flags, fail-open vs fail-closed, redaction, untrusted-content
+7. HARDEN     Flags, fail-open vs fail-closed, redaction, untrusted-content
               instructions, telemetry, rollback. references/04-production-embedding.md.
-7. EVALUATE   Freeze cases, run shadow mode, fit thresholds on YOUR data, write
+8. EVALUATE   Freeze cases, run shadow mode, fit thresholds on YOUR data, write
               the verification doc. references/05-evaluation-calibration.md.
 ```
 
@@ -145,6 +152,8 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
 
 | Need | File |
 |---|---|
+| How to structure a Jev system (topologies, chains, loops, parallel, output contracts) | `references/08-system-design.md` |
+| Jev-picked structure prior for a problem | `assets/design-questions.json` via `scripts/jev_batch.py` |
 | Which recipe fits a use case | `references/02-use-case-catalog.md` |
 | Exact API/SDK shapes, limits, errors | `references/01-api-reference.md` |
 | Writing/ fixing questions, criteria, state | `references/03-question-design.md` |

@@ -27,6 +27,14 @@ references/
   07-field-data.md             Jev-mined stats from 91 repos: primitive mix,
                                state shapes, composition, technique
                                fingerprints, failure-handling gap
+  08-system-design.md          Jev as a computational operator: topologies
+                               T0 to T7 (fanout, chain, loop, map, beam,
+                               tournament, diamond), output contracts,
+                               structure-selection, the meta-layer
+assets/
+  design-questions.json        Meta question bank: feed a problem statement,
+                               get a Jev-picked family + topology + primitives
+                               (the skill using the skill)
 checklists/
   shipping-checklist.md        Pre-prod gate (design/safety/evidence/ops)
 scripts/

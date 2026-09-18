@@ -1,0 +1,71 @@
+{
+ "family": {
+  "type": "choice",
+  "instructions": "Which use-case family best fits the problem in `problem`? Choose the closest; use `other` only when nothing fits.",
+  "criteria": {
+   "inbound_triage": "Route/triage inbound messages, tickets, PRs; respond vs wait vs escalate",
+   "selection": "Pick which tool, skill, model, or agent should act",
+   "guardrails": "Screen LLM inputs/outputs or check generated drafts for shape/policy",
+   "ui_automation": "Drive a browser, desktop, or mobile UI from screen state",
+   "interactive_loop": "Per-tick decisions in a game, trading, or robot/agent loop",
+   "reranking": "Rerank or filter retrieval candidates before an LLM",
+   "extraction": "Pull typed values/spans from messy text",
+   "verification": "Check claims/citations/outputs against evidence",
+   "batch_analysis": "Judge a large stored corpus in bulk",
+   "memory_context": "Compaction, keep/drop, adjudicate stored memories",
+   "high_cardinality": "Classify into large or deep label sets",
+   "composite_scoring": "Multi-signal scoring/ranking with business-owned weights",
+   "action_gating": "Gate a real-world side effect (pay, publish, contain)",
+   "eval_observability": "Grade or observe another AI's runs/traces",
+   "other": "None of these fit"
+  }
+ },
+ "topology": {
+  "type": "choice",
+  "instructions": "Which call structure best fits the problem in `problem`? Point=one call/one decision; fanout=many parallel questions over shared state; chain=call_2 depends on call_1's answer; loop=same call per tick; map=same call over many items; beam=expand top-k deeper; tournament=items judged against each other; diamond=independent legs fan-in to a composite.",
+  "criteria": {
+   "T0_point": "One call, one decision",
+   "T1_fanout": "Several independent questions over the same state in one call",
+   "T2_chain": "A later call's questions/state depend on an earlier call's answer",
+   "T3_loop": "Same call repeated with fresh state each tick/step",
+   "T4_map": "Same call mapped over many independent records/candidates",
+   "T5_beam": "Expand only top-k branches into deeper calls (deep label spaces)",
+   "T6_tournament": "Items adjudicated against each other or a stored set",
+   "T7_diamond": "Independent sub-judgments combined into one composite"
+  }
+ },
+ "needs_sequential": {
+  "type": "noul",
+  "instructions": "The problem genuinely needs sequential calls: a later judgment depends on an earlier judgment's answer (route-then-deepen, select-then-verify, screen-then-analyze)."
+ },
+ "needs_parallel_map": {
+  "type": "noul",
+  "instructions": "The problem involves running the same judgment over many independent items (a corpus, a candidate list, N submissions)."
+ },
+ "needs_loop": {
+  "type": "noul",
+  "instructions": "The problem involves a repeating decision over fresh state each step (per-tick control, streaming events, iterate-until-converged)."
+ },
+ "uses_noul": {
+  "type": "noul",
+  "instructions": "Yes/no probability questions are needed for this problem."
+ },
+ "uses_choice": {
+  "type": "noul",
+  "instructions": "Pick-one-of-a-set questions are needed for this problem."
+ },
+ "uses_score": {
+  "type": "noul",
+  "instructions": "Rubric/level scoring questions are needed for this problem."
+ },
+ "risk_level": {
+  "type": "score",
+  "instructions": "How risky is acting on this judgment? 1=cosmetic/fully reversible, 3=user-visible or hard to undo, 5=money/legal/security or irreversible.",
+  "criteria": ["cosmetic or trivially reversible", "minor annoyance if wrong", "user-visible or work to undo", "financial, contractual, or trust impact", "money, legal, security, or irreversible"]
+ },
+ "granularity": {
+  "type": "score",
+  "instructions": "How wide is the problem? 1=a single narrow decision (one flow), 3=a feature with a few flows, 5=a wide system needing decomposition into many flows.",
+  "criteria": ["single narrow decision", "one flow with a couple of questions", "a feature: a few related flows", "a subsystem: several flows", "wide system needing decomposition"]
+ }
+}

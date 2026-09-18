@@ -72,7 +72,7 @@ gate on the cheap branch (drop), and a score threshold on the expensive one.
 
 ## §1 Inbound triage & routing
 
-*Field data:* `one_call`+`json_records`/`thread_tail` state, `threshold_gate` composition is the modal shape; `extracted_facts` when code pre-computes metadata.
+*Field data:* `one_call`+`json_records`/`thread_tail` state, `threshold_gate` composition is the modal shape; `extracted_facts` when code pre-computes metadata. Topology: `T1 fanout (T2 chain at volume)` (see `08`).
 
 **Fits:** support inbox, ticket queues, PR/issue triage, email/SMS intake,
 lead routing, dispatch desks.
@@ -109,7 +109,7 @@ learned this live).
 
 ## §2 Tool / skill / model / agent selection
 
-*Field data:* `candidates_list` state is the selection signature; `direct_branch` composition common; speculative fan-out (ask branch-specific questions in the same call) appears in the stronger impls.
+*Field data:* `candidates_list` state is the selection signature; `direct_branch` composition common; speculative fan-out (ask branch-specific questions in the same call) appears in the stronger impls. Topology: `T1 fanout + T2 verify` (see `08`).
 
 **Fits:** picking which tool an agent calls, which LLM handles a request, which
 skill to load, which agent profile takes a task.
@@ -141,7 +141,7 @@ list can be incomplete. Without it the model must pick SOMETHING.
 
 ## §3 Generation guardrails (input screen + output verify)
 
-*Field data:* mostly `fail_closed` repos among those that specify; two_stage (screen → verify) is the real-world guard pattern; openwork runs it as advisory telemetry rather than a hard gate.
+*Field data:* mostly `fail_closed` repos among those that specify; two_stage (screen → verify) is the real-world guard pattern; openwork runs it as advisory telemetry rather than a hard gate. Topology: `T2 chain (screen → verify)` (see `08`).
 
 **Fits:** screening user input for jailbreak/injection/PII before the LLM;
 verifying generated output for policy, tone, promises, format before it ships.
@@ -176,7 +176,7 @@ not treat state as hostile on its own.
 
 ## §4 UI automation (browser / desktop / mobile)
 
-*Field data:* `indexed_list` is THE state-shape signature (8% overall, dominant here); `per_tick_loop` calls; two_stage (rank → verify element) + evidence_selection fingerprints on the strong impls (computer-use, ultrafast, macos-loop).
+*Field data:* `indexed_list` is THE state-shape signature (8% overall, dominant here); `per_tick_loop` calls; two_stage (rank → verify element) + evidence_selection fingerprints on the strong impls (computer-use, ultrafast, macos-loop). Topology: `T3 loop of T1 fanouts` (see `08`).
 
 **Fits:** agents that click, type, and navigate real interfaces.
 
@@ -212,7 +212,7 @@ and a dead-end noul that aborts rather than clicks blind.
 
 ## §5 Real-time interactive loops (games, trading, robots)
 
-*Field data:* `per_tick_loop` call shape + `extracted_facts` state (code computes board/market facts, Jev judges); evidence_selection (enumerate legal moves in code, Jev picks) is the games signature: mario, snake, drone, askable-arm.
+*Field data:* `per_tick_loop` call shape + `extracted_facts` state (code computes board/market facts, Jev judges); evidence_selection (enumerate legal moves in code, Jev picks) is the games signature: mario, snake, drone, askable-arm. Topology: `T3 loop of T1 fanouts` (see `08`).
 
 **Fits:** per-tick decisions where a structured state snapshot arrives fast:
 games, market data, robot control, drones.
@@ -244,7 +244,7 @@ not 60fps. Batch what you can; for faster loops cache decisions per state-hash.
 
 ## §6 Reranking & retrieval
 
-*Field data:* `per_candidate` calls map over a list; `noul_rerank` (noul probability as absolute score) is the rerank trick: underused field-wide (13 repos) despite being the cleanest primitive.
+*Field data:* `per_candidate` calls map over a list; `noul_rerank` (noul probability as absolute score) is the rerank trick: underused field-wide (13 repos) despite being the cleanest primitive. Topology: `T4 map` (see `08`).
 
 **Fits:** rerank search/RAG candidates, filter passages before the LLM, pick
 the best of N options, dedupe/align entity lists.
@@ -280,7 +280,7 @@ Don't depend on exact ordering of near-ties; threshold on the probability.
 
 ## §7 Structured extraction
 
-*Field data:* evidence_selection is the extraction signature: code/regex enumerates spans, Jev picks the right one; `verbatim` co-occurs (copy the picked span, never retype).
+*Field data:* evidence_selection is the extraction signature: code/regex enumerates spans, Jev picks the right one; `verbatim` co-occurs (copy the picked span, never retype). Topology: `T1 fanout or T4 map` (see `08`).
 
 **Fits:** pull typed values from messy text when you need verbatim spans,
 normalized fields, or schema-faithful records.
@@ -313,7 +313,7 @@ all" → route to a generative extractor.
 
 ## §8 Verification & citation checking
 
-*Field data:* citation-verifier fingerprint: `two_stage` + `evidence_selection` + `verbatim`: locate candidate evidence in code, Jev judges support, quote verbatim.
+*Field data:* citation-verifier fingerprint: `two_stage` + `evidence_selection` + `verbatim`: locate candidate evidence in code, Jev judges support, quote verbatim. Topology: `T2 chain (locate → verify)` (see `08`).
 
 **Fits:** does evidence support a claim; does a citation back a sentence; did
 the tool call match the request; is this output grounded.
@@ -344,7 +344,7 @@ context, not the whole document; too much state buries the relevant passage.
 
 ## §9 Batch corpus analysis (map-reduce judgment)
 
-*Field data:* `batch_records` call shape; the strongest batch repos fingerprint `evidence_selection`+`adjudication` (curate, jev-search, jev-audit).
+*Field data:* `batch_records` call shape; the strongest batch repos fingerprint `evidence_selection`+`adjudication` (curate, jev-search, jev-audit). Topology: `T4 map` (see `08`).
 
 **Fits:** auditing thousands of stored records: conversations, tickets, logs,
 reviews, documents: to produce labeled datasets, QA reports, or ML features.
@@ -377,7 +377,7 @@ Use `scripts/jev_batch.py`.
 
 ## §10 Memory & context management
 
-*Field data:* adjudication is THE memory technique (keep/drop, merge/separate, true/stale): remember-stack, fast-jev-compaction, codex-jev-compaction, pi-observational-memory all fingerprint `adjudication`+`verbatim`+`noul_rerank`.
+*Field data:* adjudication is THE memory technique (keep/drop, merge/separate, true/stale): remember-stack, fast-jev-compaction, codex-jev-compaction, pi-observational-memory all fingerprint `adjudication`+`verbatim`+`noul_rerank`. Topology: `T4 map + T6 adjudicate` (see `08`).
 
 **Fits:** deciding what survives compaction, which memories adjudicate true,
 whether a trace/turn is worth storing.
@@ -409,7 +409,7 @@ that resolves the goal is load-bearing.
 
 ## §11 High-cardinality & hierarchical classification
 
-*Field data:* `beam` is nearly unused field-wide (2 repos: vexjoy-agent, neo4jev): opportunity, not a recipe with field proof.
+*Field data:* `beam` is nearly unused field-wide (2 repos: vexjoy-agent, neo4jev): opportunity, not a recipe with field proof. Topology: `T5 beam` (see `08`).
 
 **Fits:** label sets bigger than 255 options, or deep taxonomies (products,
 patents, tickets, intents).
@@ -441,7 +441,7 @@ beats narrow-but-wrong) is the pattern that makes deep trees usable.
 
 ## §12 Composite scoring & ranking
 
-*Field data:* `weighted_composite` is rare in the wild (1%): most composite scoring is done as separate Score questions + code-owned weighting; `score` primitive appears in 45% of repos.
+*Field data:* `weighted_composite` is rare in the wild (1%): most composite scoring is done as separate Score questions + code-owned weighting; `score` primitive appears in 45% of repos. Topology: `T7 diamond` (see `08`).
 
 **Fits:** leads, candidates, vendors, applications: multi-signal judgment where
 weights belong to the business, not the model.
@@ -471,7 +471,7 @@ veto rules as separate code conditions beside the composite score.
 
 ## §13 Action gating (real-world side effects)
 
-*Field data:* `threshold_gate` is the dominant composition here; of repos that specify failure handling, `fail_closed` outnumbers `fail_open` for side-effect gating.
+*Field data:* `threshold_gate` is the dominant composition here; of repos that specify failure handling, `fail_closed` outnumbers `fail_open` for side-effect gating. Topology: `T1 fanout + T2 verify leg` (see `08`).
 
 **Fits:** approve/hold/reject decisions with real consequences: payments,
 claims, moderation actions, incident response, sends.
@@ -503,7 +503,7 @@ question phrasing or a human), not a higher threshold on the same question.
 
 ## §14 Eval & observability of other AI
 
-*Field data:* telemetry itself is only 37% of repos: stamping `judgment` telemetry (even unused) puts you ahead of most; eve + atomic fingerprint `adjudication` (Jev judges stored traces/diffs).
+*Field data:* telemetry itself is only 37% of repos: stamping `judgment` telemetry (even unused) puts you ahead of most; eve + atomic fingerprint `adjudication` (Jev judges stored traces/diffs). Topology: `T4 map + T1 fanout` (see `08`).
 
 **Fits:** reviewing agent runs/traces, per-turn telemetry, QA sampling,
 shadow-vs-incumbent comparisons, feeding auto-improvement loops.
