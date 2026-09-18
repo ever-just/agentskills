@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-jev_eval.py — frozen-case eval harness for Jev questions.
+jev_eval.py: frozen-case eval harness for Jev questions.
 
 Cases JSONL: {"id", "state": <string|object>, "expect": {"qid": <expected>}, ...}
   expected for noul:   true/false  (or a [lo,hi] band for probability)
@@ -10,11 +10,11 @@ Questions file: same shape as jev_batch.py.
 
 Usage:
   TYPESAFE_API_KEY=... python3 jev_eval.py cases.jsonl questions.json
-  add --live to require the API run (fails if Jev never ran — the shadow-eval guard);
+  add --live to require the API run (fails if Jev never ran: the shadow-eval guard);
   omit it for a dry run over cached results.
 
 Writes eval_results.jsonl and prints a per-question accuracy report plus every
-disagreement with its probability detail — read probabilities on the misses.
+disagreement with its probability detail: read probabilities on the misses.
 """
 import json, os, sys, statistics
 from jev_batch import call  # reuses the same request/retry
@@ -54,7 +54,7 @@ def main():
         from concurrent.futures import ThreadPoolExecutor
         def run(c):
             res, err = call(c["state"], questions, MODEL)
-            return {"id": c["id"], "answers": (res or {}).get("answers"), "error": err}
+            return {"id": c["id"], "answers":(res or {}).get("answers"), "error": err}
         with ThreadPoolExecutor(max_workers=16) as ex:
             rows = list(ex.map(run, cases))
         with open("eval_results.jsonl", "w") as f:
@@ -62,7 +62,7 @@ def main():
                 f.write(json.dumps(r) + "\n")
         ran = sum(1 for r in rows if r.get("answers"))
         if ran == 0:
-            sys.exit("Jev never ran — eval is invalid (shadow-eval guard)")
+            sys.exit("Jev never ran: eval is invalid (shadow-eval guard)")
     else:
         rows = [json.loads(l) for l in open("eval_results.jsonl")]
         print(f"dry run over {len(rows)} cached results")

@@ -16,7 +16,7 @@ Run before any Jev feature goes live. Each item maps to a reference section.
 ## Safety
 
 - [ ] Feature behind its own env flag, default OFF; missing key = inert (04)
-- [ ] Fail-open vs fail-closed vs abstain chosen per call site, documented (04)
+- [ ] Fail-open vs fail-closed vs abstain chosen per call site, documented (04). Field data: 59% of public impls specify NO failure path; choosing one puts you ahead of most (07)
 - [ ] Untrusted-content line appended to every question over user/external text (03, 04)
 - [ ] PII + secrets redacted BEFORE the call; raw state never logged (04)
 - [ ] Keys server-side only; dedicated gateway key per surface (04)

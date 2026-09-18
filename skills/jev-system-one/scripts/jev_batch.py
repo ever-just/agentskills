@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-jev_batch.py — resumable concurrent batch judgment over a corpus (Jev/System One).
+jev_batch.py: resumable concurrent batch judgment over a corpus (Jev/System One).
 
 Input : records JSONL   {"id": <unique>, "state": <string|object>, ...anything}
 Questions file: JSON     {"qid": {"type": "noul|choice|score", "instructions": ..., "criteria": ...}, ...}

@@ -10,6 +10,7 @@ Load the file for your problem. Do not read all of them.
 | Coding the API call or picking SDK vs AI SDK vs gateway vs MCP | `01-api-reference.md`, then `06-ecosystem.md` for the stack landscape |
 | Shipping a Jev feature to production | `04-production-embedding.md`, then `checklists/shipping-checklist.md` |
 | Setting thresholds or proving accuracy | `05-evaluation-calibration.md` |
+| Grounding a design in what the field actually does | `07-field-data.md`: Jev-mined stats from 91 repos (primitive mix, state shapes, composition, technique fingerprints, failure-handling gap) |
 | Running Jev over a whole corpus (audit, backfill, dataset work) | `scripts/jev_batch.py` + §9 of the catalog |
 | Building a frozen-case eval | `scripts/jev_eval.py` + `05-evaluation-calibration.md` |
 

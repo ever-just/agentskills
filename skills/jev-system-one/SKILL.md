@@ -151,6 +151,7 @@ answers = json.loads(urllib.request.urlopen(req, timeout=30).read())["answers"]
 | Flags, fail-open, redaction, telemetry, SDK vs gateway vs MCP | `references/04-production-embedding.md` |
 | Frozen evals, shadow mode, thresholds, verification | `references/05-evaluation-calibration.md` |
 | Picking a stack: ports, providers, MCP, reimplementations | `references/06-ecosystem.md` |
+| Field-measured stats: what real impls actually do | `references/07-field-data.md` |
 | Pre-prod gate | `checklists/shipping-checklist.md` |
 | Batch judgment over a corpus | `scripts/jev_batch.py` |
 | Frozen-case eval harness | `scripts/jev_eval.py` |
