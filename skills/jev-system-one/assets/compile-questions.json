@@ -1,0 +1,52 @@
+{
+ "topology": {
+  "type": "choice",
+  "instructions": "This `flow` is one decision pipeline (already decomposed). Which call structure fits it?",
+  "criteria": {
+   "T0_point": "One call, one decision",
+   "T1_fanout": "Several independent questions over the same state in one call",
+   "T2_chain": "A later call's questions/state depend on an earlier call's answer",
+   "T3_loop": "Same call repeated with fresh state each tick/step",
+   "T4_map": "Same call mapped over many independent records/candidates",
+   "T5_beam": "Expand only top-k branches into deeper calls",
+   "T6_tournament": "Items adjudicated against each other or a stored set",
+   "T7_diamond": "Independent sub-judgments combined into one composite"
+  }
+ },
+ "needs_sequential": {
+  "type": "noul",
+  "instructions": "This flow needs sequential calls: a later judgment depends on an earlier judgment's typed answer."
+ },
+ "needs_parallel_map": {
+  "type": "noul",
+  "instructions": "This flow maps the same judgment over many independent items."
+ },
+ "needs_loop": {
+  "type": "noul",
+  "instructions": "This flow repeats the same judgment over fresh state each step."
+ },
+ "uses_noul": {
+  "type": "noul",
+  "instructions": "Yes/no probability questions are needed."
+ },
+ "uses_choice": {
+  "type": "noul",
+  "instructions": "Pick-one-of-a-set questions are needed."
+ },
+ "uses_score": {
+  "type": "noul",
+  "instructions": "Rubric/level scoring questions are needed."
+ },
+ "needs_exit_option": {
+  "type": "noul",
+  "instructions": "The choice set for this flow is incomplete; it needs a none/other/review/abstain option."
+ },
+ "needs_verify_leg": {
+  "type": "noul",
+  "instructions": "A high-stakes or easy-to-get-wrong pick in this flow needs a second verify/refine call before acting."
+ },
+ "collapse_chain_to_fanout": {
+  "type": "noul",
+  "instructions": "A sequential chain in this flow would blow an interactive latency budget and should be collapsed: ask the first question plus all branch questions in one call and read the relevant leg."
+ }
+}

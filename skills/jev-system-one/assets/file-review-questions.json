@@ -1,0 +1,29 @@
+{
+ "actionability": {
+  "type": "score",
+  "instructions": "Can an agent ACT from this file alone? Runnable code, lifted-wholesale examples, concrete recipes. 1=prose only, agent must invent; 2=partial recipes with gaps; 3=runnable; 4=turnkey.",
+  "criteria": ["prose only", "partial recipes", "runnable", "turnkey"]
+ },
+ "depth": {
+  "type": "score",
+  "instructions": "Does this file cover its topic deeply enough that an agent would not need to guess? 1=shallow, 2=surface coverage, 3=sufficient, 4=thorough.",
+  "criteria": ["shallow", "surface coverage", "sufficient", "thorough"]
+ },
+ "signal_density": {
+  "type": "score",
+  "instructions": "Are the tokens well spent? Penalize filler, restating model-known basics, duplication of other files. 1=verbose, 2=mixed, 3=tight, 4=maximal signal.",
+  "criteria": ["verbose", "mixed", "tight", "maximal signal"]
+ },
+ "has_gap": {
+  "type": "noul",
+  "instructions": "Content an agent would need is missing from this file for its stated purpose."
+ },
+ "has_error": {
+  "type": "noul",
+  "instructions": "This file contains a claim likely to be wrong, stale, or misleading as stated."
+ },
+ "has_redundancy": {
+  "type": "noul",
+  "instructions": "This file substantially duplicates content that lives in another file of the same skill."
+ }
+}
