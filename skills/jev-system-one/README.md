@@ -35,6 +35,15 @@ assets/
   design-questions.json        Meta question bank: feed a problem statement,
                                get a Jev-picked family + topology + primitives
                                (the skill using the skill)
+  triage-questions.json        The §0 worked-example bank as a runnable file:
+                               jev_batch.py <records> assets/triage-questions.json
+  smoke-cases.jsonl            6 frozen eval cases for jev_eval.py --live
+                               (expect format: noul bool/band, choice key,
+                               score number/range)
+  skill-review-questions.json  Holistic grader: vertical (artifact design) +
+                               horizontal (intended-use) scores, gap nouls
+  file-review-questions.json   Per-file map grader: actionability, depth,
+                               signal density, gap/error/redundancy nouls
 checklists/
   shipping-checklist.md        Pre-prod gate (design/safety/evidence/ops)
 scripts/

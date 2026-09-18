@@ -126,6 +126,19 @@ incumbent decides + acts ──────────────► productio
   passing evals on the incumbent path).
 - Promote only after the diff shows Jev ≥ incumbent on YOUR cases.
 
+## Testing without the API
+
+Jev-dependent code must be testable in CI with no key and no network:
+
+- **Record, then replay.** Capture `{"state": ..., "answers": ...}` pairs from
+  real calls (telemetry already stores them); check them in as fixtures.
+- **Stub the operator, not the transport.** Wrap `jev(state, questions)` behind
+  one function; in tests, return the recorded `answers` for a matching `state`
+  hash (or a default canned answer). Test your composition policy against
+  canned answers spanning act/review/drop bands and `confidence` 0 to 1.
+- **Never hit the API in unit tests.** A `--live` eval (05) is the only place
+  real calls belong; it is explicit, gated, and asserts Jev actually ran.
+
 ## Rollback discipline
 
 - One env unset restores pre-Jev behavior byte-identical. Test the unset path.

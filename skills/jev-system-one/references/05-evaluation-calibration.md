@@ -24,6 +24,9 @@ on your data instead of copying cookbook numbers.
   definitions, state schema, thresholds, and the eval set are ONE unit of change.
 - `scripts/jev_eval.py` runs a case set and reports per-question accuracy,
   confidence stats, and every disagreement with expected labels.
+- Governance: a question bank is a versioned code artifact, not config. Every
+  change to instructions, criteria, or thresholds ships through the same review
+  as code AND must re-pass the frozen eval before merge (eval-gated questions).
 
 ## 2. Shadow mode (record, don't act)
 

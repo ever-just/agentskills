@@ -8,7 +8,9 @@ belongs in code, and the gotcha that bites people.
 Notation: `N` = noul, `C` = choice, `S` = score.
 
 Each family's *Field data* line is Jev-mined from the 91-repo corpus; full
-distributions and technique fingerprints live in `07-field-data.md`.
+distributions and technique fingerprints live in `07-field-data.md`. The §0
+bank ships runnable as `assets/triage-questions.json` (+ `smoke-cases.jsonl`
+for `jev_eval.py`); copy it as the template for new banks.
 
 ---
 

@@ -220,7 +220,14 @@ flow is whatever structure its problem needs.
 | T6 | N (items) | batch | offline adjudication |
 | T7 | 1 | ~70 to 500ms | composites |
 
-Fan-out questions inside a call are free; serialized calls are the cost to
-watch. If a chain threatens an interactive budget, collapse it: ask the
-chain's first question plus all branches' questions in one T1 call and read
-the relevant leg (speculative fan-out replaces a 2-hop chain).
+Fan-out questions inside a call are free on latency; serialized calls are
+the cost to watch. If a chain threatens an interactive budget, collapse it:
+ask the chain's first question plus all branches' questions in one T1 call
+and read the relevant leg (speculative fan-out replaces a 2-hop chain).
+
+Token cost: `tokens_in ≈ tokens(state) + tokens(questions)`, billed at
+$0.042/M input (output free). A 2k-token state judged 1,000 times costs
+~$0.08. Fan-out is token-cheap (questions are small) but NOT free: a 30-
+question bank over a 10k state still sends the 10k state once. Chains and
+maps multiply state tokens by call count; a T4 map over N records costs
+N × state tokens, so trim per-record state in maps.

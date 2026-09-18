@@ -1,0 +1,103 @@
+{
+ "vertical_structure": {
+  "type": "score",
+  "instructions": "Grade the skill's ARTIFACT DESIGN (vertical axis) on structure: progressive disclosure (lean root, deep refs), one-level-deep references, clean directory layout, no redundant navigation layers. 1=broken structure, 2=working but wasteful, 3=sound, 4=exemplary.",
+  "criteria": ["broken or tangled structure", "works but wasteful or redundant", "sound progressive disclosure", "exemplary structure"]
+ },
+ "vertical_token_efficiency": {
+  "type": "score",
+  "instructions": "Grade token efficiency (vertical axis): is every line earning its context cost? Penalize restating what the model already knows, filler, duplication across files. 1=verbose, 2=mixed, 3=tight, 4=maximal signal density.",
+  "criteria": ["verbose, restates basics", "mixed density", "tight, mostly signal", "maximal signal per token"]
+ },
+ "vertical_navigability": {
+  "type": "score",
+  "instructions": "Grade navigability (vertical axis): could a fresh agent, given only this skill, find the right file for its task on the first try? Nav tables, reading orders, descriptive file names. 1=lost, 2=eventual, 3=clear, 4=effortless.",
+  "criteria": ["agent would get lost", "finds it eventually", "clear navigation", "effortless routing to the right file"]
+ },
+ "vertical_actionability": {
+  "type": "score",
+  "instructions": "Grade actionability (vertical axis): can the agent ACT, not just read? Runnable code, lifted-wholesale examples, scripts, copyable banks. 1=prose only, 2=partial recipes, 3=runnable, 4=turnkey.",
+  "criteria": ["prose only, agent must invent", "partial recipes with gaps", "runnable examples and scripts", "turnkey: lift and run"]
+ },
+ "vertical_convention": {
+  "type": "score",
+  "instructions": "Grade convention adherence (vertical axis): frontmatter quality, third person, no anti-patterns (nested refs, magic numbers, time-sensitive facts unmarked, second person). 1=many violations, 2=some, 3=clean, 4=exemplary.",
+  "criteria": ["many convention violations", "several issues", "clean", "exemplary adherence"]
+ },
+ "horizontal_coverage": {
+  "type": "score",
+  "instructions": "Grade intended-use COVERAGE (horizontal axis): does the skill actually deliver its stated purpose for BOTH narrow problems (one decision) and wide systems (many flows)? 1=narrow band only, 2=main cases, 3=broad, 4=truly general.",
+  "criteria": ["covers a narrow band only", "main cases covered", "broad coverage", "handles narrow to wide convincingly"]
+ },
+ "horizontal_method": {
+  "type": "score",
+  "instructions": "Grade method completeness (horizontal axis): is the path from problem statement to shipped, evaluated feature unbroken? Any step an agent would stall on counts against. 1=gaps stall the agent, 2=mostly complete, 3=complete, 4=complete and hard to misuse.",
+  "criteria": ["gaps that stall an agent", "mostly complete", "complete end to end", "complete and misuse-resistant"]
+ },
+ "horizontal_correctness": {
+  "type": "score",
+  "instructions": "Grade correctness (horizontal axis): are API claims, limits, and technical assertions accurate as stated? 1=contains real errors, 2=a few shaky claims, 3=accurate, 4=accurate and staleness-marked.",
+  "criteria": ["real errors present", "some shaky claims", "accurate", "accurate with staleness marked"]
+ },
+ "horizontal_teachability": {
+  "type": "score",
+  "instructions": "Grade teachability (horizontal axis): would a fresh agent with this skill ALONE succeed at the task it teaches, on the first attempt? 1=needs lots of outside knowledge, 2=needs some, 3=self-sufficient, 4=self-sufficient and self-correcting.",
+  "criteria": ["needs substantial outside knowledge", "needs some outside knowledge", "self-sufficient", "self-sufficient and self-correcting"]
+ },
+ "horizontal_self_hosting": {
+  "type": "score",
+  "instructions": "Grade self-hosting (horizontal axis): does the skill practice what it preaches (use its own tools, ship working assets, demonstrate its method on itself)? Lowest=purely preachy, highest=fully self-hosted.",
+  "criteria": ["purely preachy", "partial dogfooding", "demonstrates its method on itself", "fully self-hosted with shipped meta-assets"]
+ },
+ "gap_missing_runnable_assets": {
+  "type": "noul",
+  "instructions": "The skill lacks runnable assets (an example question bank, frozen eval cases, or a sample state) that would let an agent execute immediately without inventing file formats."
+ },
+ "gap_missing_test_mocking": {
+  "type": "noul",
+  "instructions": "The skill lacks guidance on testing code that depends on it: recorded/canned answers, fixtures, replay, or stubbing the API in CI."
+ },
+ "gap_missing_governance": {
+  "type": "noul",
+  "instructions": "The skill lacks governance guidance: question banks treated as versioned code artifacts, eval-gated changes, review discipline for prompt-like content."
+ },
+ "gap_missing_cost_model": {
+  "type": "noul",
+  "instructions": "The skill lacks a token/cost model: how to estimate spend per call or per structure (state tokens x price, fan-out cost, chain cost)."
+ },
+ "gap_missing_glossary": {
+  "type": "noul",
+  "instructions": "The skill lacks a glossary or quick term reference for its own vocabulary (primitive names, field names, jargon)."
+ },
+ "gap_missing_troubleshooting": {
+  "type": "noul",
+  "instructions": "The skill lacks a troubleshooting/symptom-to-fix section for common failures (mid nouls, low confidence, wrong branch, timeouts)."
+ },
+ "has_redundancy": {
+  "type": "noul",
+  "instructions": "The skill has meaningful redundant content: the same guidance stated in two+ files, or a navigation layer duplicating another."
+ },
+ "has_staleness_risk": {
+  "type": "noul",
+  "instructions": "The skill contains time-sensitive claims (versions, prices, dates) NOT marked as snapshots or verified-at-date, risking silent staleness."
+ },
+ "weakest_area": {
+  "type": "choice",
+  "instructions": "Which area most needs improvement in this skill?",
+  "criteria": {
+   "more_runnable_assets": "ship more runnable banks/cases/examples",
+   "deeper_production_guidance": "testing, mocking, governance, rollout depth",
+   "tighter_prose": "cut redundancy, raise signal density",
+   "better_structure_teaching": "more on system/flow/call design",
+   "stronger_evaluation": "eval assets, calibration examples, verification templates",
+   "broader_coverage": "use cases or patterns currently missing",
+   "better_navigation": "routing, reading orders, discoverability",
+   "nothing_major": "minor polish only"
+  }
+ },
+ "overall": {
+  "type": "score",
+  "instructions": "Overall grade for the skill as a shipping artifact: 1=needs rework, 2=usable with gaps, 3=solid, 4=reference-quality.",
+  "criteria": ["needs rework", "usable with gaps", "solid", "reference-quality"]
+ }
+}

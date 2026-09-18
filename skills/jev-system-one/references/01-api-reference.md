@@ -43,6 +43,12 @@ resolved version in `model`: log that, not the alias, for reproducibility.
   They never see each other's answers: make a second request only when an
   answer is needed to fetch data or build the next state.
 
+Mini-glossary: `state` = shared evidence; `questions` = the operator bank;
+`instructions` = what the question asks; `criteria` = the option/level
+definitions; `noul` = probability a statement is true; `choice` = argmax over
+options + `confidence` (distribution concentration); `score` = rubric level +
+`confidence`; `probabilities` = the full answer distribution (log it).
+
 ### Question shape
 
 ```json
@@ -61,7 +67,10 @@ resolved version in `model`: log that, not the alias, for reproducibility.
   Max ~255 options.
 - `criteria` for **Score**: ordered list of 2 to 10 level descriptions, low→high.
   Each level must describe a concrete situation and stand alone: the model sees
-  no level numbers and no neighbors.
+  no level numbers and no neighbors. The returned `score` is the **0-based
+  position** in the list (first level = 0, not 1): a 4-level rubric answers in
+  `[0, 3]`. Never write "1=worst...5=best" in instructions; it misleads code
+  AND the rubric reads better without numbers.
 - `criteria` for **Noul**: optional `{true: ..., false: ...}` boundary hints.
 
 ## Response

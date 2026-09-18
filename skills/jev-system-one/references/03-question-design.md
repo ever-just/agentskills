@@ -53,7 +53,9 @@ direction.
 - **Score:** 2 to 10 levels, only as many as you can describe distinctly.
   Describe SITUATIONS not intensities ("broken feature, workaround exists" not
   "moderately severe"). Each level stands alone: the model sees no numbers,
-  no neighbors. Give a rare extreme its own level when code treats it differently.
+  no neighbors, and the answer is the 0-based position in the criteria list
+  (level 0 is first). Give a rare extreme its own level when code treats it
+  differently.
 - **Noul:** optional `{true, false}` sides for subtle boundaries; put the
   neighboring case in the description of the side it belongs to.
 

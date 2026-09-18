@@ -60,12 +60,12 @@
  },
  "risk_level": {
   "type": "score",
-  "instructions": "How risky is acting on this judgment? 1=cosmetic/fully reversible, 3=user-visible or hard to undo, 5=money/legal/security or irreversible.",
+  "instructions": "How risky is acting on this judgment? Pick the level whose situation matches (lowest=cosmetic, highest=money/legal/irreversible).",
   "criteria": ["cosmetic or trivially reversible", "minor annoyance if wrong", "user-visible or work to undo", "financial, contractual, or trust impact", "money, legal, security, or irreversible"]
  },
  "granularity": {
   "type": "score",
-  "instructions": "How wide is the problem? 1=a single narrow decision (one flow), 3=a feature with a few flows, 5=a wide system needing decomposition into many flows.",
+  "instructions": "How wide is the problem? Pick the level whose situation matches (lowest=one narrow decision, highest=wide system needing decomposition).",
   "criteria": ["single narrow decision", "one flow with a couple of questions", "a feature: a few related flows", "a subsystem: several flows", "wide system needing decomposition"]
  }
 }
