@@ -1,18 +1,17 @@
 ---
 name: jev-system-one
 description: >
-  Embed TypeSafe's Jev (System One decision model) into any workflow or product.
-  Use when a task mentions Jev, TypeSafe, api.typesafe.ai, systemone, nouls, or
-  "structured decisions"; when an LLM prompt-and-parse step should become a typed
-  probabilistic judgment; or when designing routing, triage, guardrails, tool or
-  model selection, reranking, extraction, verification, UI automation, memory
-  compaction, batch corpus analysis, or evaluation of other AI. Covers the full
-  method: compile a problem into a Jev system (named outputs, topology,
-  chained/looped/mapped calls), question design, composition in code,
-  production embedding (flags, fail-open, redaction, telemetry), batch judgment
-  runners, and calibration. The skill uses Jev to pick structure. Read live
-  docs for API changes; the reference files carry the frozen surface, the
-  compiler, the use-case catalog, and runnable scripts.
+  Embed TypeSafe's Jev (System One decision model) into any workflow, SaaS, or
+  agentic system. Use when a task mentions Jev, TypeSafe, api.typesafe.ai,
+  systemone, nouls, or "structured decisions"; when making an agent more dynamic
+  (wait vs reply, tool/skill/model pick, guardrails, memory keep/drop) without
+  a bigger prompt; when researching or auditing agent traces to find where it
+  guesses; or when an LLM prompt-and-parse step should become a typed
+  probabilistic judgment. Also routing, triage, reranking, extraction,
+  verification, UI automation, batch analysis, evaluation of other AI.
+  Method: compile named outputs into topologies; research->audit->embed loop
+  for agents. The skill uses Jev to pick structure. Read live docs for API
+  changes.
 ---
 
 # Jev System One: typed judgments as programming primitives
@@ -123,6 +122,26 @@ Session loop:
 6. Done when the shipping checklist items that apply are checked. If a new
    use case appeared, append one entry to `references/09-living-log.md`.
 
+## Agentic systems (research -> audit -> embed)
+
+An agent is not a 15th family. It is a system of families. Jev is the
+cheap judgment layer (wait, pick, gate, remember); the LLM still writes.
+`references/10-agentic-systems.md` is the assembly manual.
+
+1. **Research.** Map `assets/agent-research-questions.json` over real
+   turns (`jev_batch.py`). Rank nouls. Each hit >0.7 becomes a named
+   consumer. No traces? Ship stamp-only telemetry first.
+2. **Audit.** Freeze 20 to 50 cases from those hits. Shadow Jev vs the
+   incumbent. `jev_eval.py --live` must run. Sibling skills grade logs
+   (`production-agent-audit`) and prose (`agent-quality-grading`); this
+   skill proves the *judgment bank*.
+3. **Embed.** One wrapper, one constants file, one consumer at a time
+   (usually §1 wait/respond, §2 tool pick, §3 draft gate). Flag ->
+   shadow -> live. Stamps feed the next research pass.
+
+Do not skip research; do not embed all five spine flows on day one;
+do not ask Jev to plan or write.
+
 ## Pattern map (lookup AFTER the compiler picks a family)
 
 Do not start here. Run COMPILER(problem) first. Then open the matching
@@ -130,6 +149,8 @@ section of `references/02-use-case-catalog.md` for a recipe to steal.
 
 | Task for Jev | Recipe | Example from the field |
 |---|---|---|
+| Research / audit / embed a SaaS agent | `10-agentic-systems.md` | Customdomain™ inbound + draft gate + AgentTurn.judgment |
+| Make an agent less prompt-and-pray | `10` then §1 §2 §3 | wait/respond, tool pick + none, empty-promise noul |
 | Route an inbound message/ticket/PR | §1 Inbound triage | support dept+urgency+refund+frustration fan-out |
 | Decide respond/wait/act on a live message | §1 Inbound triage | app.customagents.io inbound judgment |
 | Pick which tool, skill, model, or agent acts | §2 Selection | Composio tool pick; eve `auto` model; skill-suggestion cookbook |
@@ -224,6 +245,8 @@ answers = client.system_one(
 | Picking a stack: ports, providers, MCP, reimplementations | `references/06-ecosystem.md` |
 | Field-measured stats: what real impls actually do | `references/07-field-data.md` |
 | Append a newly found use case (do not rewrite 02/08) | `references/09-living-log.md` |
+| Agentic SaaS: research traces, audit, embed judgment plane | `references/10-agentic-systems.md` |
+| Research bank over agent turns | `assets/agent-research-questions.json` via `scripts/jev_batch.py` |
 | Pre-prod gate | `checklists/shipping-checklist.md` |
 | Batch judgment over a corpus | `scripts/jev_batch.py` |
 | Frozen-case eval harness | `scripts/jev_eval.py` |
@@ -231,7 +254,8 @@ answers = client.system_one(
 
 Reading orders: compile a system = run the method (META via `design-questions.json`,
 DECOMPOSE, per-flow `compile-questions.json`) → `08` → `02` (lookup) → `03` → `04`
-→ `05` → checklist; one-off corpus run = `01` (limits) → `02` §9 → `jev_batch.py`;
+→ `05` → checklist; agentic SaaS = `10` (research bank → frozen eval → embed
+spine) → `04`/`05`; one-off corpus run = `01` (limits) → `02` §9 → `jev_batch.py`;
 debug a wrong answer = `03` → `05` (read probabilities on the misses).
 
 Live docs are the source of truth for API changes: `https://docs.typesafe.ai/llms.txt`
