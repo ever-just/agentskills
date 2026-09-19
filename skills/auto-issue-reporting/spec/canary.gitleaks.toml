@@ -1,0 +1,46 @@
+title = "error-issue canary"
+[extend]
+useDefault = true
+
+[[rules]]
+id = "stripe-webhook-secret"
+description = "Stripe webhook signing secret"
+regex = '''\bwhsec_[A-Za-z0-9+/=_-]{16,}'''
+keywords = ["whsec_"]
+
+[[rules]]
+id = "devin-api-key"
+description = "Devin API key or PAT (cog_), legacy apk_"
+regex = '''\b(?:cog|apk_user|apk)_[A-Za-z0-9_-]{20,}'''
+keywords = ["cog_", "apk_"]
+
+[[rules]]
+id = "cloudflare-scannable-token"
+description = "Cloudflare cfut_/cfat_/cfk_ scannable credentials"
+regex = '''\bcf(?:ut|at|k)_[A-Za-z0-9]{40}[a-f0-9]{8}\b'''
+keywords = ["cfut_", "cfat_", "cfk_"]
+
+[[rules]]
+id = "url-with-credentials"
+description = "Connection URI with user:password (postgres, mongodb, redis, amqp, https)"
+regex = '''\b[a-z][a-z0-9+.-]*://[^\s:/?#@]+:([^\s@/]{3,})@'''
+secretGroup = 1
+keywords = ["://"]
+
+[[rules]]
+id = "odoo-api-key-40hex"
+description = "40 lowercase hex, the Odoo res.users.apikeys format (also matches git SHAs)"
+regex = '''\b[a-f0-9]{40}\b'''
+entropy = 3.0
+
+[[rules]]
+id = "anthropic-key-any"
+description = "Any sk-ant- credential (api03, admin01, oat01)"
+regex = '''\bsk-ant-[a-z]{2,8}\d{2}-[A-Za-z0-9_-]{20,}'''
+keywords = ["sk-ant-"]
+
+[[rules]]
+id = "email-address"
+description = "Email address (PII canary)"
+regex = '''\b[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}\b'''
+keywords = ["@"]
