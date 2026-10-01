@@ -118,7 +118,7 @@ Every bullet below points at a file in this repo. The numbers are recorded runs,
 - **Attribute a production change with no server access** — map CI/CD run logs to commit
   ranges to targets, and separate *caused* from *merely exposed* →
   `skills/deploy-log-forensics/SKILL.md`
-- **Operate a multi-tenant Odoo 19 platform** — 33 skills covering mail, mass mailing, CRM,
+- **Operate a multi-tenant Odoo 19 platform**: 35 skills covering mail, mass mailing, CRM,
   appointments, telephony, e-signature, payroll, the website surface and zero-downtime
   blue/green deploys → `skills/everjust-*/`
 - **Make a site answerable by AI engines, not just indexable** — JSON-LD authored from visible
@@ -138,7 +138,7 @@ Twenty-one categories, indexed in [`AGENTS.md`](./AGENTS.md). The seven largest:
 
 | Family | Skills | What it is for |
 |---|---:|---|
-| EVERJUST platform (Odoo 19 multi-tenant) | 33 | Operating one specific self-hosted SaaS platform end to end |
+| EVERJUST platform (Odoo 19 multi-tenant) | 35 | Operating one specific self-hosted SaaS platform end to end |
 | Platform operations | 29 | Deploys, DNS, error tracking, schema audits, render verification, CI/CD |
 | Research, OSINT & competitive intelligence | 22 | Dossier construction, source verification, extraction from hostile surfaces |
 | Writing, marketing & content | 41 | Long-form docs, copy, positioning, launch, export — a nested family |
@@ -179,7 +179,7 @@ into another agent's skills folder still works.
     ├── production-agent-audit/     # single-file skill — SKILL.md and nothing else
     ├── deep-research/              # multi-file skill — methodology, quick reference, examples
     ├── system-design-architecture/ # the 3-entry-point shape: SKILL.md → references/INDEX.md → README.md
-    ├── everjust-*/                 # 33 skills for one Odoo 19 multi-tenant platform
+    ├── everjust-*/                 # 35 skills for one Odoo 19 multi-tenant platform
     └── white-paper-writing/        # nested family: 18 writing skills + ai-marketing-skills/ (23 more)
 ```
 
