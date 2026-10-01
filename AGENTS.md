@@ -109,6 +109,8 @@
 | **EverJust Website Themes** | `skills/everjust-website-themes/SKILL.md` | Lifting a design-themes block vs a full theme swap, and why brand fonts/colors are always-on for everjust tenants |
 | **EverJust Website GEO Content** | `skills/everjust-website-geo-content/SKILL.md` | Build citable content clusters (pillar/glossary/guides) + per-page FAQPage/DefinedTerm/TechArticle JSON-LD + sitemap-freshness cron so an everjust Odoo site gets cited by AI answer engines |
 | **EverJust Odoo Shell Ops** | `skills/everjust-odoo-shell-ops/SKILL.md` | Operate a tenant Odoo from the box shell: DB-only publishing, COW-fork gotcha, restart-to-compile, CI-rsync recovery, deploy-collision avoidance, ir.cron, nginx stale-inode |
+| **EverJust Mail Rules** | `skills/everjust-mail-rules/SKILL.md` | Inbound mail rules and the out of office auto reply on a tenant mailbox: what the editor allows (fields, operators, actions, 50 rules), run order, previewing before saving, what a rule can hide, explaining a rule to a person, auto reply windows and limits; an agent never creates forwarding rules or regular expressions |
+| **EverJust Mail Domain Connect** | `skills/everjust-mail-domain-connect/SKILL.md` | Connecting a custom sending domain to a tenant's mail: the connect a domain wizard, the SPF/DKIM/DMARC/MX records and reading observed_value, the honest status rule (never set verification_state by hand), the backend switch and the mail.domain_connect flag, the test message, handing record writes to the registrar skills |
 
 ### ODOO PLATFORM DEVELOPMENT (generic Odoo, not everjust-tenant-specific)
 
