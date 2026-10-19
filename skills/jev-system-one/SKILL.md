@@ -117,8 +117,10 @@ Session loop:
 4. Compose policy in code next to the wrapper. Flags, redaction, fail-open
    vs fail-closed, recorded fixtures for unit tests (`04`).
 5. Smoke with `assets/triage-questions.json` + `assets/smoke-cases.jsonl`
-   if the flow is triage-shaped; otherwise freeze 5 to 20 cases and run
-   `scripts/jev_eval.py --live`.
+   if the flow is triage-shaped (`assets/agent-smoke-cases.jsonl` for the
+   agent research bank); otherwise freeze 5 to 20 cases for a dev smoke
+   and run `scripts/jev_eval.py --live`. An audit-grade eval is 20 to 50
+   cases (`05`, `10`).
 6. Done when the shipping checklist items that apply are checked. If a new
    use case appeared, append one entry to `references/09-living-log.md`.
 
@@ -131,10 +133,11 @@ cheap judgment layer (wait, pick, gate, remember); the LLM still writes.
 1. **Research.** Map `assets/agent-research-questions.json` over real
    turns (`jev_batch.py`). Rank nouls. Each hit >0.7 becomes a named
    consumer. No traces? Ship stamp-only telemetry first.
-2. **Audit.** Freeze 20 to 50 cases from those hits. Shadow Jev vs the
-   incumbent. `jev_eval.py --live` must run. Sibling skills grade logs
-   (`production-agent-audit`) and prose (`agent-quality-grading`); this
-   skill proves the *judgment bank*.
+2. **Audit.** Freeze 20 to 50 cases from those hits with labels from
+   outcomes/human review, NOT the model's own answers. Shadow Jev vs
+   the incumbent. `jev_eval.py --live` must run. Sibling skills grade
+   logs (`production-agent-audit`) and prose (`agent-quality-grading`);
+   this skill proves the *judgment bank*.
 3. **Embed.** One wrapper, one constants file, one consumer at a time
    (usually §1 wait/respond, §2 tool pick, §3 draft gate). Flag ->
    shadow -> live. Stamps feed the next research pass.
@@ -246,7 +249,8 @@ answers = client.system_one(
 | Field-measured stats: what real impls actually do | `references/07-field-data.md` |
 | Append a newly found use case (do not rewrite 02/08) | `references/09-living-log.md` |
 | Agentic SaaS: research traces, audit, embed judgment plane | `references/10-agentic-systems.md` |
-| Research bank over agent turns | `assets/agent-research-questions.json` via `scripts/jev_batch.py` |
+| Research bank over agent turns | `assets/agent-research-questions.json` via `scripts/jev_batch.py` (state shape in its `_meta`) |
+| Frozen cases for the research bank | `assets/agent-smoke-cases.jsonl` via `scripts/jev_eval.py` |
 | Pre-prod gate | `checklists/shipping-checklist.md` |
 | Batch judgment over a corpus | `scripts/jev_batch.py` |
 | Frozen-case eval harness | `scripts/jev_eval.py` |

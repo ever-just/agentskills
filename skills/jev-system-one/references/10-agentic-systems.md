@@ -35,16 +35,18 @@ stamp.
 
 Goal: a short list of **named consumers**, not a narrative report.
 
-1. Pull a corpus of turns (inbound, tools offered, tools used, draft,
-   retrieved snippets, memory hits, outcome if known). Redact before
-   Jev (`04`). State is evidence, not a summary of the turn.
+1. Pull a corpus of turns into the `turn` state shape defined in the
+   bank's `_meta.state_schema` (request, tools_offered, tools_used,
+   draft, retrieved, prompt_memory, model_used, outcome). Redact
+   before Jev (`04`). State is evidence, not a summary of the turn.
 2. Map `assets/agent-research-questions.json` over the turns with
    `scripts/jev_batch.py` (T4 of T1).
-3. Rank by noul / score. The top band (`>0.7`) is the embed queue.
+3. Rank by noul. The top band (`>0.7`) is the embed queue.
    The mid band is review, not a skip and not an auto-embed.
-4. Each surviving item becomes a **named consumer** for COMPILER:
-   `should_wait`, `pick_tool`, `block_draft`, `drop_memory`. If you
-   cannot name the code branch, it is not a Jev problem yet.
+4. Each surviving item becomes a **named consumer** for COMPILER.
+   These are embed-side flow names, not bank qids: `should_wait`
+   (§1), `pick_tool` (§2), `block_draft` (§3), `drop_memory` (§10).
+   If you cannot name the code branch, it is not a Jev problem yet.
 
 What to look for (the research bank already asks these):
 
@@ -63,8 +65,11 @@ What to look for (the research bank already asks these):
 
 1. Promote research hits (and a matching set of clean turns) into a
    frozen JSONL. 20 to 50 cases beat 500 unlabeled ones (`05`).
-2. Write expected labels from the research answers plus a human pass
-   on the mid band. Version the bank with the cases.
+2. Write expected labels from outcomes and a human pass: sample the
+   top band too, not just the mid band. Labels that come from the
+   same model's research answers test Jev's agreement with itself;
+   a confident systematic miss self-seals and passes eval forever.
+   Version the bank with the cases.
 3. `scripts/jev_eval.py --live`. Fail the eval if Jev never ran.
 4. Shadow in prod: Jev judges, incumbent still acts, log both (`04`).
 5. Flip live only where Jev ≥ incumbent on THIS set. Different
