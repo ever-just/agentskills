@@ -1,0 +1,132 @@
+[
+  {
+    "name": "auto-reported",
+    "color": "5319e7",
+    "description": "Filed automatically from production errors"
+  },
+  {
+    "name": "env:prod",
+    "color": "0e8a16",
+    "description": "Seen in production"
+  },
+  {
+    "name": "severity:critical",
+    "color": "b60205",
+    "description": "Fatal or unhandled across tenants"
+  },
+  {
+    "name": "severity:high",
+    "color": "d93f0b",
+    "description": "Unhandled or high volume"
+  },
+  {
+    "name": "severity:medium",
+    "color": "fbca04",
+    "description": "Crossed the filing threshold"
+  },
+  {
+    "name": "severity:low",
+    "color": "c5def5",
+    "description": "Low volume"
+  },
+  {
+    "name": "external",
+    "color": "bfdadc",
+    "description": "Root cause is a third party service; not sent to Devin"
+  },
+  {
+    "name": "regression",
+    "color": "e11d21",
+    "description": "Came back after being fixed"
+  },
+  {
+    "name": "has-user-report",
+    "color": "d4c5f9",
+    "description": "A user note is attached; needs a human before any agent"
+  },
+  {
+    "name": "redaction-tripped",
+    "color": "000000",
+    "description": "Secret or PII canary fired; body removed"
+  },
+  {
+    "name": "needs-human",
+    "color": "fef2c0",
+    "description": "Do not hand to an agent"
+  },
+  {
+    "name": "devin:fix",
+    "color": "1d76db",
+    "description": "Clean auto issue handed to Devin (added by the gate only)"
+  },
+  {
+    "name": "needs-repro",
+    "color": "ededed",
+    "description": "Agent could not reproduce"
+  },
+  {
+    "name": "dry-run",
+    "color": "ededed",
+    "description": "Sandbox copy from a bridge dry run"
+  },
+  {
+    "name": "product:customdomain",
+    "color": "c2e0c6",
+    "description": "Custom Domain"
+  },
+  {
+    "name": "product:customagents",
+    "color": "c2e0c6",
+    "description": "Custom Agents"
+  },
+  {
+    "name": "product:everjust",
+    "color": "c2e0c6",
+    "description": "EVERJUST.APP"
+  },
+  {
+    "name": "surface:api",
+    "color": "e4e669",
+    "description": "Error surface: api"
+  },
+  {
+    "name": "surface:dashboard",
+    "color": "e4e669",
+    "description": "Error surface: dashboard"
+  },
+  {
+    "name": "surface:admin",
+    "color": "e4e669",
+    "description": "Error surface: admin"
+  },
+  {
+    "name": "surface:control-plane",
+    "color": "e4e669",
+    "description": "Error surface: control-plane"
+  },
+  {
+    "name": "surface:edge",
+    "color": "e4e669",
+    "description": "Error surface: edge"
+  },
+  {
+    "name": "surface:mcp",
+    "color": "e4e669",
+    "description": "Error surface: mcp"
+  },
+  {
+    "name": "surface:app",
+    "color": "e4e669",
+    "description": "Error surface: app"
+  },
+  {
+    "name": "surface:odoo",
+    "color": "e4e669",
+    "description": "Error surface: odoo"
+  },
+  {
+    "name": "surface:mail",
+    "color": "e4e669",
+    "description": "Error surface: mail"
+  }
+]
