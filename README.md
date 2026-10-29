@@ -139,7 +139,7 @@ Twenty-one categories, indexed in [`AGENTS.md`](./AGENTS.md). The seven largest:
 | Family | Skills | What it is for |
 |---|---:|---|
 | EVERJUST platform (Odoo 19 multi-tenant) | 35 | Operating one specific self-hosted SaaS platform end to end |
-| Platform operations | 29 | Deploys, DNS, error tracking, schema audits, render verification, CI/CD |
+| Platform operations | 30 | Deploys, DNS, error tracking, schema audits, render verification, CI/CD |
 | Research, OSINT & competitive intelligence | 22 | Dossier construction, source verification, extraction from hostile surfaces |
 | Writing, marketing & content | 41 | Long-form docs, copy, positioning, launch, export — a nested family |
 | Video, animation & presentation | 13 | Programmatic video, motion graphics, slides, data visualisation |
