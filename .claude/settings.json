@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__supabase",
+      "mcp__supabase__*",
+      "mcp__claude_ai_Supabase",
+      "mcp__claude_ai_Supabase__*",
+      "mcp__721b5d48-a49f-4932-8dfb-2a446c452db1",
+      "mcp__721b5d48-a49f-4932-8dfb-2a446c452db1__*"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_ENABLE_TODO_TOOLS": "1"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/require-plain-summary.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
