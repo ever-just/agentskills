@@ -38,6 +38,7 @@
 | Skill | Path | Use When |
 |-------|------|----------|
 | **D3.js** | `skills/d3-visualization/SKILL.md` | Animated charts, data-driven graphics, interactive visualizations |
+| **Live SQL Dashboard Artifact** | `skills/live-sql-dashboard-artifact/SKILL.md` | Dashboard Artifact over a live Supabase connector: `call` source on `execute_sql`, the `dash.loader` that unwraps the `<untrusted-data>` text envelope (and the regex trap), batch writes, verify before handoff |
 
 ### PLATFORM OPERATIONS
 
